@@ -47,8 +47,7 @@ function App() {
     <>
       <GlobalStyle />
       <Main>
-        <Left />
-
+        <Left /> {/* cool stuff  */}
         <Center>
           <BrowserRouter>
             <Routes>
