@@ -1,13 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 import GlobalStyle from "./styles/global";
 import styled from "styled-components";
+import SideMenu from "./components/SideMenu"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AppProvider from "./context/Context"
 
 
 const Main = styled.main`
 display: flex;
 flex-direction: row;
 height: 100vh;
+background-color: #f8f8ff;
 `
 
 const Left = styled.div`
@@ -40,29 +43,38 @@ height: 50%;
 
 
 
-
-
 function App() {
+  
+
+  
+  
   return (
     <>
-      <GlobalStyle />
-      <Main>
-        <Left /> {/* cool stuff  */}
-        <Center>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={/* <Feed /> */""} />
-              <Route path="/profile" element={""} />
-              <Route path="/nexus" element={""} />
-            </Routes>
-          </BrowserRouter>
-        </Center>
-        <Right><Recommendations />
-          <Activity /></Right>
-      </Main>
-
+      <AppProvider>
+        <GlobalStyle />
+        <Main>
+          <Left><SideMenu /></Left>
+          <Center>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={/* <Feed /> */""} />
+                <Route path="/profile" element={""} />
+                <Route path="/nexus" element={""} />
+              </Routes>
+            </BrowserRouter>
+          </Center>
+          <Right><Recommendations />
+            <Activity /></Right>
+        </Main>
+        </AppProvider>
     </>
+
+    
   );
 }
 
 export default App;
+
+
+
+
