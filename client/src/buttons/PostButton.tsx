@@ -30,10 +30,14 @@ const Button = styled.button`
   }
 `;
 
-const PostButton = () => {
+interface ButtonProps {
+    text: string
+}
+
+const PostButton: React.FC<ButtonProps> = (props) => {
   return (
     <Button>
-    <p>Post</p>
+    <p>{props.text}</p>
   </Button>
   )
 }

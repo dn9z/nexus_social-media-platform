@@ -1,18 +1,24 @@
 import * as React from 'react';
 import GlobalStyle from "./styles/global";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components"
+import * as themeConf from "./styles/theme"
+import { useTheme } from './context/ThemeManager';
+import { Context } from "./context/Context";
 import SideMenu from "./components/SideMenu"
 import Profile from "./components/Profile"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from './components/Feed/Feed';
 import AppProvider from "./context/Context"
 
+import PostButton from "./buttons/PostButton"
+
 
 const Main = styled.main`
 display: flex;
 flex-direction: row;
 height: 100vh;
-background-color: #f8f8ff;
+color: ${themeConf.fontColor};
+background-color: ${themeConf.backgroundColor};
 `
 
 const Left = styled.div`
@@ -46,30 +52,41 @@ height: 50%;
 
 
 function App() {
-  
 
   
-  
+  const theme = useTheme();
+
+
+
+
   return (
     <>
-      <AppProvider>
-        <GlobalStyle />
-        <Main>
-          <Left><SideMenu /></Left>
-          <Center>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Feed />} />
-                <Route path="/profile" element={<Profile/>} />
-                <Route path="/nexus" element={""} />
-              </Routes>
-            </BrowserRouter>
-          </Center>
-          <Right><Recommendations />
-            <Activity /></Right>
-        </Main>
-        </AppProvider>
-    </>   
+
+
+      <AppProvider> <GlobalStyle />
+        <ThemeProvider theme={{ mode: theme.mode }}>
+
+          <Main>
+            <Left><SideMenu /></Left>
+            <Center>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={ <Feed />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/nexus" element={""} />
+                </Routes>
+              </BrowserRouter>
+            </Center>
+            <Right><Recommendations />
+              <Activity /></Right>
+          </Main>
+        </ThemeProvider>
+      </AppProvider>
+
+    </>
+
+
+
   );
 }
 
