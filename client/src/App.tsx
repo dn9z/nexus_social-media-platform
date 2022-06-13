@@ -2,6 +2,7 @@ import React from 'react';
 import GlobalStyle from "./styles/global";
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Feed from './components/Feed/Feed';
 
 
 const Main = styled.main`
@@ -51,7 +52,7 @@ function App() {
         <Center>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={/* <Feed /> */""} />
+              <Route path="/" element={<Feed />} />
               <Route path="/profile" element={""} />
               <Route path="/nexus" element={""} />
             </Routes>
