@@ -8,11 +8,15 @@ import Notifications from "../icons/Notifications";
 import Bookmarks from "../icons/Bookmarks";
 import Groups from "../icons/Groups";
 import Settings from "../icons/Settings";
+import LightMode from "../icons/LightMode";
+import DarkMode from "../icons/DarkMode";
 import NumberAlert from "../icons/NumberAlert"
 import PostButton from "../buttons/PostButton"
+import * as themeConf from "../styles/theme"
+import { useTheme } from '../context/ThemeManager';
 
 const Container = styled.div`
-  height: 580px;
+  height: 630px;
   margin: 2rem;
   padding: 1rem;
   border: 1px solid grey;
@@ -37,7 +41,7 @@ const Item = styled.button`
   padding: 0.25rem;
   &:active,
   &:hover {
-    background-color: #d8d8d8;
+    background-color: ${themeConf.menuItemHoverColor};
   }
   > p {
     font-family: Inconsolata;
@@ -53,6 +57,7 @@ const Item = styled.button`
 
 const SideMenu: React.FC = () => {
   const context = React.useContext(Context);
+  const theme = useTheme();
   return (
     <Container>
       {" "}
@@ -89,7 +94,11 @@ const SideMenu: React.FC = () => {
         <Settings color={context.color} />
         <p>Settings</p>
       </Item>
-      <PostButton/>
+      <Item onClick={() => theme.toggle()}>
+        {theme.mode === 'light' ? <DarkMode color={context.color} /> : <LightMode color={context.color} />}
+        {theme.mode === 'light' ? <p>Dark mode</p> : <p>Light mode</p>}
+      </Item>
+      <PostButton text="Post"/>
     </Container>
   );
 };

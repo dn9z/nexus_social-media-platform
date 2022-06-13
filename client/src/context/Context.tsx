@@ -1,17 +1,16 @@
 import * as React from 'react';
+import {ContextProps } from '../types'
 
-interface ContextProps {
-    handleClick:( event: React.MouseEvent) => void;
-    color: string;
-    numberMails: number;
-}
+
 
 
 
 export const Context = React.createContext<ContextProps>({
-    handleClick: () => {},
+    handleClick: () => { },
     color: "white",
     numberMails: 0,
+  
+    
 });
 
 /* interface ProviderProps {
@@ -36,19 +35,22 @@ export const Context = React.createContext<ContextProps>({
 export default Provider */
 
 function Provider(props: React.PropsWithChildren<{}>) {
-    
+   
+
     const handleClick = (event: React.MouseEvent) => {
         event.preventDefault()
         console.log(event.target)
-    
+
     };
-    
+
+
+
     let color = "white"
     let numberMails = 5
 
 
 
-    return <Context.Provider value={{handleClick, color, numberMails}}>{props.children}</Context.Provider>
+    return <Context.Provider value={{ handleClick, color, numberMails}}>{props.children}</Context.Provider>
 }
 
 export default Provider
