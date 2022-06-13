@@ -2,6 +2,7 @@ import * as React from 'react';
 import GlobalStyle from "./styles/global";
 import styled from "styled-components";
 import SideMenu from "./components/SideMenu"
+import Profile from "./components/Profile"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppProvider from "./context/Context"
 
@@ -50,6 +51,7 @@ function App() {
   
   return (
     <>
+
       <AppProvider>
         <GlobalStyle />
         <Main>
@@ -58,7 +60,7 @@ function App() {
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={/* <Feed /> */""} />
-                <Route path="/profile" element={""} />
+                <Route path="/profile" element={<Profile/>} />
                 <Route path="/nexus" element={""} />
               </Routes>
             </BrowserRouter>
@@ -67,6 +69,7 @@ function App() {
             <Activity /></Right>
         </Main>
         </AppProvider>
+
     </>
 
     
