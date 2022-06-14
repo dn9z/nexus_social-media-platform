@@ -1,14 +1,14 @@
 import React from "react";
-import { ThemeContext } from '../types';
+import { ThemeProps } from '../types';
 
-const defaultMode = 'dark';
+const defaultMode = 'light';
 
-export const ManageThemeContext: React.Context<ThemeContext> = React.createContext({
+export const ThemeContext: React.Context<ThemeProps> = React.createContext({
   mode: defaultMode,
   toggle: () => { }
 });
 
-export const useTheme = () => React.useContext(ManageThemeContext);
+export const useTheme = () => React.useContext(ThemeContext);
 
 function ThemeProvider(props: React.PropsWithChildren<{}>) {
 
@@ -21,12 +21,12 @@ function ThemeProvider(props: React.PropsWithChildren<{}>) {
   }
 
   return (
-    <ManageThemeContext.Provider value={{
+    <ThemeContext.Provider value={{
       mode: themeState.mode,
       toggle: toggle
     }}>
       {props.children}
-    </ManageThemeContext.Provider>
+    </ThemeContext.Provider>
   );
 }
 

@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import Pic from "../img/Portrait_Placeholder.png";
+import Pic from "../../img/Portrait_Placeholder.png";
 
 const Container = styled.div`
   display: flex;

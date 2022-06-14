@@ -1,4 +1,4 @@
-export interface ThemeContext {
+export interface ThemeProps {
   mode: string;
   toggle(): void;
 }

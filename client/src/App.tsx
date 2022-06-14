@@ -4,8 +4,8 @@ import styled, { ThemeProvider } from "styled-components"
 import * as themeConf from "./styles/theme"
 import { useTheme } from './context/ThemeManager';
 import { Context } from "./context/Context";
-import SideMenu from "./components/SideMenu"
-import Profile from "./components/Profile"
+import SideMenu from "./components/SideMenu/SideMenu"
+import Profile from "./components/Profile/Profile"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from './components/Feed/Feed';
 import AppProvider from "./context/Context"

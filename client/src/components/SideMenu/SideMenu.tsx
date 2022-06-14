@@ -1,19 +1,19 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Context } from "../context/Context";
-import Home from "../icons/Home";
-import User from "../icons/User";
-import Mail from "../icons/Mail";
-import Notifications from "../icons/Notifications";
-import Bookmarks from "../icons/Bookmarks";
-import Groups from "../icons/Groups";
-import Settings from "../icons/Settings";
-import LightMode from "../icons/LightMode";
-import DarkMode from "../icons/DarkMode";
-import NumberAlert from "../icons/NumberAlert"
-import PostButton from "../buttons/PostButton"
-import * as themeConf from "../styles/theme"
-import { useTheme } from '../context/ThemeManager';
+import { Context } from "../../context/Context";
+import Home from "../../icons/Home";
+import User from "../../icons/User";
+import Mail from "../../icons/Mail";
+import Notifications from "../../icons/Notifications";
+import Bookmarks from "../../icons/Bookmarks";
+import Groups from "../../icons/Groups";
+import Settings from "../../icons/Settings";
+import LightMode from "../../icons/LightMode";
+import DarkMode from "../../icons/DarkMode";
+import NumberAlert from "../../icons/NumberAlert"
+import PostButton from "../../buttons/PostButton"
+import * as themeConf from "../../styles/theme"
+import { useTheme } from '../../context/ThemeManager';
 
 const Container = styled.div`
   height: 630px;
