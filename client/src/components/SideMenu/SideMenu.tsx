@@ -21,7 +21,7 @@ const Container = styled.div`
   padding: 1rem;
   border: 1px solid grey;
 
-  box-shadow: 1px 1px 2px grey, 3px 3px 5px silver;
+  box-shadow: 1px 1px 2px grey, 2px 2px 3px silver, 3px 3px 5px silver;
 `;
 
 const Header = styled.div`
@@ -98,7 +98,7 @@ const SideMenu: React.FC = () => {
         {theme.mode === 'light' ? <DarkMode color={context.color} /> : <LightMode color={context.color} />}
         {theme.mode === 'light' ? <p>Dark mode</p> : <p>Light mode</p>}
       </Item>
-      <PostButton text="Post"/>
+      <PostButton onClick={(event) => context.handlePostClick(event)} text="Post"/>
     </Container>
   );
 };

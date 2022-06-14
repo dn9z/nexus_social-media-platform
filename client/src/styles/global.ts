@@ -100,6 +100,25 @@ body {
     font-style: normal;
   }
 
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #c9ffe5;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #72348e;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3b1a42;
+  }
+
 `
 
 export default GlobalStyle

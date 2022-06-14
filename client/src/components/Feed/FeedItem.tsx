@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import * as React from "react";
 import styled from "styled-components";
+import { Context } from "../../context/Context";
+import * as themeConf from "../../styles/theme";
+import PostButton from "../../buttons/PostButton"
 
 const PostItem = styled.div`
   /* border: 1px solid black; */
-  /* width: calc(100% - 1.6rem); */
-  
-  /* height: 10rem; */
+  width: calc(60vw - 2.6rem);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+  height: 90vh;
   padding: 0.5rem;
   margin: 0.8rem;
-  background-color: #ece7e7;
-  box-shadow: 4px 4px 15px 1px rgba(0,0,0,0.79);
+  border: 1px solid grey;
+  background-color: ${themeConf.backgroundColor};
+  box-shadow: 1px 1px 2px grey, 2px 2px 3px silver, 3px 3px 5px silver;
 `;
 
 const PostMetaData = styled.div`
@@ -20,6 +28,12 @@ const PostMetaData = styled.div`
 const PostUser = styled.div`
   display: flex;
   align-items: center;
+  > p {
+    margin-left: 1rem;
+    font-size: 1.4rem;
+    font-family: Quicksand;
+    font-weight: 700;
+  }
 `;
 
 const PostUserPicContainer = styled.div`
@@ -29,20 +43,30 @@ const PostUserPicContainer = styled.div`
 const PostDate = styled.div`
   /* border: 1px solid black; */
   align-self: center;
+  font-family: Inconsolata;
 `;
 
 const PostMedia = styled.div`
   display: flex;
   justify-content: center;
+  place-self: center;
+  width: 70%;
 `;
 
-const PostTextContainer = styled.div`
-`;
+const PostTextContainer = styled.div``;
 const PostTitle = styled.div`
-  text-decoration: underline;
-  text-align: center;
+  font-family: Quicksand;
+  text-decoration: none;
+  font-size: 1.45rem;
+  text-align: left;
+  font-weight: 700;
+  border-bottom: 1px solid ${themeConf.fontColor};
 `;
 const PostBody = styled.div`
+  margin-top: 5px;
+  margin-left: 15px;
+  font-family: Zilla;
+  font-size: 1.25rem;
 `;
 
 interface IProps {
@@ -55,6 +79,7 @@ interface IProps {
 }
 
 const FeedItem: React.FC<IProps> = ({ post }) => {
+  const context = React.useContext(Context);
   return (
     <>
       <PostItem>
@@ -62,7 +87,7 @@ const FeedItem: React.FC<IProps> = ({ post }) => {
           <PostUser>
             <PostUserPicContainer>
               <img
-                style={{ width: "100%",borderRadius: "50%"}}
+                style={{ width: "100%", borderRadius: "50%" }}
                 src="https://www.zvr-info.de/wp-content/uploads/2018/02/Platzhalter.png"
                 alt=""
               />
@@ -79,11 +104,14 @@ const FeedItem: React.FC<IProps> = ({ post }) => {
         </PostTextContainer>
         <PostMedia>
           <img
-            style={{ width: "100%" }}
+            style={{ width: "100%", marginBottom: "20px" }}
             src="https://its-mobility.de/wp-content/uploads/placeholder.png"
             alt=""
           />
         </PostMedia>
+        <div style={{placeSelf:"flex-end"}}>
+          <PostButton onClick={(event) => context.handlePostClick(event)} text="Share"/>
+        </div>
       </PostItem>
     </>
   );
