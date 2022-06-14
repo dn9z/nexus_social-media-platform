@@ -12,41 +12,48 @@ const Container = styled.div`
 const Banner = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 6px;
   position: sticky;
   top: -1px;
   z-index: 10;
-  background-color: black;
-  color: rgb(156, 255, 182);
-  font-size: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: springgreen;
+  font-family: Quicksand;
+
+  > h2 {
+    font-size: 1.8rem;
+    letter-spacing: 0.1rem;
+  }
+  > h3 {
+    letter-spacing: 1rem;
+  }
 `;
 
 const ProfileContainer = styled.div`
-  box-shadow: 0px 0px 10px black;
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 45vh;
+  height: 60vh;
 `;
 
 const Background = styled.div`
-  margin: 0px 0px 2px 0px;
   display: flex;
   justify-content: center;
-  border-bottom: 2px solid black;
-  height: 40vh;
+  border-bottom: 6px solid rgb(51, 51, 51);
+  height: 80vh;
   position: relative;
-  background: rgb(151, 230, 168);
+  background: springgreen;
 `;
 const ProfileInfo = styled.div`
-  padding: 30px 10px 10px 10px;
-  margin: 2px 0px 0px 0px;
+  padding: 60px 10px 10px 10px;
   display: flex;
   flex-direction: column;
-  border-top: 2px solid black;
   border-bottom: 2px solid black;
-  height: 30vh;
+  box-shadow: 0px 2px 20px black;
+  height: auto;
   background: white;
+  font-family: Quicksand;
 `;
 const Image = styled.div`
   display: flex;
@@ -59,83 +66,82 @@ const Image = styled.div`
   width: 12rem;
   height: 12rem;
   background-color: grey;
+  cursor: pointer;
 `;
 const Feed = styled.div`
-  margin: 35px;
   text-align: center;
   border: 2px solid black;
+  margin: 35px 15px 15px 15px;
   border-radius: 5px;
   height: auto;
 `;
 
 
 const Username = styled.div`
-
-`
+  font-weight: 700;
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+`;
 const Email = styled.div`
-
-`
+  font-size: 1.3rem;
+  font-weight: 700;
+`;
 const SelfInfo = styled.div`
-
-`
+  font-size: 1.2rem;
+  font-family: Jost;
+`;
 const KeyData = styled.div`
-
-`
-
+  font-size: 1.2rem;
+  font-family: Jost;
+`;
 const FollowContainer = styled.div`
-display: flex;
-`
+  display: flex;
+  font-weight: bold;
+`;
 
-const Following = styled.div`
-
-`
-
+const Following = styled.div``;
 const Followers = styled.div`
-  margin-left: 40px;  
-`
-
-
-
-
-
-
+  margin-left: 40px;
+`;
 
 const Profile: React.FC = () => {
   return (
     <>
       <Container>
         <Banner>
-          <h2>Username</h2>
-          <h3>Nexus</h3>
+          <h1>Username</h1>
+          <h3>NEXUS</h3>
         </Banner>
+
         <ProfileContainer>
           <Background>
-            <h1>Background Image</h1>
+            <div>{/* BackgroundImage */}</div>
             <Image>
               <img style={{ borderRadius: "50%" }} src={Pic} alt="Pic" />
             </Image>
           </Background>
 
           <ProfileInfo>
-            <Username>
-              <h3>Username</h3>
-            </Username>
-            <Email>
-              <p>Email</p>
-            </Email>
+         
+              <Username>
+                <p>Username</p>
+              </Username>
+              <Email>
+                <p>Email</p>
+              </Email>
+
             <SelfInfo>
-              <p>Some Info Text</p>
+              <p>Some personal Info Text</p>
             </SelfInfo>
             <KeyData>
               <p>Some Key Data</p>
             </KeyData>
+
             <FollowContainer>
-              <Following>Following</Following>
-              <Followers>Followers</Followers>
+              <Following>Following:</Following>
+              <Followers>Followers:</Followers>
             </FollowContainer>
-
           </ProfileInfo>
-
         </ProfileContainer>
 
         <Feed>
