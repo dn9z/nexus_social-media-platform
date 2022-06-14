@@ -1,63 +1,33 @@
 import * as React from 'react';
-
-interface ContextProps {
-    handleClick:( event: React.MouseEvent) => void;
-    color: string;
-    numberMails: number;
-}
-
+import {ContextProps } from '../types'
 
 
 export const Context = React.createContext<ContextProps>({
-    handleClick: () => {},
+    handleClick: () => { },
     color: "white",
     numberMails: 0,
+  
+    
 });
 
-/* interface ProviderProps {
-    children: any
-} */
-
-/* const Provider: React.FC<ProviderProps> = ({children}) => {
-    const handleClick = (event: React.MouseEvent) => {
-        event.preventDefault()
-        console.log(event.target)
-    
-    };
-    
-    let color = "white"
-
-
-
-
-    return <Context.Provider value={{handleClick, color}}>{children}</Context.Provider>
-}
-
-export default Provider */
 
 function Provider(props: React.PropsWithChildren<{}>) {
-    
+   
+
     const handleClick = (event: React.MouseEvent) => {
         event.preventDefault()
         console.log(event.target)
-    
+
     };
-    
+
+
+
     let color = "white"
     let numberMails = 5
 
 
 
-    return <Context.Provider value={{handleClick, color, numberMails}}>{props.children}</Context.Provider>
+    return <Context.Provider value={{ handleClick, color, numberMails}}>{props.children}</Context.Provider>
 }
 
 export default Provider
-
-/* 
-const handleClick = (event: React.MouseEvent) => {
-    event.preventDefault()
-    console.log(event.target)
-
-};
-
-let color = "white" */
