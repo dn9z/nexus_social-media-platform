@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Context } from "../../context/Context";
 import * as themeConf from "../../styles/theme";
 import PostButton from "../../buttons/PostButton"
+import {FeedProps} from "../../types"
 
 const PostItem = styled.div`
   /* border: 1px solid black; */
@@ -69,16 +70,9 @@ const PostBody = styled.div`
   font-size: 1.25rem;
 `;
 
-interface IProps {
-  post: {
-    userId: number;
-    id: number;
-    title: string;
-    body: string;
-  };
-}
 
-const FeedItem: React.FC<IProps> = ({ post }) => {
+
+const FeedItem: React.FC<FeedProps> = ({ post }) => {
   const context = React.useContext(Context);
   return (
     <>
