@@ -74,7 +74,7 @@ function App() {
       <AppProvider> <GlobalStyle />
         <ThemeProvider theme={{ mode: theme.mode }}>
           <Main>
-          
+       
             <Left><SideMenu /></Left>
             <Center>
             <PostModal show={context.showPostModal}/>

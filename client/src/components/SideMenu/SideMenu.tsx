@@ -10,10 +10,10 @@ import Groups from "../../icons/Groups";
 import Settings from "../../icons/Settings";
 import LightMode from "../../icons/LightMode";
 import DarkMode from "../../icons/DarkMode";
-import NumberAlert from "../../icons/NumberAlert"
-import PostButton from "../../buttons/PostButton"
-import * as themeConf from "../../styles/theme"
-import { useTheme } from '../../context/ThemeManager';
+import NumberAlert from "../../icons/NumberAlert";
+import PostButton from "../../buttons/PostButton";
+import * as themeConf from "../../styles/theme";
+import { useTheme } from "../../context/ThemeManager";
 
 const Container = styled.div`
   height: 630px;
@@ -51,10 +51,6 @@ const Item = styled.button`
   }
 `;
 
-
-
-
-
 const SideMenu: React.FC = () => {
   const context = React.useContext(Context);
   const theme = useTheme();
@@ -74,20 +70,20 @@ const SideMenu: React.FC = () => {
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
         <Mail color={context.color} />
-        <NumberAlert number={context.numberMails}/>
+        <NumberAlert number={context.numberMails} />
         <p>Mail</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
         <Notifications color={context.color} />
-        <NumberAlert number={1}/>
+        <NumberAlert number={1} />
         <p>Notifications</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
-        <Bookmarks color={context.color} />
+        <Bookmarks dropShadow={true} color={context.color} />
         <p>Bookmarks</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
-        <Groups color={context.color} />
+        <Groups dropShadow={true} color={context.color} />
         <p>Nexi</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
@@ -95,10 +91,17 @@ const SideMenu: React.FC = () => {
         <p>Settings</p>
       </Item>
       <Item onClick={() => theme.toggle()}>
-        {theme.mode === 'light' ? <DarkMode color={context.color} /> : <LightMode color={context.color} />}
-        {theme.mode === 'light' ? <p>Dark mode</p> : <p>Light mode</p>}
+        {theme.mode === "light" ? (
+          <DarkMode color={context.color} />
+        ) : (
+          <LightMode color={context.color} />
+        )}
+        {theme.mode === "light" ? <p>Dark mode</p> : <p>Light mode</p>}
       </Item>
-      <PostButton onClick={(event) => context.handlePostClick(event)} text="Post"/>
+      <PostButton
+        onClick={(event) => context.handlePostClick(event)}
+        text="Post"
+      />
     </Container>
   );
 };

@@ -10,3 +10,9 @@ export interface ContextProps {
   color: string;
   numberMails: number;
 }
+
+export interface IconProps {
+  color: string;
+  dropShadow: boolean;
+  
+}

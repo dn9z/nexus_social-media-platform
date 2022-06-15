@@ -1,11 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
+import {IconProps} from "../types"
 
-interface IconProps {
-  color: string;
-  dropShadow: boolean;
-  
-}
 
 interface FilterProps {
   dropShadow:boolean;
