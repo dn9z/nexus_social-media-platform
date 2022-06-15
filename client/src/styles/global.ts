@@ -100,6 +100,7 @@ body {
     font-style: normal;
   }
 
+
   .swiper-button-next { 
     background-color: rgba(51,51,51,0.7);
     color: springgreen; 
@@ -118,6 +119,26 @@ body {
     top: 22px;
     left: 0px;
   }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #c9ffe5;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #72348e;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3b1a42;
+  }
+
 `
 
 export default GlobalStyle

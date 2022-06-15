@@ -18,11 +18,13 @@ interface IState {
     id: number;
     title: string;
     body: string;
+    
+    
   }[];
 }
 
 const ListContainer = styled.div`
-  border: 1px solid black;
+
   width: 100%;
   height: 100%;
   overflow: auto;
@@ -60,8 +62,8 @@ const Feed = () => {
           }
           useWindow={false}
         >
-          {posts.map((ele, i) => {
-            return <FeedItem post={ele} />;
+          {posts.map((element, i) => {
+            return <FeedItem key={i} post={element} />;
           })}
         </InfiniteScroll>
       </ListContainer>

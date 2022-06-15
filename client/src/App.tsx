@@ -6,6 +6,7 @@ import { useTheme } from './context/ThemeManager';
 import { Context } from "./context/Context";
 import SideMenu from "./components/SideMenu/SideMenu"
 import Profile from "./components/Profile/Profile"
+import PostModal from "./components/modals/PostModal"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from './components/Feed/Feed';
 import AppProvider from "./context/Context"
@@ -28,17 +29,17 @@ background-color: ${themeConf.backgroundColor};
 `
 
 const Left = styled.div`
-border: 1px solid black;
+
 width: 20vw;
 `
 
 const Center = styled.div`
-border: 1px solid black;
+
 width: 60vw;
 `
 
 const Right = styled.div`
-border: 1px solid black;
+
 width: 20vw;
 display: flex; 
 flex-direction: column;
@@ -61,9 +62,10 @@ function App() {
 
   
   const theme = useTheme();
+   
+  const context = React.useContext(Context);
 
-
-
+  console.log(context.showPostModal);
 
   return (
     <>
@@ -72,12 +74,15 @@ function App() {
       <AppProvider> <GlobalStyle />
         <ThemeProvider theme={{ mode: theme.mode }}>
           <Main>
+          
             <Left><SideMenu /></Left>
             <Center>
+            <PostModal show={context.showPostModal}/>
               <BrowserRouter>
                 <Routes>
                   <Route path="/topmenu" element={<TopMenu />} />
                   <Route path="/" element={ <Feed />} />
+                 
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/nexus" element={""} />
                 </Routes>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 interface ColorProps {
   color: string;
+  
 }
 
 interface FilterProps {

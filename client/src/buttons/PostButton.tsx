@@ -32,11 +32,12 @@ const Button = styled.button`
 
 interface ButtonProps {
     text: string
+    onClick: (event: React.MouseEvent) => void;
 }
 
 const PostButton: React.FC<ButtonProps> = (props) => {
   return (
-    <Button>
+    <Button onClick={props.onClick}>
     <p>{props.text}</p>
   </Button>
   )
