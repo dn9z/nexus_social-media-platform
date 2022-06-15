@@ -100,6 +100,24 @@ body {
     font-style: normal;
   }
 
+  .swiper-button-next { 
+    background-color: rgba(51,51,51,0.7);
+    color: springgreen; 
+    
+     
+    height: 100%;
+    top: 22px;
+    right: 0px;
+    
+  };
+  .swiper-button-prev { 
+    color: springgreen; 
+    background-color: rgba(51,51,51,0.7);
+   
+    height: 100%;
+    top: 22px;
+    left: 0px;
+  }
 `
 
 export default GlobalStyle

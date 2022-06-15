@@ -12,6 +12,12 @@ import AppProvider from "./context/Context"
 
 import PostButton from "./buttons/PostButton"
 
+import TopMenu from "./components/MobileComponents/TopMenu";
+import Groups from './components/MobileComponents/Groups';
+
+
+
+
 
 const Main = styled.main`
 display: flex;
@@ -65,12 +71,12 @@ function App() {
 
       <AppProvider> <GlobalStyle />
         <ThemeProvider theme={{ mode: theme.mode }}>
-
           <Main>
             <Left><SideMenu /></Left>
             <Center>
               <BrowserRouter>
                 <Routes>
+                  <Route path="/topmenu" element={<TopMenu />} />
                   <Route path="/" element={ <Feed />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/nexus" element={""} />
