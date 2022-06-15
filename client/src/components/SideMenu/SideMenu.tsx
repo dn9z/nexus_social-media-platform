@@ -61,20 +61,20 @@ const SideMenu: React.FC = () => {
         <h1>NEXUS</h1>
       </Header>
       <Item onClick={(event) => context.handleClick(event)}>
-        <Home color={context.color} />
+        <Home  dropShadow={true} color={context.color} />
         <p>Home</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
-        <User color={context.color} />
+        <User  dropShadow={true} color={context.color} />
         <p>Profile</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
-        <Mail color={context.color} />
+        <Mail dropShadow={true} color={context.color} />
         <NumberAlert number={context.numberMails} />
         <p>Mail</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
-        <Notifications color={context.color} />
+        <Notifications dropShadow={true} color={context.color} />
         <NumberAlert number={1} />
         <p>Notifications</p>
       </Item>
@@ -87,14 +87,14 @@ const SideMenu: React.FC = () => {
         <p>Nexi</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
-        <Settings color={context.color} />
+        <Settings  dropShadow={true} color={context.color} />
         <p>Settings</p>
       </Item>
       <Item onClick={() => theme.toggle()}>
         {theme.mode === "light" ? (
-          <DarkMode color={context.color} />
+          <DarkMode  dropShadow={true} color={context.color} />
         ) : (
-          <LightMode color={context.color} />
+          <LightMode  dropShadow={true} color={context.color} />
         )}
         {theme.mode === "light" ? <p>Dark mode</p> : <p>Light mode</p>}
       </Item>

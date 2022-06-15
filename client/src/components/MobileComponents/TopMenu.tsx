@@ -41,7 +41,7 @@ const TopMenu: React.FC = () => {
       </Label>
 
       <Item onClick={(event) => context.handleClick(event)}>
-        <User color={context.color}/>
+        <User dropShadow={false} color={context.color}/>
       </Item>
 
       </Container>
