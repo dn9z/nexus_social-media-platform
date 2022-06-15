@@ -70,12 +70,12 @@ const SideMenu: React.FC = () => {
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
         <Mail dropShadow={true} color={context.color} />
-        <NumberAlert number={context.numberMails} />
+        <NumberAlert displayState={context.numberIconDisplayState} number={context.numberIconNums.mails} />
         <p>Mail</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
         <Notifications dropShadow={true} color={context.color} />
-        <NumberAlert number={1} />
+        <NumberAlert displayState={context.numberIconDisplayState} number={context.numberIconNums.notifications} />
         <p>Notifications</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>

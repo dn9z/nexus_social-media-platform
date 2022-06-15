@@ -17,7 +17,7 @@ const Container = styled.div`
   background-color: ${themeConf.backgroundColor};
   border: 1px solid grey;
   box-shadow: 1px 1px 2px grey, 2px 2px 3px silver, 3px 3px 5px silver;
-  width: 750px;
+  width: 800px;
   height: 490px;
   z-index: 5;
   display: flex;
@@ -27,7 +27,7 @@ const Container = styled.div`
 `;
 
 const Left = styled.div`
-  width: 150px;
+  width: 200px;
   height: 450px;
 `;
 
