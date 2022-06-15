@@ -9,10 +9,11 @@ export interface ContextProps {
   showPostModal: boolean;
   color: string;
   numberMails: number;
+  numberIconDisplayState: boolean;
+  numberIconNums: { mails: number; notifications: number };
 }
 
 export interface IconProps {
   color: string;
   dropShadow: boolean;
-  
 }

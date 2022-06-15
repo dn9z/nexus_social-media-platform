@@ -8,6 +8,8 @@ export const Context = React.createContext<ContextProps>({
     showPostModal: false,
     color: "white",
     numberMails: 0,
+    numberIconDisplayState: true,
+    numberIconNums: {mails: 0, notifications: 0}
   
     
 });
@@ -15,7 +17,8 @@ export const Context = React.createContext<ContextProps>({
 
 function Provider(props: React.PropsWithChildren<{}>) {
     const [showPostModal, setShowPostModal] = React.useState(false)
-   
+    const [numberIconDisplayState, setNumberIconDisplayState] = React.useState(true)
+    const [numberIconNums, setNumberIconNums] = React.useState({mails: 0, notifications: 0})
 
     const handleClick = (event: React.MouseEvent) => {
         event.preventDefault()
@@ -32,10 +35,11 @@ function Provider(props: React.PropsWithChildren<{}>) {
     const handlePostClick = (event: React.MouseEvent) => {
         event.preventDefault()
         setShowPostModal(!showPostModal)
+        
     }
 
 
-    return <Context.Provider value={{ handleClick, color, numberMails, handlePostClick, showPostModal}}>{props.children}</Context.Provider>
+    return <Context.Provider value={{ handleClick, color, numberMails, handlePostClick, showPostModal, numberIconDisplayState, numberIconNums}}>{props.children}</Context.Provider>
 }
 
 export default Provider
