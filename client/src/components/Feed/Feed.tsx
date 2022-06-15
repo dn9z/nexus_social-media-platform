@@ -22,7 +22,7 @@ const ListContainer = styled.div`
   overflow: auto;
 `;
 
-const Feed = () => {
+const Feed: React.FC = () => {
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [posts, setPosts] = useState<FeedState["post"]>([]);
