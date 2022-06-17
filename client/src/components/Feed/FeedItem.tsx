@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { Context } from "../../context/Context";
 import * as themeConf from "../../styles/theme";
-import PostButton from "../../buttons/PostButton"
+import Button from "../../buttons/Button"
 import {FeedProps} from "../../types"
 
 const PostItem = styled.div`
@@ -104,7 +104,7 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
           />
         </PostMedia>
         <div style={{placeSelf:"flex-end"}}>
-          <PostButton onClick={(event) => context.handlePostClick(event)} text="Share"/>
+          <Button onClick={(event) => context.handlePostClick(event)} text="Share" type="button"/>
         </div>
       </PostItem>
     </>

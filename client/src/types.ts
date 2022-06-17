@@ -1,3 +1,5 @@
+import * as ReactForm from "react-hook-form"
+
 export interface ThemeProps {
   mode: string;
   toggle(): void;
@@ -11,11 +13,19 @@ export interface ContextProps {
   numberMails: number;
   numberIconDisplayState: boolean;
   numberIconNums: { mails: number; notifications: number };
+ 
+ 
 }
 
 export interface IconProps {
   color: string;
   dropShadow: boolean;
+  scaleFactor:number;
+}
+
+export interface FilterProps {
+  dropShadow:boolean;
+  scaleFactor: number;
 }
 
 export interface FeedState {
@@ -37,5 +47,44 @@ export interface FeedProps {
     body: string;
   };
 }
+
+export interface FormProps {
+  children: JSX.Element[] | JSX.Element;
+
+}
+
+export interface InputTextFieldProps {
+  firstName: string;
+  lastName: string;
+  userName: string;
+  eMailAddress: string;
+  password: string;
+  
+ 
+  
+ 
+ 
+}
+
+export interface RegisterProps {
+  firstName: string;
+  lastName: string;
+  userName: string;
+  eMailAddress: string;
+  password: string;
+  
+ 
+  
+ 
+ 
+}
+
+export interface DataInputProps {
+  userName: string;
+ 
+
+}
+
+
 
 

@@ -11,7 +11,7 @@ import Settings from "../../icons/Settings";
 import LightMode from "../../icons/LightMode";
 import DarkMode from "../../icons/DarkMode";
 import NumberAlert from "../../icons/NumberAlert";
-import PostButton from "../../buttons/PostButton";
+import Button from "../../buttons/Button";
 import * as themeConf from "../../styles/theme";
 import { useTheme } from "../../context/ThemeManager";
 
@@ -61,46 +61,65 @@ const SideMenu: React.FC = () => {
         <h1>NEXUS</h1>
       </Header>
       <Item onClick={(event) => context.handleClick(event)}>
-        <Home  dropShadow={true} color={context.color} />
+        <Home dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Home</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
-        <User  dropShadow={true} color={context.color} />
+        <User dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Profile</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
-        <Mail dropShadow={true} color={context.color} />
-        <NumberAlert displayState={context.numberIconDisplayState} number={context.numberIconNums.mails} />
+        <Mail dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <NumberAlert
+          displayState={context.numberIconDisplayState}
+          number={context.numberIconNums.mails}
+        />
         <p>Mail</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
-        <Notifications dropShadow={true} color={context.color} />
-        <NumberAlert displayState={context.numberIconDisplayState} number={context.numberIconNums.notifications} />
+        <Notifications
+          dropShadow={true}
+          scaleFactor={0.55}
+          color={context.color}
+        />
+        <NumberAlert
+          displayState={context.numberIconDisplayState}
+          number={context.numberIconNums.notifications}
+        />
         <p>Notifications</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
-        <Bookmarks dropShadow={true} color={context.color} />
+        <Bookmarks dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Bookmarks</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
-        <Groups dropShadow={true} color={context.color} />
+        <Groups dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Nexi</p>
       </Item>
       <Item onClick={(event) => context.handleClick(event)}>
-        <Settings  dropShadow={true} color={context.color} />
+        <Settings dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Settings</p>
       </Item>
       <Item onClick={() => theme.toggle()}>
         {theme.mode === "light" ? (
-          <DarkMode  dropShadow={true} color={context.color} />
+          <DarkMode
+            dropShadow={true}
+            scaleFactor={0.55}
+            color={context.color}
+          />
         ) : (
-          <LightMode  dropShadow={true} color={context.color} />
+          <LightMode
+            dropShadow={true}
+            scaleFactor={0.55}
+            color={context.color}
+          />
         )}
         {theme.mode === "light" ? <p>Dark mode</p> : <p>Light mode</p>}
       </Item>
-      <PostButton
+      <Button
         onClick={(event) => context.handlePostClick(event)}
         text="Post"
+        type="button"
       />
     </Container>
   );
