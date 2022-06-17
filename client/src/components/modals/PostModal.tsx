@@ -7,7 +7,7 @@ import World from "../../icons/World";
 import Image from "../../icons/Image";
 import Gif from "../../icons/Gif";
 import Emoji from "../../icons/Emoji";
-import PostButton from "../../buttons/PostButton"
+import Button from "../../buttons/Button"
 
 const Container = styled.div`
   position: fixed;
@@ -99,6 +99,7 @@ const PostModal: React.FC<ModalProps> = (props) => {
           <BottomContainer bottomBorder={true}>
             <World
               dropShadow={false}
+              scaleFactor={0.55} 
               color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
             />
           </BottomContainer>
@@ -106,18 +107,21 @@ const PostModal: React.FC<ModalProps> = (props) => {
             <div>
                 <Image
                   dropShadow={false}
+                  scaleFactor={0.55} 
                   color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
                 />
                  <Gif
                   dropShadow={false}
+                  scaleFactor={0.55} 
                   color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
                 />
                  <Emoji
                   dropShadow={false}
+                  scaleFactor={0.55} 
                   color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
                 />
             </div>
-            <PostButton onClick={(event) => context.handlePostClick(event)} text="Post"/>
+            <Button onClick={(event) => context.handlePostClick(event)} text="Post" type="button"/>
           </BottomContainer>
         </Right>
       </Container>
