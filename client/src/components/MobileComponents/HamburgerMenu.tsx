@@ -15,22 +15,21 @@ import PostButton from "../../buttons/PostButton"
 import * as themeConf from "../../styles/theme"
 import { useTheme } from '../../context/ThemeManager';
 
+
 const Container = styled.div`
-  height: 630px;
+  position: absolute;
+  top: 20px;
+  left: -35px;
+  height: auto;
   margin: 2rem;
   padding: 1rem;
   border: 1px solid grey;
-
+  background-color: white;
   box-shadow: 1px 1px 2px grey, 2px 2px 3px silver, 3px 3px 5px silver;
+  z-index: 10;
+  
 `;
 
-const Header = styled.div`
-  margin: 1rem;
-  > h1 {
-    font-family: Quicksand;
-    letter-spacing: 1rem;
-  }
-`;
 const Item = styled.button`
   all: unset;
   position: relative;
@@ -58,12 +57,10 @@ const Item = styled.button`
 const HamburgerMenu: React.FC = () => {
   const context = React.useContext(Context);
   const theme = useTheme();
+ 
   return (
     <Container>
       {" "}
-      <Header>
-        <h1>NEXUS</h1>
-      </Header>
       <Item onClick={(event) => context.handleClick(event)}>
         <Home color={context.color} />
         <p>Home</p>

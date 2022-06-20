@@ -4,6 +4,8 @@ import { Context } from "../../context/Context";
 import Hamburger from '../../icons/Hamburger';
 import User from '../../icons/User';
 import * as themeConf from "../../styles/theme"
+import HamburgerMenu from './HamburgerMenu'
+import {useState} from 'react'
 
 const Container = styled.div`
   display: flex;
@@ -12,6 +14,7 @@ const Container = styled.div`
   position: sticky;
   top: 0px;
   background-color: rgb(51,51,51);
+  z-index: 10;
 `
 const Label = styled.p`
   color: springgreen;
@@ -27,14 +30,23 @@ const Item = styled.button`
   }
 `;
 
+
+
 const TopMenu: React.FC = () => {
     const context = React.useContext(Context);
-  return (
-    <Container>
+    const [hidden, setHidden] = useState(true);
 
-      <Item onClick={(event) => context.handleClick(event)} >
-        <Hamburger color={context.color}/>
+  return (
+    
+    <Container>
+      
+      
+      <Item onClick={() => setHidden(s => !s)} >
+      <Hamburger color={context.color}/>
+      {!hidden ? <HamburgerMenu/> : null}
       </Item>
+
+      
 
       <Label>
         <h2>NEXUS</h2>

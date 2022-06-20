@@ -99,6 +99,7 @@ body {
   }
 
   /* Swiper */
+
   .swiper-button-next { 
     background-color: rgba(51,51,51,0.7);
     color: springgreen !important; 

@@ -76,7 +76,6 @@ function App() {
       <AppProvider> <GlobalStyle />
         <ThemeProvider theme={{ mode: theme.mode }}>
 
-        {/* <HamburgerMenu/> */}
           <TopMenu/>
           <Groups/>
           <MobileFeed/>
