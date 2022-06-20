@@ -12,7 +12,7 @@ import { ContextProps} from "../types";
 
 
 
-
+/* create context with initialValues as arguments */
 export const Context = React.createContext<ContextProps>({
   handleClick: () => {},
   handlePostClick: () => {},
