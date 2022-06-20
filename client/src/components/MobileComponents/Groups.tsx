@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Context } from "../../context/Context";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
+
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -16,8 +17,10 @@ const Group = styled.div`
   height: 50px;
   
   border-radius: 50%;
-  margin: 20px;
+  margin: 12px;
 `;
+
+
 
 
 const Groups: React.FC = () => {

@@ -15,6 +15,8 @@ import PostButton from "./buttons/PostButton"
 
 import TopMenu from "./components/MobileComponents/TopMenu";
 import Groups from './components/MobileComponents/Groups';
+import MobileFeed from './components/MobileComponents/Feed/MobileFeed';
+import HamburgerMenu from './components/MobileComponents/HamburgerMenu';
 
 
 
@@ -73,8 +75,15 @@ function App() {
 
       <AppProvider> <GlobalStyle />
         <ThemeProvider theme={{ mode: theme.mode }}>
-          <Main>
-          
+
+        {/* <HamburgerMenu/> */}
+          <TopMenu/>
+          <Groups/>
+          <MobileFeed/>
+          {/* <Main>
+     
+
+
             <Left><SideMenu /></Left>
             <Center>
             <PostModal show={context.showPostModal}/>
@@ -90,7 +99,7 @@ function App() {
             </Center>
             <Right><Recommendations />
               <Activity /></Right>
-          </Main>
+          </Main> */}
         </ThemeProvider>
       </AppProvider>
 

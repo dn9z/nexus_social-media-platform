@@ -1,25 +1,23 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from "styled-components";
 
 import JostWoff from "./fonts/Jost.woff";
 import JostWoff2 from "./fonts/Jost.woff2";
-import InterWoff from "./fonts/Inter-VariableFont_slnt,wght.woff"
-import InterWoff2 from "./fonts/Inter-VariableFont_slnt,wght.woff2"
-import ZillaWoff from "./fonts/ZillaSlab-Regular.woff"
-import ZillaWoff2 from "./fonts/ZillaSlab-Regular.woff2"
-import NotoSansWoff from "./fonts/NotoSans-Regular.woff"
-import NotoSansWoff2 from "./fonts/NotoSans-Regular.woff2"
-import QuicksandWoff from "./fonts/Quicksand-VariableFont_wght.woff"
-import QuicksandWoff2 from "./fonts/Quicksand-VariableFont_wght.woff2"
-import InconsolataWoff from "./fonts/Inconsolata-VariableFont_wdth,wght.woff"
-import InconsolataWoff2 from "./fonts/Inconsolata-VariableFont_wdth,wght.woff2"
-import PlayfairWoff from "./fonts/PlayfairDisplay-VariableFont_wght.woff"
-import PlayfairWoff2 from "./fonts/PlayfairDisplay-VariableFont_wght.woff2"
-
+import InterWoff from "./fonts/Inter-VariableFont_slnt,wght.woff";
+import InterWoff2 from "./fonts/Inter-VariableFont_slnt,wght.woff2";
+import ZillaWoff from "./fonts/ZillaSlab-Regular.woff";
+import ZillaWoff2 from "./fonts/ZillaSlab-Regular.woff2";
+import NotoSansWoff from "./fonts/NotoSans-Regular.woff";
+import NotoSansWoff2 from "./fonts/NotoSans-Regular.woff2";
+import QuicksandWoff from "./fonts/Quicksand-VariableFont_wght.woff";
+import QuicksandWoff2 from "./fonts/Quicksand-VariableFont_wght.woff2";
+import InconsolataWoff from "./fonts/Inconsolata-VariableFont_wdth,wght.woff";
+import InconsolataWoff2 from "./fonts/Inconsolata-VariableFont_wdth,wght.woff2";
+import PlayfairWoff from "./fonts/PlayfairDisplay-VariableFont_wght.woff";
+import PlayfairWoff2 from "./fonts/PlayfairDisplay-VariableFont_wght.woff2";
 
 interface GS {
-    theme: string
+  theme: string;
 }
-
 
 const GlobalStyle = createGlobalStyle<GS>`
 
@@ -100,24 +98,25 @@ body {
     font-style: normal;
   }
 
-
+  /* Swiper */
   .swiper-button-next { 
     background-color: rgba(51,51,51,0.7);
-    color: springgreen; 
+    color: springgreen !important; 
     
      
-    height: 100%;
-    top: 22px;
-    right: 0px;
+    height: 100% !important;
+    top: 22px !important;
+    right: 0px !important;
     
   };
   .swiper-button-prev { 
-    color: springgreen; 
     background-color: rgba(51,51,51,0.7);
-   
-    height: 100%;
-    top: 22px;
-    left: 0px;
+    color: springgreen !important; 
+    
+     
+    height: 100% !important;
+    top: 22px !important;
+    left: 0px !important;
   }
 
   ::-webkit-scrollbar {
@@ -139,7 +138,6 @@ body {
     background: #3b1a42;
   }
 
-`
+`;
 
-export default GlobalStyle
-
+export default GlobalStyle;
