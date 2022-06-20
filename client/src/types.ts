@@ -72,17 +72,20 @@ export interface RegisterProps {
   userName: string;
   eMailAddress: string;
   password: string;
-  
- 
-  
- 
- 
+
 }
 
 export interface DataInputProps {
   userName: string;
- 
 
+}
+
+export interface ModalProps {
+  show: boolean;
+}
+
+export interface PModalBottomContainerProps {
+  bottomBorder: boolean;
 }
 
 

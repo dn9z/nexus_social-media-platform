@@ -1,6 +1,18 @@
 import * as React from "react";
-import { ContextProps, DataInputProps} from "../types";
-import { useForm, NestedValue } from 'react-hook-form';
+import { ContextProps} from "../types";
+
+
+/**
+ * @Deniz @Martin Ich schreibe hier kommentare für den context rein: 
+ * @params Context<ContextProps>({initialValues})
+ * @params initialValues: must be provided on Context declaration. 
+ * --> primitives: some value of primitive type
+ * --> functions: () => {}
+ */
+
+
+
+
 export const Context = React.createContext<ContextProps>({
   handleClick: () => {},
   handlePostClick: () => {},
@@ -15,9 +27,12 @@ export const Context = React.createContext<ContextProps>({
 });
 
 function Provider(props: React.PropsWithChildren<{}>) {
+
   const [showPostModal, setShowPostModal] = React.useState(false);
+
   const [numberIconDisplayState, setNumberIconDisplayState] =
     React.useState(true);
+
   const [numberIconNums, setNumberIconNums] = React.useState({
     mails: 0,
     notifications: 0,
