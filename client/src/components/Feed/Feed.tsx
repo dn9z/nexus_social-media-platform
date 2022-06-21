@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import styled from "styled-components";
 import FeedItem from "./FeedItem";
+import {FeedState} from "../../types"
 
 // interface IPost {
 //   title: string;
@@ -12,16 +13,7 @@ import FeedItem from "./FeedItem";
 //   posts: object[];
 // }
 
-interface IState {
-  post: {
-    userId: number;
-    id: number;
-    title: string;
-    body: string;
-    
-    
-  }[];
-}
+
 
 const ListContainer = styled.div`
 
@@ -30,10 +22,10 @@ const ListContainer = styled.div`
   overflow: auto;
 `;
 
-const Feed = () => {
+const Feed: React.FC = () => {
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
-  const [posts, setPosts] = useState<IState["post"]>([]);
+  const [posts, setPosts] = useState<FeedState["post"]>([]);
 
   async function loadMore() {
     try {

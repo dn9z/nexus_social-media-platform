@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import * as themeConf from "../../styles/theme"
 import Pic from "../../img/Portrait_Placeholder.png";
 
 const Container = styled.div`
@@ -52,7 +53,7 @@ const ProfileInfo = styled.div`
   border-bottom: 2px solid black;
   box-shadow: 0px 2px 20px black;
   height: auto;
-  background: white;
+  background-color: ${themeConf.backgroundColor};
   font-family: Quicksand;
 `;
 const Image = styled.div`
@@ -65,7 +66,7 @@ const Image = styled.div`
   left: 5rem;
   width: 12rem;
   height: 12rem;
-  background-color: grey;
+  background-color: ${themeConf.backgroundColor};
   cursor: pointer;
 `;
 const Feed = styled.div`

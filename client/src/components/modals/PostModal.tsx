@@ -7,8 +7,13 @@ import World from "../../icons/World";
 import Image from "../../icons/Image";
 import Gif from "../../icons/Gif";
 import Emoji from "../../icons/Emoji";
-import PostButton from "../../buttons/PostButton"
-
+import Button from "../../buttons/Button";
+import { ModalProps, PModalBottomContainerProps } from "../../types";
+/**
+ *
+ *
+ *
+ */
 const Container = styled.div`
   position: fixed;
   top: 50%;
@@ -17,7 +22,7 @@ const Container = styled.div`
   background-color: ${themeConf.backgroundColor};
   border: 1px solid grey;
   box-shadow: 1px 1px 2px grey, 2px 2px 3px silver, 3px 3px 5px silver;
-  width: 750px;
+  width: 800px;
   height: 490px;
   z-index: 5;
   display: flex;
@@ -27,7 +32,7 @@ const Container = styled.div`
 `;
 
 const Left = styled.div`
-  width: 150px;
+  width: 200px;
   height: 450px;
 `;
 
@@ -55,23 +60,16 @@ const PicContainer = styled.div`
   padding-left: 1rem;
 `;
 
-interface ContainerProps {
-  bottomBorder: boolean;
-}
-
-const BottomContainer = styled.div<ContainerProps>`
+const BottomContainer = styled.div<PModalBottomContainerProps>`
   width: 90%;
   height: 60px;
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: ${(props) => (props.bottomBorder ? "2px solid silver" : "none")};
+  border-bottom: ${(props) =>
+    props.bottomBorder ? "2px solid silver" : "none"};
 `;
-
-interface ModalProps {
-  show: boolean;
-}
 
 const PostModal: React.FC<ModalProps> = (props) => {
   const context = React.useContext(Context);
@@ -91,33 +89,56 @@ const PostModal: React.FC<ModalProps> = (props) => {
         </Left>
         <Right>
           <Textarea placeholder="What's new?" />
-          <div style={{width:"100px"}}><img
-            style={{ width: "100%", marginBottom: "20px" }}
-            src="https://its-mobility.de/wp-content/uploads/placeholder.png"
-            alt=""
-          /></div>
+          {/* image placeholder pic */}
+          {/** */}
+          <div style={{ width: "100px" }}>
+            <img
+              style={{ width: "100%", marginBottom: "20px" }}
+              src="https://its-mobility.de/wp-content/uploads/placeholder.png"
+              alt=""
+            />
+          </div>
           <BottomContainer bottomBorder={true}>
             <World
               dropShadow={false}
+              scaleFactor={0.55}
               color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
             />
           </BottomContainer>
           <BottomContainer bottomBorder={false}>
             <div>
-                <Image
-                  dropShadow={false}
-                  color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
-                />
-                 <Gif
-                  dropShadow={false}
-                  color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
-                />
-                 <Emoji
-                  dropShadow={false}
-                  color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
-                />
+              {/**
+               * @Deniz Denke mal, hier kommen am besten onClick-Handler hin, für Pic-Upload, Gif-Upload.
+               *        Wenn du diese in context schreibst, kannst du den type in types.ts so setzen:
+               *        handleSomeBlaBlaClick:  (event: React.MouseEvent) => void;
+               *        Die Emoji funktion packe ich ins backlog. 
+               */}
+              <Image
+                dropShadow={false}
+                scaleFactor={0.55}
+                color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
+              />
+              <Gif
+                dropShadow={false}
+                scaleFactor={0.55}
+                color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
+              />
+              <Emoji
+                dropShadow={false}
+                scaleFactor={0.55}
+                color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
+              />
             </div>
-            <PostButton onClick={(event) => context.handlePostClick(event)} text="Post"/>
+               {/**
+               * @Deniz Für den Post Submit hab ich noch keine submit function geschrieben. 
+               *      onClick={(event) => context.handlePostClick(event)} schließt das modal aktuell einfach wieder    
+               */}
+            <Button
+              
+              onClick={(event) => context.handlePostClick(event)}
+              text="Post"
+              type="button"
+            />
           </BottomContainer>
         </Right>
       </Container>

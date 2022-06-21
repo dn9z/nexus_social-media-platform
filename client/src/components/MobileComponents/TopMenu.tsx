@@ -35,8 +35,9 @@ const TopMenu: React.FC = () => {
 
   return (
     <Container>
+
       <Item onClick={() => setHidden((s) => !s)}>
-        <Hamburger color={context.color} />
+        <Hamburger dropShadow={false} scaleFactor={0.55} color={context.color} />
         {!hidden ? <HamburgerMenu /> : null}
       </Item>
 
@@ -45,7 +46,7 @@ const TopMenu: React.FC = () => {
       </Label>
 
       <Item onClick={(event) => context.handleClick(event)}>
-        <User color={context.color} />
+        <User dropShadow={false} scaleFactor={0.55} color={context.color} />
       </Item>
     </Container>
   );

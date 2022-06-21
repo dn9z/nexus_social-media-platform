@@ -11,11 +11,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from "./components/Feed/Feed";
 import AppProvider from "./context/Context";
 
+
+import Register from "./components/Register/Register";
 import PostButton from "./buttons/PostButton";
 
 import TopMenu from "./components/MobileComponents/TopMenu";
-// import Groups from './components/MobileComponents/Groups';
-// import MobileFeed from './components/MobileComponents/Feed/MobileFeed';
+import Groups from "./components/MobileComponents/Groups";
+import Info from "./icons/Info"
+
 
 const Main = styled.main`
   display: flex;
@@ -73,6 +76,14 @@ function App() {
               <PostModal show={context.showPostModal} />
               <BrowserRouter>
                 <Routes>
+
+                  <Route
+                    path="/register"
+                    element={<Register/>}
+                 
+                    
+                  />
+
                   <Route path="/topmenu" element={<TopMenu />} />
                   <Route path="/" element={<Feed />} />
 
