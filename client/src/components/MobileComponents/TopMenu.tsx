@@ -22,10 +22,9 @@ const Label = styled.span`
   letter-spacing: 1rem;
 `;
 
-const Item = styled.button`
+const Item = styled.div`
   all: unset;
-  &: active;
-  &:hover {
+  &: active {
     background-color: springgreen;
   }
 `;
