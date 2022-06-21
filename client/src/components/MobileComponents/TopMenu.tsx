@@ -1,9 +1,11 @@
-import * as React from 'react';
-import styled from 'styled-components'
+import * as React from "react";
+import styled from "styled-components";
 import { Context } from "../../context/Context";
-import Hamburger from '../../icons/Hamburger';
-import User from '../../icons/User';
-import * as themeConf from "../../styles/theme"
+import Hamburger from "../../icons/Hamburger";
+import User from "../../icons/User";
+import * as themeConf from "../../styles/theme";
+import HamburgerMenu from "./HamburgerMenu";
+import { useState } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -11,29 +13,32 @@ const Container = styled.div`
   justify-content: space-between;
   position: sticky;
   top: 0px;
-  background-color: rgb(51,51,51);
-`
-const Label = styled.p`
+  background-color: rgb(51, 51, 51);
+  z-index: 10;
+`;
+const Label = styled.span`
   color: springgreen;
   font-family: Quicksand;
   letter-spacing: 1rem;
-`
+`;
 
-const Item = styled.button`
+const Item = styled.div`
   all: unset;
-  &:active;
-  &:hover {
+  &: active {
     background-color: springgreen;
   }
 `;
 
 const TopMenu: React.FC = () => {
-    const context = React.useContext(Context);
+  const context = React.useContext(Context);
+  const [hidden, setHidden] = useState(true);
+
   return (
     <Container>
 
-      <Item onClick={(event) => context.handleClick(event)} >
-        <Hamburger dropShadow={false} scaleFactor={0.55} color={context.color}/>
+      <Item onClick={() => setHidden((s) => !s)}>
+        <Hamburger dropShadow={false} scaleFactor={0.55} color={context.color} />
+        {!hidden ? <HamburgerMenu /> : null}
       </Item>
 
       <Label>
@@ -41,13 +46,10 @@ const TopMenu: React.FC = () => {
       </Label>
 
       <Item onClick={(event) => context.handleClick(event)}>
-        <User dropShadow={false} scaleFactor={0.55} color={context.color}/>
+        <User dropShadow={false} scaleFactor={0.55} color={context.color} />
       </Item>
+    </Container>
+  );
+};
 
-      </Container>
-
-     
-  )
-}
-
-export default TopMenu
+export default TopMenu;
