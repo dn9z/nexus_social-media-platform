@@ -10,7 +10,6 @@ export interface ContextProps {
   handlePostClick: (event: React.MouseEvent) => void;
   showPostModal: boolean;
   color: string;
-  numberMails: number;
   numberIconDisplayState: boolean;
   numberIconNums: { mails: number; notifications: number };
  
