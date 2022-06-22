@@ -9,11 +9,20 @@ import Gif from "../../icons/Gif";
 import Emoji from "../../icons/Emoji";
 import Button from "../../buttons/Button";
 import { ModalProps, PModalBottomContainerProps } from "../../types";
+import axios from 'axios'
 /**
  *
  *
  *
  */
+const Background = styled.div`
+  background-color: #4141418d;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  left: 0;
+`
+
 const Container = styled.div`
   position: fixed;
   top: 50%;
@@ -21,7 +30,7 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   background-color: ${themeConf.backgroundColor};
   border: 1px solid grey;
-  box-shadow: 1px 1px 2px grey, 2px 2px 3px silver, 3px 3px 5px silver;
+  box-shadow: 1px 1px 2px grey, 2px 2px 3px grey, 3px 3px 5px grey;
   width: 800px;
   height: 490px;
   z-index: 5;
@@ -36,7 +45,7 @@ const Left = styled.div`
   height: 450px;
 `;
 
-const Right = styled.div`
+const Right = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,9 +84,37 @@ const PostModal: React.FC<ModalProps> = (props) => {
   const context = React.useContext(Context);
   const theme = useTheme();
 
+  async function handleSubmit(event:React.FormEvent<HTMLFormElement>){
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget);
+
+    const data = {
+      date: new Date(Date.now()),
+      title: 'title',
+      body: formData.get('body'),
+      media: 'empty'
+    }
+    console.log(data)
+
+    try {
+      const response = await axios.post("http://localhost:3000/api/post/create", data);
+
+      if (response.status === 200) {
+        console.log("post was created");
+        // setShowModal(false)
+        context.setShowPostModal(false)
+      }
+    } catch (error) {
+      console.log(error);
+      // setIsError(true);
+      // setErrorMessage(error.response.data.message);
+    }
+  }
+
   if (context.showPostModal === true) {
     return (
-      <Container>
+      <Background onClick={() => {context.setShowPostModal(false)}}>
+      <Container onClick={(event) => {event.stopPropagation()}}>
         <Left>
           <PicContainer>
             <img
@@ -87,8 +124,8 @@ const PostModal: React.FC<ModalProps> = (props) => {
             />
           </PicContainer>
         </Left>
-        <Right>
-          <Textarea placeholder="What's new?" />
+        <Right onSubmit={handleSubmit}>
+          <Textarea name="body" placeholder="What's new?" />
           {/* image placeholder pic */}
           {/** */}
           <div style={{ width: "100px" }}>
@@ -129,19 +166,14 @@ const PostModal: React.FC<ModalProps> = (props) => {
                 color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
               />
             </div>
-               {/**
-               * @Deniz Für den Post Submit hab ich noch keine submit function geschrieben. 
-               *      onClick={(event) => context.handlePostClick(event)} schließt das modal aktuell einfach wieder    
-               */}
             <Button
-              
-              onClick={(event) => context.handlePostClick(event)}
               text="Post"
-              type="button"
+              type="submit"
             />
           </BottomContainer>
         </Right>
       </Container>
+      </Background>
     );
   } else {
     return <></>;

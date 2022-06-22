@@ -67,7 +67,6 @@ function App() {
   return (
     <>
       <AppProvider>
-        {" "}
         <GlobalStyle />
         <ThemeProvider theme={{ mode: theme.mode }}>
           {/* <HomeIndex/> */}
@@ -86,8 +85,6 @@ function App() {
                   <Route
                     path="/register"
                     element={<Register/>}
-                 
-                    
                   />
 {/* 
                   <Route path="/topmenu" element={<TopMenu />} /> */}
