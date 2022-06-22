@@ -100,6 +100,14 @@ body {
 
   /* Swiper */
 
+  .swiper {
+    // background-color: rgba(51,51,51,0.7);
+    background-color: rgb(0, 255, 127);
+  }
+  .swiper-slide {
+    margin: 8px;
+  }
+  
   .swiper-button-next { 
     background-color: rgba(51,51,51,0.7);
     color: springgreen !important; 

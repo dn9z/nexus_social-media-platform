@@ -19,8 +19,9 @@ const PostItem = styled.div`
 `;
 
 const PostMetaData = styled.div`
-  // display: flex;
+  display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   width: 100%;
 `;
 
@@ -28,8 +29,8 @@ const PostUser = styled.div`
   display: flex;
   align-items: center;
   > p {
-    margin-left: 1rem;
-    font-size: 1.4rem;
+    margin-left: 0.5rem;
+    font-size: clamp(1rem, 0.6203rem + 2.1695vw, 1.4rem);
     font-family: Quicksand;
     font-weight: 700;
   }
@@ -43,6 +44,7 @@ const PostDate = styled.div`
   /* border: 1px solid black; */
   align-self: center;
   font-family: Inconsolata;
+  font-size: clamp(1rem, 0.8102rem + 1.0847vw, 1.2rem);
 `;
 
 const PostMedia = styled.div`
@@ -56,7 +58,7 @@ const PostTextContainer = styled.div``;
 const PostTitle = styled.div`
   font-family: Quicksand;
   text-decoration: none;
-  font-size: 1.45rem;
+  font-size: clamp(1.25rem, 1.0602rem + 1.0847vw, 1.45rem);
   text-align: left;
   font-weight: 700;
   border-bottom: 1px solid ${themeConf.fontColor};
@@ -65,7 +67,7 @@ const PostBody = styled.div`
   margin-top: 5px;
   margin-left: 15px;
   font-family: Zilla;
-  font-size: 1.25rem;
+  font-size: clamp(1.15rem, 1.0551rem + 0.5424vw, 1.25rem);
 `;
 
 interface IProps {

@@ -11,12 +11,17 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from "./components/Feed/Feed";
 import AppProvider from "./context/Context";
 
+import TopMenu from './components/MobileComponents/TopMenu'
+import HomeIndex from "./components/MobileComponents/Home/HomeIndex"
+import ProfileIndex from "./components/MobileComponents/Profile/ProfileIndex";
 
 import Register from "./components/Register/Register";
 import PostButton from "./buttons/PostButton";
+
 import {CountProvider} from "./context/NumberContext"
 import TopMenu from "./components/MobileComponents/TopMenu";
 import Groups from "./components/MobileComponents/Groups";
+
 import Info from "./icons/Info"
 
 
@@ -65,9 +70,8 @@ function App() {
         {" "}
         <GlobalStyle />
         <ThemeProvider theme={{ mode: theme.mode }}>
-          {/* <TopMenu/>
-          <Groups/>
-          <MobileFeed/> */}
+          {/* <HomeIndex/> */}
+          {/* <ProfileIndex/> */}
           <Main>
             <Left>
               <CountProvider>
