@@ -8,6 +8,8 @@ export const Context = React.createContext<ContextProps>({
   color: "white",
   numberIconDisplayState: true,
   numberIconNums: { mails: 0, notifications: 0,},
+  toggleShowPassword: ()=>{},
+  showPassword: false,
 });
 
 function Provider(props: React.PropsWithChildren<{}>) {
@@ -22,6 +24,12 @@ function Provider(props: React.PropsWithChildren<{}>) {
     notifications: 0,
   });
 
+
+  const [showPassword, toggleShowPassword] = React.useState(false);
+
+
+ 
+
   let color = "white";
 
   return (
@@ -32,6 +40,10 @@ function Provider(props: React.PropsWithChildren<{}>) {
         setShowPostModal,
         numberIconDisplayState,
         numberIconNums,
+
+        toggleShowPassword,
+        showPassword
+
       }}
     >
       {props.children}
