@@ -15,11 +15,14 @@ const Container = styled.div`
   top: 0px;
   background-color: rgb(51, 51, 51);
   z-index: 10;
+  height: 60px;
 `;
 const Label = styled.span`
   color: springgreen;
   font-family: Quicksand;
   letter-spacing: 1rem;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 0.8203rem + 2.1695vw, 1.6rem);
 `;
 
 const Item = styled.div`
@@ -42,7 +45,7 @@ const TopMenu: React.FC = () => {
       </Item>
 
       <Label>
-        <h2>NEXUS</h2>
+        NEXUS
       </Label>
 
       <Item onClick={(event) => context.handleClick(event)}>
