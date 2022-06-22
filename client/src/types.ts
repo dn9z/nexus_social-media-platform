@@ -8,15 +8,16 @@ export interface ThemeProps {
 }
 
 export interface ContextProps {
-  handleClick: (event: React.MouseEvent) => void;
-  handlePostClick: (event: React.MouseEvent) => void;
   showPostModal: boolean;
+  setShowPostModal: React.Dispatch<React.SetStateAction<boolean>>
   color: string;
   numberIconDisplayState: boolean;
   numberIconNums: { mails: number; notifications: number };
+
   showPassword: boolean;
   toggleShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
  
+
 }
 
 export interface IconProps {
@@ -36,8 +37,6 @@ export interface FeedState {
     id: number;
     title: string;
     body: string;
-    
-    
   }[];
 }
 
@@ -56,6 +55,7 @@ export interface FormProps {
 }
 
 export interface InputTextFieldProps {
+
   passwordField: boolean;
 
 }
@@ -66,7 +66,6 @@ export interface RegisterProps {
   userName: string;
   eMailAddress: string;
   password: string;
-
 }
 
 export interface DataInputProps {

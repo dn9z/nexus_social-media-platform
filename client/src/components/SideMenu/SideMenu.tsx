@@ -56,19 +56,18 @@ const SideMenu: React.FC = () => {
   const theme = useTheme();
   return (
     <Container>
-      {" "}
       <Header>
         <h1>NEXUS</h1>
       </Header>
-      <Item onClick={(event) => context.handleClick(event)}>
+      <Item onClick={() => {}}>
         <Home dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Home</p>
       </Item>
-      <Item onClick={(event) => context.handleClick(event)}>
+      <Item onClick={() => {}}>
         <User dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Profile</p>
       </Item>
-      <Item onClick={(event) => context.handleClick(event)}>
+      <Item onClick={() => {}}>
         <Mail dropShadow={true} scaleFactor={0.55} color={context.color} />
         <NumberAlert
           displayState={context.numberIconDisplayState}
@@ -76,7 +75,7 @@ const SideMenu: React.FC = () => {
         />
         <p>Mail</p>
       </Item>
-      <Item onClick={(event) => context.handleClick(event)}>
+      <Item onClick={() => {}}>
         <Notifications
           dropShadow={true}
           scaleFactor={0.55}
@@ -88,15 +87,15 @@ const SideMenu: React.FC = () => {
         />
         <p>Notifications</p>
       </Item>
-      <Item onClick={(event) => context.handleClick(event)}>
+      <Item onClick={() => {}}>
         <Bookmarks dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Bookmarks</p>
       </Item>
-      <Item onClick={(event) => context.handleClick(event)}>
+      <Item onClick={() => {}}>
         <Groups dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Nexi</p>
       </Item>
-      <Item onClick={(event) => context.handleClick(event)}>
+      <Item onClick={() => {}}>
         <Settings dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Settings</p>
       </Item>
@@ -117,7 +116,10 @@ const SideMenu: React.FC = () => {
         {theme.mode === "light" ? <p>Dark mode</p> : <p>Light mode</p>}
       </Item>
       <Button
-        onClick={(event) => context.handlePostClick(event)}
+        // onClick={(event) => context.handlePostClick(event)}
+        onClick={() => {
+          context.setShowPostModal(true)
+        }}
         text="Post"
         type="button"
       />

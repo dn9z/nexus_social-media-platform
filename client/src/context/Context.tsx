@@ -1,25 +1,16 @@
 import * as React from "react";
-
 import { ContextProps } from "../types";
-
-
-
-
-
 
 /* create context with initialValues as arguments */
 export const Context = React.createContext<ContextProps>({
-  handleClick: () => {},
-  handlePostClick: () => {},
   showPostModal: false,
+  setShowPostModal:() => {},
   color: "white",
   numberIconDisplayState: true,
   numberIconNums: { mails: 0, notifications: 0,},
   toggleShowPassword: ()=>{},
   showPassword: false,
 });
-
-
 
 function Provider(props: React.PropsWithChildren<{}>) {
 
@@ -33,39 +24,26 @@ function Provider(props: React.PropsWithChildren<{}>) {
     notifications: 0,
   });
 
+
   const [showPassword, toggleShowPassword] = React.useState(false);
 
 
  
- 
-  const handleClick = (event: React.MouseEvent) => {
-    event.preventDefault();
-    console.log(event.target);
-  };
 
   let color = "white";
-
-
-  const handlePostClick = (event: React.MouseEvent) => {
-    event.preventDefault();
-    setShowPostModal(!showPostModal);
-  };
-
 
   return (
     <Context.Provider
       value={{
-       
-        handleClick,
         color,
-       
-        handlePostClick,
         showPostModal,
-
+        setShowPostModal,
         numberIconDisplayState,
         numberIconNums,
+
         toggleShowPassword,
         showPassword
+
       }}
     >
       {props.children}

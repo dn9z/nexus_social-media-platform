@@ -111,7 +111,7 @@ const MobileFeedItem: React.FC<IProps> = ({ post }) => {
           />
         </PostMedia>
         <div style={{placeSelf:"flex-end"}}>
-          <PostButton onClick={(event) => context.handlePostClick(event)} text="Share"/>
+          <PostButton onClick={() => {}} text="Share"/>
         </div>
       </PostItem>
     </>

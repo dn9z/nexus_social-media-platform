@@ -5,6 +5,7 @@ import mongoose, {ConnectOptions} from "mongoose";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import userRoutes from './routes/userRoutes'
+import postRoutes from './routes/postRoutes'
 
 dotenv.config()
 const app = express()
@@ -34,8 +35,9 @@ mongoose
   });
 
 
+ app.use("/api/post", postRoutes);
+ app.use("/api/user", userRoutes);
 
-  app.use("/api/users", userRoutes);
 
 app.listen(app.get('port'), () => {
   console.log('Server is listening on port', app.get('port'))
