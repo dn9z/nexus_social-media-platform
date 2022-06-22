@@ -18,7 +18,7 @@ import { useTheme } from '../../context/ThemeManager';
 
 const Container = styled.div`
   position: absolute;
-  top: 20px;
+  top: 28px;
   left: -35px;
   height: auto;
   margin: 2rem;
@@ -49,9 +49,6 @@ const Item = styled.button`
     padding-right: 1rem;
   }
 `;
-
-
-
 
 
 const HamburgerMenu: React.FC = () => {
