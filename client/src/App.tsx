@@ -14,7 +14,7 @@ import AppProvider from "./context/Context";
 
 import Register from "./components/Register/Register";
 import PostButton from "./buttons/PostButton";
-
+import {CountProvider} from "./context/NumberContext"
 import TopMenu from "./components/MobileComponents/TopMenu";
 import Groups from "./components/MobileComponents/Groups";
 import Info from "./icons/Info"
@@ -70,7 +70,9 @@ function App() {
           <MobileFeed/> */}
           <Main>
             <Left>
-              <SideMenu />
+              <CountProvider>
+                <SideMenu />
+              </CountProvider>
             </Left>
             <Center>
               <PostModal show={context.showPostModal} />
@@ -83,8 +85,8 @@ function App() {
                  
                     
                   />
-
-                  <Route path="/topmenu" element={<TopMenu />} />
+{/* 
+                  <Route path="/topmenu" element={<TopMenu />} /> */}
                   <Route path="/" element={<Feed />} />
 
                   <Route path="/profile" element={<Profile />} />
