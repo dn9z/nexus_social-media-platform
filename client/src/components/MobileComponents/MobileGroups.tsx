@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Context } from "../../context/Context";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
+
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -11,29 +12,40 @@ import "swiper/css/navigation";
 
 
 const Group = styled.div`
-  border: 1px solid black;
-  width: 50px;
-  height: 50px;
-  
-  border-radius: 50%;
-  margin: 20px;
+margin: auto;
+border: 1px solid black;
+width: 50px;
+height: 50px;
+background-color: white;
+border-radius: 50%;
+
+
 `;
 
 
-const Groups: React.FC = () => {
+
+
+const MobileGroups: React.FC = () => {
   const context = React.useContext(Context);
 
   return (
     <Swiper
     // install Swiper modules
     modules={[Navigation, Pagination]}
-    spaceBetween={2}
-    slidesPerView={6}
+    spaceBetween={3}
+    slidesPerView={5}
     navigation
     // pagination={{ clickable: true }}
     // scrollbar={{ draggable: true }}
     onSwiper={(swiper) => console.log(swiper)}
     onSlideChange={() => console.log('slide change')}
+    breakpoints={{
+      // when window width is >= 300px
+      300: {
+        width: 300,
+        slidesPerView: 6,
+      }
+    }}
   
   >
     <SwiperSlide><Group></Group></SwiperSlide>
@@ -63,4 +75,4 @@ const Groups: React.FC = () => {
   );
 };
 
-export default Groups;
+export default MobileGroups;

@@ -9,7 +9,6 @@ export interface ContextProps {
   showPostModal: boolean;
   setShowPostModal: React.Dispatch<React.SetStateAction<boolean>>
   color: string;
-  numberMails: number;
   numberIconDisplayState: boolean;
   numberIconNums: { mails: number; notifications: number };
 }

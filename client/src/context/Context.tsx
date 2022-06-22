@@ -1,25 +1,13 @@
 import * as React from "react";
-import { ContextProps} from "../types";
-
-
-/**
- * @Deniz @Martin Ich schreibe hier kommentare für den context rein: 
- * @params Context<ContextProps>({initialValues})
- * @params initialValues: must be provided on Context declaration. 
- * --> primitives: some value of primitive type
- * --> functions: () => {}
- */
-
-
+import { ContextProps } from "../types";
 
 /* create context with initialValues as arguments */
 export const Context = React.createContext<ContextProps>({
   showPostModal: false,
   setShowPostModal:() => {},
   color: "white",
-  numberMails: 0,
   numberIconDisplayState: true,
-  numberIconNums: { mails: 0, notifications: 0 },
+  numberIconNums: { mails: 0, notifications: 0,},
 });
 
 function Provider(props: React.PropsWithChildren<{}>) {
@@ -35,7 +23,6 @@ function Provider(props: React.PropsWithChildren<{}>) {
   });
 
   let color = "white";
-  let numberMails = 5;
 
   return (
     <Context.Provider

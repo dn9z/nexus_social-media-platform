@@ -10,12 +10,20 @@ import PostModal from "./components/modals/PostModal";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from "./components/Feed/Feed";
 import AppProvider from "./context/Context";
+
+import TopMenu from './components/MobileComponents/TopMenu'
+import HomeIndex from "./components/MobileComponents/Home/HomeIndex"
+import ProfileIndex from "./components/MobileComponents/Profile/ProfileIndex";
+
 import Register from "./components/Register/Register";
 import PostButton from "./buttons/PostButton";
 
-import TopMenu from "./components/MobileComponents/TopMenu";
-import Groups from "./components/MobileComponents/Groups";
+import {CountProvider} from "./context/NumberContext"
+
+import Groups from "./components/MobileComponents/MobileGroups";
+
 import Info from "./icons/Info"
+
 
 const Main = styled.main`
   display: flex;
@@ -61,19 +69,25 @@ function App() {
       <AppProvider>
         <GlobalStyle />
         <ThemeProvider theme={{ mode: theme.mode }}>
+          {/* <HomeIndex/> */}
+          {/* <ProfileIndex/> */}
           <Main>
             <Left>
-              <SideMenu />
+              <CountProvider>
+                <SideMenu />
+              </CountProvider>
             </Left>
             <Center>
               <PostModal show={context.showPostModal} />
               <BrowserRouter>
                 <Routes>
+
                   <Route
                     path="/register"
                     element={<Register/>}
                   />
-                  <Route path="/topmenu" element={<TopMenu />} />
+{/* 
+                  <Route path="/topmenu" element={<TopMenu />} /> */}
                   <Route path="/" element={<Feed />} />
 
                   <Route path="/profile" element={<Profile />} />
@@ -93,17 +107,3 @@ function App() {
 }
 
 export default App;
-
-
-/* 
-   <Register>
-<InputTextField
-  value={context.color}
-  type="text"
-  label="userName"
-  name="userName"
-
-  
-  icon={<Info color={"black"} dropShadow={false} scaleFactor={0.45}/>}
-/>
-</Register> */
