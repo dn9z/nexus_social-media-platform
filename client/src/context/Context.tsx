@@ -28,7 +28,6 @@ function Provider(props: React.PropsWithChildren<{}>) {
     <Context.Provider
       value={{
         color,
-        numberMails,
         showPostModal,
         setShowPostModal,
         numberIconDisplayState,
