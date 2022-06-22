@@ -104,7 +104,7 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
           />
         </PostMedia>
         <div style={{placeSelf:"flex-end"}}>
-          <Button onClick={(event) => context.handlePostClick(event)} text="Share" type="button"/>
+          <Button onClick={() => context.setShowPostModal(true)} text="Share" type="button"/>
         </div>
       </PostItem>
     </>

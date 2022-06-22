@@ -15,6 +15,14 @@ import axios from 'axios'
  *
  *
  */
+const Background = styled.div`
+  background-color: #4141418d;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  left: 0;
+`
+
 const Container = styled.div`
   position: fixed;
   top: 50%;
@@ -22,7 +30,7 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   background-color: ${themeConf.backgroundColor};
   border: 1px solid grey;
-  box-shadow: 1px 1px 2px grey, 2px 2px 3px silver, 3px 3px 5px silver;
+  box-shadow: 1px 1px 2px grey, 2px 2px 3px grey, 3px 3px 5px grey;
   width: 800px;
   height: 490px;
   z-index: 5;
@@ -77,7 +85,6 @@ const PostModal: React.FC<ModalProps> = (props) => {
   const theme = useTheme();
 
   async function handleSubmit(event:React.FormEvent<HTMLFormElement>){
-    console.log(event)
     event.preventDefault()
     const formData = new FormData(event.currentTarget);
 
@@ -93,10 +100,9 @@ const PostModal: React.FC<ModalProps> = (props) => {
       const response = await axios.post("http://localhost:3000/api/post/create", data);
 
       if (response.status === 200) {
-        //everything went well!
         console.log("post was created");
-        //  navigate("/login");
         // setShowModal(false)
+        context.setShowPostModal(false)
       }
     } catch (error) {
       console.log(error);
@@ -107,7 +113,8 @@ const PostModal: React.FC<ModalProps> = (props) => {
 
   if (context.showPostModal === true) {
     return (
-      <Container>
+      <Background onClick={() => {context.setShowPostModal(false)}}>
+      <Container onClick={(event) => {event.stopPropagation()}}>
         <Left>
           <PicContainer>
             <img
@@ -159,20 +166,14 @@ const PostModal: React.FC<ModalProps> = (props) => {
                 color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
               />
             </div>
-               {/**
-               * @Deniz Für den Post Submit hab ich noch keine submit function geschrieben. 
-               *      onClick={(event) => context.handlePostClick(event)} schließt das modal aktuell einfach wieder    
-               */}
-            {/* <Button
-              
-              // onClick={(event) => context.handlePostClick(event)}
+            <Button
               text="Post"
-              // type="submit"
-            /> */}
-              <button>Submit</button>
+              type="submit"
+            />
           </BottomContainer>
         </Right>
       </Container>
+      </Background>
     );
   } else {
     return <></>;
