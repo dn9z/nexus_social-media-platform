@@ -4,7 +4,12 @@ import styled from "styled-components";
 import { Context } from "../../context/Context";
 import * as themeConf from "../../styles/theme";
 import { useTheme } from "../../context/ThemeManager";
-import { FormProps, InputTextFieldProps, DataInputProps, RegisterProps } from "../../types";
+import {
+  FormProps,
+  InputTextFieldProps,
+  DataInputProps,
+  RegisterProps,
+} from "../../types";
 import Button from "../../buttons/Button";
 import Info from "../../icons/Info";
 import Visbility from "../../buttons/Visbility";
@@ -45,7 +50,7 @@ const Label = styled.div`
 `;
 
 const Input = styled.input<InputTextFieldProps>`
-  width: ${props=>props.passwordField ?  "180px":"225px"};
+  width: ${(props) => (props.passwordField ? "180px" : "225px")};
   height: 35px;
   border: 1px solid ${themeConf.fontColor};
   color: ${themeConf.fontColor};
@@ -62,11 +67,11 @@ const Icon = styled.div`
   justify-content: center;
 `;
 
-const Register: React.FC = () => {
+const Login: React.FC = () => {
   const context = React.useContext(Context);
   const [json, setJson] = React.useState<string>();
   const { register, handleSubmit } = HookForm.useForm<RegisterProps>();
-  const {mode} = useTheme()
+  const { mode } = useTheme();
 
   const onSubmit = (data: RegisterProps) => {
     setJson(JSON.stringify(data));
@@ -77,47 +82,38 @@ const Register: React.FC = () => {
       {" "}
       <Container>
         <Label>
-          <label>First name</label>
-        </Label>
-        <Field>
-          <Input  passwordField={false} {...register("firstName", { required: true })} />
-        </Field>
-        <Label>
-          <label>Last name</label>
-        </Label>
-        <Field>
-          <Input  passwordField={false} {...register("lastName", { required: true })} />
-        </Field>
-        <Label>
-          <label>User name</label>
-          <Icon>
-            <Info color={mode==="dark" ? "white" : "black"} scaleFactor={0.45} dropShadow={false} />
-          </Icon>
-        </Label>
-        <Field>
-          <Input  passwordField={false} {...register("userName", { required: true })} />
-        </Field>
-        <Label>
           <label>E-Mail</label>
         </Label>
         <Field>
-          <Input passwordField={false} type="email" {...register("eMailAddress", { required: true })} />
+          <Input
+            passwordField={false}
+            type="email"
+            {...register("eMailAddress", { required: true })}
+          />
         </Field>
         <Label>
           <label>password</label>
           <Icon>
-            <Info color={mode==="dark" ? "white" : "black"}  scaleFactor={0.45} dropShadow={false} />
+            <Info
+              color={mode === "dark" ? "white" : "black"}
+              scaleFactor={0.45}
+              dropShadow={false}
+            />
           </Icon>
         </Label>
         <Field>
-          <Input passwordField={true}  type={context.showPassword ? "text" : "password"} {...register("password", { required: true })} />
-          <Visbility/>
+          <Input
+            passwordField={true}
+            type={context.showPassword ? "text" : "password"}
+            {...register("password", { required: true })}
+          />
+          <Visbility />
         </Field>
         {json}
       </Container>
-      <Button onClick={()=>{}} text="Register" type="submit"/>
+      <Button onClick={() => {}} text="Login" type="submit" />
     </FormContainer>
   );
 };
 
-export default Register;
+export default Login;

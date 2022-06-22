@@ -16,6 +16,7 @@ import HomeIndex from "./components/MobileComponents/Home/HomeIndex"
 import ProfileIndex from "./components/MobileComponents/Profile/ProfileIndex";
 
 import Register from "./components/Register/Register";
+import Login from "./components/Login/Login";
 import PostButton from "./buttons/PostButton";
 
 import {CountProvider} from "./context/NumberContext"
@@ -85,9 +86,12 @@ function App() {
 
                   <Route
                     path="/register"
-                    element={<Register/>}
-                 
-                    
+                    element={<Register/>} 
+                  />
+                   <Route
+                    path="/login"
+                    element={<Login/>}
+     
                   />
 {/* 
                   <Route path="/topmenu" element={<TopMenu />} /> */}

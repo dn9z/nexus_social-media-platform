@@ -15,6 +15,8 @@ export const Context = React.createContext<ContextProps>({
   color: "white",
   numberIconDisplayState: true,
   numberIconNums: { mails: 0, notifications: 0,},
+  toggleShowPassword: ()=>{},
+  showPassword: false,
 });
 
 
@@ -30,6 +32,8 @@ function Provider(props: React.PropsWithChildren<{}>) {
     mails: 0,
     notifications: 0,
   });
+
+  const [showPassword, toggleShowPassword] = React.useState(false);
 
 
  
@@ -60,7 +64,8 @@ function Provider(props: React.PropsWithChildren<{}>) {
 
         numberIconDisplayState,
         numberIconNums,
-     
+        toggleShowPassword,
+        showPassword
       }}
     >
       {props.children}
