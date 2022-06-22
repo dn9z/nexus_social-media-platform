@@ -19,8 +19,8 @@ import Register from "./components/Register/Register";
 import PostButton from "./buttons/PostButton";
 
 import {CountProvider} from "./context/NumberContext"
-import TopMenu from "./components/MobileComponents/TopMenu";
-import Groups from "./components/MobileComponents/Groups";
+
+import Groups from "./components/MobileComponents/MobileGroups";
 
 import Info from "./icons/Info"
 
