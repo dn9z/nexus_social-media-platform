@@ -21,9 +21,6 @@ export const Context = React.createContext<ContextProps>({
   numberMails: 0,
   numberIconDisplayState: true,
   numberIconNums: { mails: 0, notifications: 0 },
- 
- 
- 
 });
 
 function Provider(props: React.PropsWithChildren<{}>) {
@@ -38,10 +35,6 @@ function Provider(props: React.PropsWithChildren<{}>) {
     notifications: 0,
   });
 
-
- 
- 
-
   const handleClick = (event: React.MouseEvent) => {
     event.preventDefault();
     console.log(event.target);
@@ -55,12 +48,9 @@ function Provider(props: React.PropsWithChildren<{}>) {
     setShowPostModal(!showPostModal);
   };
 
- 
-
   return (
     <Context.Provider
       value={{
-       
         handleClick,
         color,
         numberMails,
@@ -68,8 +58,6 @@ function Provider(props: React.PropsWithChildren<{}>) {
         showPostModal,
         numberIconDisplayState,
         numberIconNums,
-       
-    
       }}
     >
       {props.children}
