@@ -9,19 +9,15 @@ import Gif from "../../icons/Gif";
 import Emoji from "../../icons/Emoji";
 import Button from "../../buttons/Button";
 import { ModalProps, PModalBottomContainerProps } from "../../types";
-import axios from 'axios'
-/**
- *
- *
- *
- */
+import axios from "axios";
+
 const Background = styled.div`
   background-color: #4141418d;
   height: 100vh;
   width: 100vw;
   position: absolute;
   left: 0;
-`
+`;
 
 const Container = styled.div`
   position: fixed;
@@ -54,11 +50,21 @@ const Right = styled.form`
   height: 450px;
 `;
 
+const Title = styled.textarea`
+  all: unset;
+  width: 600px;
+  height: 50px;
+  font-weight: bold;
+  margin-top: 20px;
+  font-family: Zilla;
+  font-size: 1.5rem;
+`;
+
 const Textarea = styled.textarea`
   all: unset;
   width: 600px;
-  height: 250px;
-  margin-top: 20px;
+  height: 200px;
+
   font-family: Zilla;
   font-size: 1.5rem;
 `;
@@ -84,25 +90,28 @@ const PostModal: React.FC<ModalProps> = (props) => {
   const context = React.useContext(Context);
   const theme = useTheme();
 
-  async function handleSubmit(event:React.FormEvent<HTMLFormElement>){
-    event.preventDefault()
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
     const data = {
       date: new Date(Date.now()),
-      title: 'title',
-      body: formData.get('body'),
-      media: 'empty'
-    }
-    console.log(data)
+      title: "title",
+      body: formData.get("body"),
+      media: "empty",
+    };
+    console.log(data);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/post/create", data);
+      const response = await axios.post(
+        "http://localhost:3000/api/post/create",
+        data
+      );
 
       if (response.status === 200) {
         console.log("post was created");
         // setShowModal(false)
-        context.setShowPostModal(false)
+        context.setShowPostModal(false);
       }
     } catch (error) {
       console.log(error);
@@ -113,66 +122,65 @@ const PostModal: React.FC<ModalProps> = (props) => {
 
   if (context.showPostModal === true) {
     return (
-      <Background onClick={() => {context.setShowPostModal(false)}}>
-      <Container onClick={(event) => {event.stopPropagation()}}>
-        <Left>
-          <PicContainer>
-            <img
-              style={{ width: "100%", borderRadius: "50%" }}
-              src="https://www.zvr-info.de/wp-content/uploads/2018/02/Platzhalter.png"
-              alt=""
-            />
-          </PicContainer>
-        </Left>
-        <Right onSubmit={handleSubmit}>
-          <Textarea name="body" placeholder="What's new?" />
-          {/* image placeholder pic */}
-          {/** */}
-          <div style={{ width: "100px" }}>
-            <img
-              style={{ width: "100%", marginBottom: "20px" }}
-              src="https://its-mobility.de/wp-content/uploads/placeholder.png"
-              alt=""
-            />
-          </div>
-          <BottomContainer bottomBorder={true}>
-            <World
-              dropShadow={false}
-              scaleFactor={0.55}
-              color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
-            />
-          </BottomContainer>
-          <BottomContainer bottomBorder={false}>
-            <div>
-              {/**
-               * @Deniz Denke mal, hier kommen am besten onClick-Handler hin, für Pic-Upload, Gif-Upload.
-               *        Wenn du diese in context schreibst, kannst du den type in types.ts so setzen:
-               *        handleSomeBlaBlaClick:  (event: React.MouseEvent) => void;
-               *        Die Emoji funktion packe ich ins backlog. 
-               */}
-              <Image
-                dropShadow={false}
-                scaleFactor={0.55}
-                color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
+      <Background
+        onClick={() => {
+          context.setShowPostModal(false);
+        }}
+      >
+        <Container
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        >
+          <Left>
+            <PicContainer>
+              <img
+                style={{ width: "100%", borderRadius: "50%" }}
+                src="https://www.zvr-info.de/wp-content/uploads/2018/02/Platzhalter.png"
+                alt=""
               />
-              <Gif
-                dropShadow={false}
-                scaleFactor={0.55}
-                color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
-              />
-              <Emoji
-                dropShadow={false}
-                scaleFactor={0.55}
-                color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
+            </PicContainer>
+          </Left>
+          <Right onSubmit={handleSubmit}>
+            <Title name="title" placeholder="Title" />
+            <Textarea name="body" placeholder="...Body" />
+
+            <div style={{ width: "100px" }}>
+              <img
+                style={{ width: "100%", marginBottom: "20px" }}
+                src="https://its-mobility.de/wp-content/uploads/placeholder.png"
+                alt=""
               />
             </div>
-            <Button
-              text="Post"
-              type="submit"
-            />
-          </BottomContainer>
-        </Right>
-      </Container>
+            <BottomContainer bottomBorder={true}>
+              <World
+                dropShadow={false}
+                scaleFactor={0.55}
+                color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
+              />
+            </BottomContainer>
+            <BottomContainer bottomBorder={false}>
+              <div>
+                <Image
+                  dropShadow={false}
+                  scaleFactor={0.55}
+                  color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
+                />
+                <Gif
+                  dropShadow={false}
+                  scaleFactor={0.55}
+                  color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
+                />
+                <Emoji
+                  dropShadow={false}
+                  scaleFactor={0.55}
+                  color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
+                />
+              </div>
+              <Button onClick={() => {}} text="Post" type="submit" />
+            </BottomContainer>
+          </Right>
+        </Container>
       </Background>
     );
   } else {
