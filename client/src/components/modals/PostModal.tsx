@@ -177,7 +177,7 @@ const PostModal: React.FC<ModalProps> = (props) => {
                   color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
                 />
               </div>
-              <Button onClick={() => {}} text="Post" type="submit" />
+              <Button text="Post" type="submit" />
             </BottomContainer>
           </Right>
         </Container>
