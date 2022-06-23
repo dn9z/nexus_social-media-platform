@@ -33,7 +33,7 @@ const ButtonStyled = styled.button`
 interface ButtonProps {
     text: string;
     type?: "button" | "submit" | "reset" | undefined;
-    onClick?: (event: React.MouseEvent) => void;
+    onClick?: (event: React.MouseEvent) => void | undefined;
    
 }
 
