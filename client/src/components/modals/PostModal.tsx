@@ -9,7 +9,7 @@ import Gif from "../../icons/Gif";
 import Emoji from "../../icons/Emoji";
 import Button from "../../buttons/Button";
 import { ModalProps, PModalBottomContainerProps } from "../../types";
-import axios from "axios";
+import axiosApiInstance from "../../util/axiosInstance";
 
 const Background = styled.div`
   background-color: #4141418d;
@@ -82,8 +82,7 @@ const BottomContainer = styled.div<PModalBottomContainerProps>`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: ${(props) =>
-    props.bottomBorder ? "2px solid silver" : "none"};
+  border-bottom: ${(props) => (props.bottomBorder ? "2px solid silver" : "none")};
 `;
 
 const PostModal: React.FC<ModalProps> = (props) => {
@@ -100,13 +99,9 @@ const PostModal: React.FC<ModalProps> = (props) => {
       body: formData.get("body"),
       media: "empty",
     };
-    console.log(data);
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/post/create",
-        data
-      );
+      const response = await axiosApiInstance.post("http://localhost:3000/api/post/create", data);
 
       if (response.status === 200) {
         console.log("post was created");
