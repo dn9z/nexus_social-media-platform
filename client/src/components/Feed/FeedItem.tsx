@@ -4,6 +4,7 @@ import { Context } from "../../context/Context";
 import * as themeConf from "../../styles/theme";
 import Button from "../../buttons/Button"
 import {FeedProps} from "../../types"
+import Comments from "../Comments/Comments";
 
 const PostItem = styled.div`
   /* border: 1px solid black; */
@@ -106,7 +107,9 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
         <div style={{placeSelf:"flex-end"}}>
           <Button onClick={() => context.setShowPostModal(true)} text="Share" type="button"/>
         </div>
+        <Comments post={post}/>
       </PostItem>
+      
     </>
   );
 };
