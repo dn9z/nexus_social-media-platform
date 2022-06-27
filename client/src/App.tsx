@@ -4,6 +4,8 @@ import styled, { ThemeProvider } from "styled-components";
 import * as themeConf from "./styles/theme";
 import { useTheme } from "./context/ThemeManager";
 import { Context } from "./context/Context";
+import { AuthContext } from "./context/AuthContext";
+
 import SideMenu from "./components/SideMenu/SideMenu";
 import Profile from "./components/Profile/Profile";
 import PostModal from "./components/modals/PostModal";
@@ -11,20 +13,19 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from "./components/Feed/Feed";
 import AppProvider from "./context/Context";
 
-import TopMenu from './components/MobileComponents/TopMenu'
-import HomeIndex from "./components/MobileComponents/Home/HomeIndex"
+import TopMenu from "./components/MobileComponents/TopMenu";
+import HomeIndex from "./components/MobileComponents/Home/HomeIndex";
 import ProfileIndex from "./components/MobileComponents/Profile/ProfileIndex";
 
-import Register from "./components/Register/Register";
-import Login from "./components/Login/Login";
+import Register from "./components/AuthForms/Register";
+import Login from "./components/AuthForms/Login";
 import PostButton from "./buttons/PostButton";
 
-import {CountProvider} from "./context/NumberContext"
+import { CountProvider } from "./context/NumberContext";
 
 import Groups from "./components/MobileComponents/MobileGroups";
 
-import Info from "./icons/Info"
-
+import Info from "./icons/Info";
 
 const Main = styled.main`
   display: flex;
@@ -62,55 +63,52 @@ function App() {
   const theme = useTheme();
 
   const context = React.useContext(Context);
-
-  console.log(context.showPostModal);
+  const { loggedIn } = React.useContext(AuthContext);
 
   return (
-    <>
       <AppProvider>
         <GlobalStyle />
         <ThemeProvider theme={{ mode: theme.mode }}>
           {/* <HomeIndex/> */}
           {/* <ProfileIndex/> */}
-          <Main>
-            <Left>
-              <CountProvider>
-                <SideMenu />
-              </CountProvider>
-            </Left>
-            <Center>
-              <PostModal show={context.showPostModal} />
-              <BrowserRouter>
-                <Routes>
+          <BrowserRouter>
+            {loggedIn ? (
+              <Main>
+                <Left>
+                  <CountProvider>
+                    <SideMenu />
+                  </CountProvider>
+                </Left>
+                <Center>
+                  <PostModal show={context.showPostModal} />
 
-                  <Route
-                    path="/register"
+                  <Routes>
+                    {/* <Route path="/register" element={<Register />} />
+                    <Route path="/login" element={<Login />} /> */}
+                    {/*<Route path="/topmenu" element={<TopMenu />} /> */}
+                    <Route path="/" element={<Feed />} />
 
-                    element={<Register/>} 
-                  />
-                   <Route
-                    path="/login"
-                    element={<Login/>}
-     
-
-                  />
-{/* 
-                  <Route path="/topmenu" element={<TopMenu />} /> */}
-                  <Route path="/" element={<Feed />} />
-
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/nexus" element={""} />
-                </Routes>
-              </BrowserRouter>
-            </Center>
-            <Right>
-              <Recommendations />
-              <Activity />
-            </Right>
-          </Main>
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/nexus" element={""} />
+                    {/* <Route path='/logout' element={<Logout/>}/> */}
+                  </Routes>
+                </Center>
+                <Right>
+                  <Recommendations />
+                  <Activity />
+                </Right>
+              </Main>
+            ) : (
+              <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                {/* <Route path="*" element={<LoginForm />} /> */}
+              </Routes>
+            )}
+          </BrowserRouter>
         </ThemeProvider>
       </AppProvider>
-    </>
   );
 }
 

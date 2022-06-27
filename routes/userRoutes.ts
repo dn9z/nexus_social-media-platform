@@ -1,10 +1,17 @@
 import express from "express";
-import passport from 'passport'
+import passport from "passport";
 import userController from "../controller/userController";
-
 
 const router = express.Router();
 
-router.get("/logout", userController.test);
+router.get("/test", userController.test);
 
-export default router
+router.post("/login", userController.login);
+
+router.post("/register", userController.register);
+
+router.get("/logout", userController.logout);
+
+router.use(passport.authenticate("jwt", { session: false }));
+
+export default router;

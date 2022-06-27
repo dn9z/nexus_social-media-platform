@@ -4,15 +4,18 @@ import styled from "styled-components";
 import { Context } from "../../context/Context";
 import * as themeConf from "../../styles/theme";
 import { useTheme } from "../../context/ThemeManager";
+import { AuthContext } from "../../context/AuthContext";
 import {
   FormProps,
   InputTextFieldProps,
   DataInputProps,
-  RegisterProps,
+  RegisterProps as LoginProps,
 } from "../../types";
 import Button from "../../buttons/Button";
 import Info from "../../icons/Info";
 import Visbility from "../../buttons/Visbility";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const FormContainer = styled.form`
   display: flex;
@@ -24,10 +27,8 @@ const FormContainer = styled.form`
   border: 1px solid grey;
   box-shadow: 1px 1px 2px grey, 2px 2px 3px silver, 3px 3px 5px silver;
   background-color: ${themeConf.backgroundColor};
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: auto;
+  margin-top: 5rem;
 `;
 
 const Container = styled.div`
@@ -68,28 +69,43 @@ const Icon = styled.div`
 `;
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+
   const context = React.useContext(Context);
-  const [json, setJson] = React.useState<string>();
-  const { register, handleSubmit } = HookForm.useForm<RegisterProps>();
+  const { handleLogin } = React.useContext(AuthContext);
+
+  // const [json, setJson] = React.useState<string>();
+  const { register, handleSubmit } = HookForm.useForm<LoginProps>();
   const { mode } = useTheme();
 
-  const onSubmit = (data: RegisterProps) => {
-    setJson(JSON.stringify(data));
+  const onSubmit = async (data: LoginProps) => {
+    // setJson(JSON.stringify(data));
+
+    try {
+      const response = await axios.post("http://localhost:3000/api/user/login", data, {
+        withCredentials: true
+      });
+      if (response.status === 200) {
+        //everything went well!
+        console.log("login successful");
+        handleLogin(response.data.user.username);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+      // setIsError(true);
+      // setErrorMessage(error.response.data.message);
+    }
   };
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      {" "}
       <Container>
         <Label>
           <label>E-Mail</label>
         </Label>
         <Field>
-          <Input
-            passwordField={false}
-            type="email"
-            {...register("eMailAddress", { required: true })}
-          />
+          <Input passwordField={false} type="email" {...register("email", { required: true })} />
         </Field>
         <Label>
           <label>password</label>
@@ -109,9 +125,12 @@ const Login: React.FC = () => {
           />
           <Visbility />
         </Field>
-        {json}
       </Container>
       <Button onClick={() => {}} text="Login" type="submit" />
+      <div>
+        <span>No account? </span>
+        <Link to="/register">Sign Up!</Link>
+      </div>
     </FormContainer>
   );
 };
