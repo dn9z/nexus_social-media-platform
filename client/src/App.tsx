@@ -17,6 +17,9 @@ import ProfileIndex from "./components/MobileComponents/Profile/ProfileIndex";
 
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
+
+import MessageMain from "./components/Messaging/MessageMain"
+
 import PostButton from "./buttons/PostButton";
 
 import {CountProvider} from "./context/NumberContext"
@@ -97,7 +100,7 @@ function App() {
 {/* 
                   <Route path="/topmenu" element={<TopMenu />} /> */}
                   <Route path="/" element={<Feed />} />
-
+                  <Route path="/messages" element={<MessageMain />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/nexus" element={""} />
                 </Routes>
