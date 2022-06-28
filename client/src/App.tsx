@@ -11,20 +11,20 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from "./components/Feed/Feed";
 import AppProvider from "./context/Context";
 
-import TopMenu from './components/MobileComponents/TopMenu'
-import HomeIndex from "./components/MobileComponents/Home/HomeIndex"
+import TopMenu from "./components/MobileComponents/TopMenu";
+import HomeIndex from "./components/MobileComponents/Home/HomeIndex";
 import ProfileIndex from "./components/MobileComponents/Profile/ProfileIndex";
 
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import PostButton from "./buttons/PostButton";
 
-import {CountProvider} from "./context/NumberContext"
+import { CountProvider } from "./context/NumberContext";
 
 import Groups from "./components/MobileComponents/MobileGroups";
 
-import Info from "./icons/Info"
-
+import Info from "./icons/Info";
+import FollowSection from "./components/Follow/FollowSection";
 
 const Main = styled.main`
   display: flex;
@@ -72,6 +72,7 @@ function App() {
         <ThemeProvider theme={{ mode: theme.mode }}>
           {/* <HomeIndex/> */}
           {/* <ProfileIndex/> */}
+
           <Main>
             <Left>
               <CountProvider>
@@ -83,18 +84,10 @@ function App() {
               <BrowserRouter>
                 <Routes>
 
-                  <Route
-                    path="/register"
-
-                    element={<Register/>} 
-                  />
-                   <Route
-                    path="/login"
-                    element={<Login/>}
-     
-
-                  />
-{/* 
+                  <Route path="/follow" element={<FollowSection />}/>
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/login" element={<Login />} />
+                  {/* 
                   <Route path="/topmenu" element={<TopMenu />} /> */}
                   <Route path="/" element={<Feed />} />
 
