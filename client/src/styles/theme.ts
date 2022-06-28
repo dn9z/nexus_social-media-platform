@@ -21,6 +21,11 @@ export const backgroundColor: theme.ThemeSet = theme('mode', {
     dark: '#0e1717'
   });
 
+  export const profilePicBorder: theme.ThemeSet = theme('mode', {
+    light: '#8b14f9',
+    dark: 'springgreen'
+  });
+
 
 
   /* #1a0a27 #0e1717 #ecfce8 */
