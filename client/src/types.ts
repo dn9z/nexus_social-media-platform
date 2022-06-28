@@ -13,11 +13,14 @@ export interface ContextProps {
   color: string;
   numberIconDisplayState: boolean;
   numberIconNums: { mails: number; notifications: number };
-
   showPassword: boolean;
   toggleShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
- 
+ }
 
+export interface AuthContextProps {
+  loggedIn: boolean;
+  username: string;
+  handleLogin: (_username:string) => void
 }
 
 export interface IconProps {
@@ -38,6 +41,15 @@ export interface FeedState {
     title: string;
     body: string;
   }[];
+}
+
+export interface CommentProps {
+  post: {
+    userId: number;
+    id: number;
+    title: string;
+    body: string;
+  };
 }
 
 export interface FeedProps {
@@ -63,8 +75,14 @@ export interface InputTextFieldProps {
 export interface RegisterProps {
   firstName: string;
   lastName: string;
-  userName: string;
-  eMailAddress: string;
+  username: string;
+  email: string;
+  password: string;
+  rePassword: string;
+}
+
+export interface LoginProps {
+  email: string;
   password: string;
 }
 

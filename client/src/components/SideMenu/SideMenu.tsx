@@ -14,6 +14,10 @@ import NumberAlert from "../../icons/NumberAlert";
 import Button from "../../buttons/Button";
 import * as themeConf from "../../styles/theme";
 import { useTheme } from "../../context/ThemeManager";
+import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+import { AuthContext } from "../../context/AuthContext";
+import axiosApiInstance from "../../util/axiosInstance";
 
 const Container = styled.div`
   height: 630px;
@@ -52,13 +56,32 @@ const Item = styled.button`
 `;
 
 const SideMenu: React.FC = () => {
+  const navigate = useNavigate();
+
   const context = React.useContext(Context);
+  const { handleLogin } = React.useContext(AuthContext);
   const theme = useTheme();
+
+  const handleLogout = async () => {
+    try {
+      await axiosApiInstance.get("http://localhost:3000/api/user/logout");
+      handleLogin(""); // empty strings will resolve to falsey value
+
+      // Navigate("/");
+      navigate('/')
+    } catch (error) {
+      console.log(error);
+      // setIsError(true);
+      // setErrorMessage(error.response.data.message);
+    }
+  };
+
   return (
     <Container>
       <Header>
         <h1>NEXUS</h1>
       </Header>
+      <button onClick={handleLogout}>Logout</button>
       <Item onClick={() => {}}>
         <Home dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Home</p>
@@ -76,11 +99,7 @@ const SideMenu: React.FC = () => {
         <p>Mail</p>
       </Item>
       <Item onClick={() => {}}>
-        <Notifications
-          dropShadow={true}
-          scaleFactor={0.55}
-          color={context.color}
-        />
+        <Notifications dropShadow={true} scaleFactor={0.55} color={context.color} />
         <NumberAlert
           displayState={context.numberIconDisplayState}
           number={context.numberIconNums.notifications}
@@ -101,24 +120,16 @@ const SideMenu: React.FC = () => {
       </Item>
       <Item onClick={() => theme.toggle()}>
         {theme.mode === "light" ? (
-          <DarkMode
-            dropShadow={true}
-            scaleFactor={0.55}
-            color={context.color}
-          />
+          <DarkMode dropShadow={true} scaleFactor={0.55} color={context.color} />
         ) : (
-          <LightMode
-            dropShadow={true}
-            scaleFactor={0.55}
-            color={context.color}
-          />
+          <LightMode dropShadow={true} scaleFactor={0.55} color={context.color} />
         )}
         {theme.mode === "light" ? <p>Dark mode</p> : <p>Light mode</p>}
       </Item>
       <Button
         // onClick={(event) => context.handlePostClick(event)}
         onClick={() => {
-          context.setShowPostModal(true)
+          context.setShowPostModal(true);
         }}
         text="Post"
         type="button"
