@@ -15,8 +15,9 @@ import Button from "../../buttons/Button";
 import * as themeConf from "../../styles/theme";
 import { useTheme } from "../../context/ThemeManager";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
+import axiosApiInstance from "../../util/axiosInstance";
 
 const Container = styled.div`
   height: 630px;
@@ -63,7 +64,7 @@ const SideMenu: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:3000/api/user/logout");
+      await axiosApiInstance.get("http://localhost:3000/api/user/logout");
       handleLogin(""); // empty strings will resolve to falsey value
 
       // Navigate("/");
