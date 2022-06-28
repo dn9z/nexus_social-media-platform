@@ -1,16 +1,19 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import mongoose, {ConnectOptions} from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 import cookieParser from "cookie-parser";
 import passport from "passport";
-import userRoutes from './routes/userRoutes'
-import postRoutes from './routes/postRoutes'
+import userRoutes from "./routes/userRoutes";
+import postRoutes from "./routes/postRoutes";
 
-dotenv.config()
-const app = express()
-app.set('port', process.env.PORT || 3000)
+import configurePassport from "./passport/passport-config";
 
+dotenv.config();
+const app = express();
+app.set("port", process.env.PORT || 3000);
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cors({
@@ -18,6 +21,11 @@ app.use(
     origin: true,
   })
 );
+
+//initialize passport
+app.use(cookieParser());
+app.use(passport.initialize());
+configurePassport(passport);
 
 mongoose
   .connect(
@@ -34,11 +42,14 @@ mongoose
     console.log("an error occurred while connecting to the db", error);
   });
 
+app.use("/api/user", userRoutes);
+app.use("/api/post", postRoutes);
 
- app.use("/api/post", postRoutes);
- app.use("/api/user", userRoutes);
+app.all("*", (req, res) => {
+  res.status(500);
+  res.send("Invalid path");
+});
 
-
-app.listen(app.get('port'), () => {
-  console.log('Server is listening on port', app.get('port'))
-})
+app.listen(app.get("port"), () => {
+  console.log("Server is listening on port", app.get("port"));
+});

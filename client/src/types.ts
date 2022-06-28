@@ -1,4 +1,4 @@
-import * as ReactForm from "react-hook-form"
+
 import * as React from "react"
 
 
@@ -13,11 +13,14 @@ export interface ContextProps {
   color: string;
   numberIconDisplayState: boolean;
   numberIconNums: { mails: number; notifications: number };
-
   showPassword: boolean;
   toggleShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
- 
+ }
 
+export interface AuthContextProps {
+  loggedIn: boolean;
+  username: string;
+  handleLogin: (_username:string) => void
 }
 
 export interface IconProps {
@@ -72,8 +75,14 @@ export interface InputTextFieldProps {
 export interface RegisterProps {
   firstName: string;
   lastName: string;
-  userName: string;
-  eMailAddress: string;
+  username: string;
+  email: string;
+  password: string;
+  rePassword: string;
+}
+
+export interface LoginProps {
+  email: string;
   password: string;
 }
 
