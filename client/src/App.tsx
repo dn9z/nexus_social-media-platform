@@ -35,6 +35,9 @@ import Groups from "./components/MobileComponents/MobileGroups";
 
 import Info from "./icons/Info";
 
+import FollowSection from "./components/Follow/FollowSection";
+
+
 const Main = styled.main`
   display: flex;
   flex-direction: row;
@@ -80,6 +83,7 @@ function App() {
           {/* <HomeIndex/> */}
           {/* <ProfileIndex/> */}
 
+
           <BrowserRouter>
             {loggedIn ? (
               <Main>
@@ -92,6 +96,7 @@ function App() {
                   <PostModal show={context.showPostModal} />
 
                   <Routes>
+                  <Route path="/follow" element={<FollowSection />}/>
                     {/* <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} /> */}
                     {/*<Route path="/topmenu" element={<TopMenu />} /> */}
@@ -116,6 +121,7 @@ function App() {
               </Routes>
             )}
           </BrowserRouter>
+
 
         </ThemeProvider>
       </AppProvider>
