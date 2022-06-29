@@ -17,12 +17,7 @@ import TopMenu from "./components/MobileComponents/TopMenu";
 import HomeIndex from "./components/MobileComponents/Home/HomeIndex";
 import ProfileIndex from "./components/MobileComponents/Profile/ProfileIndex";
 
-
-import Register from "./components/Register/Register";
-import Login from "./components/Login/Login";
-
 import MessageMain from "./components/Messaging/MessageMain"
-
 
 import Register from "./components/AuthForms/Register";
 import Login from "./components/AuthForms/Login";
