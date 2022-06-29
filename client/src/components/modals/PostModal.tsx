@@ -88,6 +88,7 @@ const BottomContainer = styled.div<PModalBottomContainerProps>`
 const PostModal: React.FC<ModalProps> = (props) => {
   const context = React.useContext(Context);
   const theme = useTheme();
+  const [imagePath, setImagePath] = React.useState("");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -95,13 +96,17 @@ const PostModal: React.FC<ModalProps> = (props) => {
 
     const data = {
       date: new Date(Date.now()),
-      title: "title",
+      title: formData.get("title"),
       body: formData.get("body"),
-      media: "empty",
+      media: formData.get("image"),
     };
 
     try {
-      const response = await axiosApiInstance.post("http://localhost:3000/api/post/create", data);
+      const response = await axiosApiInstance.post("http://localhost:3000/api/post/create", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (response.status === 200) {
         console.log("post was created");
@@ -136,17 +141,18 @@ const PostModal: React.FC<ModalProps> = (props) => {
               />
             </PicContainer>
           </Left>
-          <Right onSubmit={handleSubmit}>
+          <Right onSubmit={handleSubmit} encType="multipart/form-data">
             <Title name="title" placeholder="Title" />
             <Textarea name="body" placeholder="...Body" />
-
-            <div style={{ width: "100px" }}>
+            {imagePath ? (
+              <img style={{ width: "20%", marginBottom: "20px" }} src={`/${imagePath}`} alt="" />
+            ) : (
               <img
-                style={{ width: "100%", marginBottom: "20px" }}
+                style={{ width: "20%", marginBottom: "20px" }}
                 src="https://its-mobility.de/wp-content/uploads/placeholder.png"
                 alt=""
               />
-            </div>
+            )}
             <BottomContainer bottomBorder={true}>
               <World
                 dropShadow={false}
@@ -156,11 +162,15 @@ const PostModal: React.FC<ModalProps> = (props) => {
             </BottomContainer>
             <BottomContainer bottomBorder={false}>
               <div>
-                <Image
-                  dropShadow={false}
-                  scaleFactor={0.55}
-                  color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
-                />
+                <label>
+                  <Image
+                    dropShadow={false}
+                    scaleFactor={0.55}
+                    color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
+                  />
+                  <input style={{ display: "" }} type="file" name="image" accept="image/*" />
+                </label>
+
                 <Gif
                   dropShadow={false}
                   scaleFactor={0.55}
