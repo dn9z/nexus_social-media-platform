@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express";
 import Post from "../models/Post";
-import {User} from "../types"
+import { User } from "../types";
 
 export async function createPost(req: Request, res: Response) {
+  const file = req.file as Express.Multer.File;
   const user = req.user as User;
   try {
     const newPost = await Post.create({
@@ -10,9 +11,8 @@ export async function createPost(req: Request, res: Response) {
       date: req.body.date,
       title: req.body.title,
       body: req.body.body,
-      media: req.body.media,
+      media: file.path,
     });
-
     return res.status(200).json({ message: "Post Created", createdPost: newPost });
   } catch (error) {
     return res.status(400).json({ message: "Something went wrong creating the post", error });
