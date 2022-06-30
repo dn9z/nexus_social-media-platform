@@ -55,11 +55,10 @@ app.use("/api/post", postRoutes);
 
 app.use(express.static(path.join(__dirname, "client/build")));
 // * is the wildcard, anything else that's no matching a route above this.
+app.use("/uploads", express.static("uploads"));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
-
-app.use("/uploads", express.static("uploads"));
 
 app.all("*", (req, res) => {
   res.status(500);

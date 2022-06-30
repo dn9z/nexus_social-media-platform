@@ -77,8 +77,6 @@ function App() {
         <ThemeProvider theme={{ mode: theme.mode }}>
           {/* <HomeIndex/> */}
           {/* <ProfileIndex/> */}
-
-
           <BrowserRouter>
             {loggedIn ? (
               <Main>
@@ -89,11 +87,8 @@ function App() {
                 </Left>
                 <Center>
                   <PostModal show={context.showPostModal} />
-
                   <Routes>
                   <Route path="/follow" element={<FollowSection />}/>
-                    {/* <Route path="/register" element={<Register />} />
-                    <Route path="/login" element={<Login />} /> */}
                     {/*<Route path="/topmenu" element={<TopMenu />} /> */}
                     <Route path="/" element={<Feed />} />
                     <Route path="/messages" element={<MessageMain />} />
@@ -112,12 +107,9 @@ function App() {
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                {/* <Route path="*" element={<LoginForm />} /> */}
               </Routes>
             )}
           </BrowserRouter>
-
-
         </ThemeProvider>
       </AppProvider>
   );
