@@ -9,4 +9,6 @@ router.use(passport.authenticate("jwt", { session: false }));
 
 router.post("/create",upload.single("media"), postController.createPost);
 
+router.get("/paginate", postController.paginate);
+
 export default router

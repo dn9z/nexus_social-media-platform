@@ -98,15 +98,21 @@ const PostModal: React.FC<ModalProps> = (props) => {
       date: new Date(Date.now()),
       title: formData.get("title"),
       body: formData.get("body"),
-      media: formData.get("image"),
+      media: formData.get("image") ? formData.get("image") : "",
+    };
+
+    const axiosOptions = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     };
 
     try {
-      const response = await axiosApiInstance.post("http://localhost:3000/api/post/create", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axiosApiInstance.post(
+        "http://localhost:3000/api/post/create",
+        data,
+        axiosOptions
+      );
 
       if (response.status === 200) {
         console.log("post was created");

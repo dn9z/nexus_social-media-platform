@@ -70,7 +70,6 @@ export const login = async (req:Request,res:Response) => {
   }
 };
 
-// cookies are not getting cleared, needs to be addressed
 export const logout = async (req:Request,res:Response) => {
   // Remove the httpOnly cookie
   res
@@ -83,4 +82,13 @@ export const logout = async (req:Request,res:Response) => {
   //.redirect("/");
 };
 
-export default { test, register, login, logout };
+export const getUserById = async (req:Request,res:Response) => {
+  try {
+    const user = await User.findById(req.params.id);
+    return res.status(200).json( user );
+  } catch (error) {
+    return res.status(400).json({ message: "Error happened", error: error });
+  }
+};
+
+export default { test, register, login, logout, getUserById };

@@ -2,14 +2,14 @@ import * as React from "react";
 import styled from "styled-components";
 import { Context } from "../../context/Context";
 import * as themeConf from "../../styles/theme";
-import Button from "../../buttons/Button"
-import {FeedProps} from "../../types"
+import Button from "../../buttons/Button";
+import { FeedProps } from "../../types";
 import Comments from "../Comments/Comments";
+import axiosApiInstance from "../../util/axiosInstance";
+import { format, parseISO } from "date-fns";
 
 const PostItem = styled.div`
-  /* border: 1px solid black; */
   width: calc(60vw - 2.6rem);
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -71,10 +71,24 @@ const PostBody = styled.div`
   font-size: 1.25rem;
 `;
 
-
-
 const FeedItem: React.FC<FeedProps> = ({ post }) => {
   const context = React.useContext(Context);
+  const [author, setAuthor] = React.useState("");
+
+  React.useEffect(() => {
+    async function getUserById() {
+      try {
+        const res = await axiosApiInstance.get(
+          `http://localhost:3000/api/user/getuserbyid/${post._user}`
+        );
+        setAuthor(res.data.username)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getUserById();
+  }, []);
+
   return (
     <>
       <PostItem>
@@ -87,29 +101,28 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
                 alt=""
               />
             </PostUserPicContainer>
-
-            <p>Username/Groupname</p>
+            <p>{author}</p>
           </PostUser>
-          <PostDate>1980-10-10</PostDate>
+          <PostDate>{format(parseISO(post.date), "MMM dd, yyyy")}</PostDate>
         </PostMetaData>
-
         <PostTextContainer>
           <PostTitle>{post.title}</PostTitle>
           <PostBody>{post.body}</PostBody>
         </PostTextContainer>
         <PostMedia>
-          <img
-            style={{ width: "100%", marginBottom: "20px" }}
-            src="https://its-mobility.de/wp-content/uploads/placeholder.png"
-            alt=""
-          />
+          {post.media && (
+            <img
+              // style={{ width: "100%", marginBottom: "20px" }}
+              src={`http://localhost:3000/${post.media}`}
+              alt=""
+            />
+          )}
         </PostMedia>
-        <div style={{placeSelf:"flex-end"}}>
-          <Button onClick={() => context.setShowPostModal(true)} text="Share" type="button"/>
+        <div style={{ placeSelf: "flex-end" }}>
+          <Button onClick={() => context.setShowPostModal(true)} text="Share" type="button" />
         </div>
-        <Comments post={post}/>
+        <Comments post={post} />
       </PostItem>
-      
     </>
   );
 };
