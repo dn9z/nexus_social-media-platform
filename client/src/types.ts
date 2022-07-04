@@ -95,3 +95,7 @@ export interface ModalProps {
 export interface PModalBottomContainerProps {
   bottomBorder: boolean;
 }
+
+export interface ProfileUserState {
+  username: string;
+}

@@ -2,6 +2,8 @@ import express, {Request, Response} from 'express'
 import bcrypt from "bcrypt";
 import User from "../models/User";
 import generateToken from "../passport/authentificator";
+import { UserType } from "../types";
+
 
 export async function test(req:Request,res:Response){
   try {
@@ -91,4 +93,17 @@ export const getUserById = async (req:Request,res:Response) => {
   }
 };
 
-export default { test, register, login, logout, getUserById };
+export const followUser = async (req:Request,res:Response) => {
+  const user = req.user as UserType;
+  try {
+    const userToFollow = await User.findById(req.params.id);
+    const updatedUser = await User.findByIdAndUpdate(user._id,
+      { $push: { _following: userToFollow._id } } 
+    )
+    return res.status(200).json( updatedUser );
+  } catch (error) {
+    return res.status(400).json({ message: "Error happened", error: error });
+  }
+};
+
+export default { test, register, login, logout, getUserById, followUser };

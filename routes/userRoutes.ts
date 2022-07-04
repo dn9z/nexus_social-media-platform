@@ -16,4 +16,6 @@ router.use(passport.authenticate("jwt", { session: false }));
 
 router.get("/getuserbyid/:id", userController.getUserById);
 
+router.patch("/followuser/:id", userController.followUser);
+
 export default router;
