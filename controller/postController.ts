@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
 import Post from "../models/Post";
-import { User } from "../types";
+import { UserType } from "../types";
 
 export async function createPost(req: Request, res: Response) {
-  const user = req.user as User;
+  const user = req.user as UserType;
   const file = req.file as Express.Multer.File;
   const path = file === undefined? '' : file.path
   try {
@@ -22,7 +22,7 @@ export async function createPost(req: Request, res: Response) {
 }
 
 export const paginate = async (req: Request, res: Response) => {
-  const user = req.user as User;
+  const user = req.user as UserType;
   const page = Number(req.query.page) || 1;
   const pageSize = Number(req.query.pageSize) || 10;
   const skipRows = (page - 1) * pageSize;

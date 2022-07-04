@@ -92,7 +92,7 @@ function App() {
                     {/*<Route path="/topmenu" element={<TopMenu />} /> */}
                     <Route path="/" element={<Feed />} />
                     <Route path="/messages" element={<MessageMain />} />
-                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/profile/:_id" element={<Profile />} />
                     <Route path="/nexus" element={""} />
                     {/* <Route path='/logout' element={<Logout/>}/> */}
                   </Routes>

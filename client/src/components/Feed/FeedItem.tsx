@@ -7,6 +7,7 @@ import { FeedProps } from "../../types";
 import Comments from "../Comments/Comments";
 import axiosApiInstance from "../../util/axiosInstance";
 import { format, parseISO } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 const PostItem = styled.div`
   width: calc(60vw - 2.6rem);
@@ -30,6 +31,7 @@ const PostMetaData = styled.div`
 const PostUser = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
   > p {
     margin-left: 1rem;
     font-size: 1.4rem;
@@ -74,7 +76,7 @@ const PostBody = styled.div`
 const FeedItem: React.FC<FeedProps> = ({ post }) => {
   const context = React.useContext(Context);
   const [author, setAuthor] = React.useState("");
-
+  const navigate = useNavigate()
   React.useEffect(() => {
     async function getUserById() {
       try {
@@ -93,7 +95,11 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
     <>
       <PostItem>
         <PostMetaData>
-          <PostUser>
+          <PostUser
+            onClick={() => {
+              navigate(`/profile/${post._user}`)
+            }}
+          >
             <PostUserPicContainer>
               <img
                 style={{ width: "100%", borderRadius: "50%" }}
@@ -101,7 +107,9 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
                 alt=""
               />
             </PostUserPicContainer>
-            <p>{author}</p>
+            <p
+              
+            >{author}</p>
           </PostUser>
           <PostDate>{format(parseISO(post.date), "MMM dd, yyyy")}</PostDate>
         </PostMetaData>
