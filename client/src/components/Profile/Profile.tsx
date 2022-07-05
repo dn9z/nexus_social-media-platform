@@ -120,13 +120,21 @@ const Profile: React.FC = () => {
     }
   }
 
+  async function handleUnfollow() {
+    try {
+      const res = await axiosApiInstance.patch(`http://localhost:3000/api/user/unfollowuser/${_id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   React.useEffect(() => {
     async function getUser() {
       try {
-        const res = await axiosApiInstance.get(`http://localhost:3000/api/user/getuserbyid/${_id}`);        
+        const res = await axiosApiInstance.get(`http://localhost:3000/api/user/getuserbyid/${_id}`);
         setCurrentUser(res.data);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
     getUser();
@@ -163,7 +171,11 @@ const Profile: React.FC = () => {
               <FollowContainer>
                 <Following>Following:</Following>
                 <Followers>Followers:</Followers>
-                <button onClick={handleFollow}>Follow</button>
+                {!currentUser._following.includes(currentUser._id) ? (
+                  <button onClick={handleFollow}>Follow</button>
+                ) : (
+                  <button onClick={handleUnfollow}>Unfollow</button>
+                )}
               </FollowContainer>
             </ProfileInfo>
           </ProfileContainer>

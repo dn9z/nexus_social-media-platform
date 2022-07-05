@@ -5,6 +5,8 @@ import { ContextProps } from "../types";
 export const Context = React.createContext<ContextProps>({
   showPostModal: false,
   setShowPostModal:() => {},
+  showErrorModal: false,
+  setShowErrorModal:() => {},
   color: "white",
   numberIconDisplayState: true,
   numberIconNums: { mails: 0, notifications: 0,},
@@ -15,6 +17,8 @@ export const Context = React.createContext<ContextProps>({
 function Provider(props: React.PropsWithChildren<{}>) {
 
   const [showPostModal, setShowPostModal] = React.useState(false);
+  const [showErrorModal, setShowErrorModal] = React.useState(false);
+  
 
   const [numberIconDisplayState, setNumberIconDisplayState] =
     React.useState(true);
@@ -38,6 +42,8 @@ function Provider(props: React.PropsWithChildren<{}>) {
         color,
         showPostModal,
         setShowPostModal,
+        showErrorModal,
+        setShowErrorModal,
         numberIconDisplayState,
         numberIconNums,
 

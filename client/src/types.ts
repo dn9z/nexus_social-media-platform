@@ -8,6 +8,8 @@ export interface ThemeProps {
 export interface ContextProps {
   showPostModal: boolean;
   setShowPostModal: React.Dispatch<React.SetStateAction<boolean>>;
+  showErrorModal: boolean;
+  setShowErrorModal: React.Dispatch<React.SetStateAction<boolean>>;
   color: string;
   numberIconDisplayState: boolean;
   numberIconNums: { mails: number; notifications: number };
@@ -92,10 +94,17 @@ export interface ModalProps {
   show: boolean;
 }
 
+export interface ErrorModalProps {
+  show: boolean;
+  message: string
+}
+
 export interface PModalBottomContainerProps {
   bottomBorder: boolean;
 }
 
 export interface ProfileUserState {
+  _id: string
+  _following:[string]
   username: string;
 }

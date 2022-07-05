@@ -18,4 +18,6 @@ router.get("/getuserbyid/:id", userController.getUserById);
 
 router.patch("/followuser/:id", userController.followUser);
 
+router.patch("/unfollowuser/:id", userController.unfollowUser);
+
 export default router;
