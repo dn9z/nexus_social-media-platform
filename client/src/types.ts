@@ -20,13 +20,15 @@ export interface ContextProps {
 export interface AuthContextProps {
   loggedIn: boolean;
   username: string;
-  handleLogin: (_username: string) => void;
+  userId: string,
+  handleLogin: (_username: string,_userId: string) => void;
 }
 
 export interface IconProps {
   color: string;
   dropShadow: boolean;
   scaleFactor: number;
+  onClick?:() => {}
 }
 
 export interface FilterProps {
