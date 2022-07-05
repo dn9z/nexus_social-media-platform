@@ -9,6 +9,8 @@ router.use(passport.authenticate("jwt", { session: false }));
 
 router.post("/create",upload.single("media"), postController.createPost);
 
+router.delete("/delete/:id", postController.deletePost);
+
 router.get("/paginate", postController.paginate);
 
 export default router

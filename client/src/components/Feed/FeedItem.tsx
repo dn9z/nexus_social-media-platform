@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Context } from "../../context/Context";
+import { AuthContext } from "../../context/AuthContext";
 import * as themeConf from "../../styles/theme";
 import Button from "../../buttons/Button";
 import { FeedProps } from "../../types";
@@ -8,6 +9,7 @@ import Comments from "../Comments/Comments";
 import axiosApiInstance from "../../util/axiosInstance";
 import { format, parseISO } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import Cross from "../../icons/Cross";
 
 const PostItem = styled.div`
   width: calc(60vw - 2.6rem);
@@ -24,6 +26,11 @@ const PostItem = styled.div`
 `;
 
 const PostMetaData = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const MetaDataRight = styled.div`
   display: flex;
   justify-content: space-between;
 `;
@@ -75,15 +82,29 @@ const PostBody = styled.div`
 
 const FeedItem: React.FC<FeedProps> = ({ post }) => {
   const context = React.useContext(Context);
+  const authContext = React.useContext(AuthContext);
+
   const [author, setAuthor] = React.useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  async function handleDeletePost() {
+    try {
+      const res = await axiosApiInstance.delete(
+        `http://localhost:3000/api/post/delete/${post._id}`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  // console.log(authContext.loggedUserID)
+
   React.useEffect(() => {
     async function getUserById() {
       try {
         const res = await axiosApiInstance.get(
           `http://localhost:3000/api/user/getuserbyid/${post._user}`
         );
-        setAuthor(res.data.username)
+        setAuthor(res.data.username);
       } catch (error) {
         console.log(error);
       }
@@ -97,7 +118,7 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
         <PostMetaData>
           <PostUser
             onClick={() => {
-              navigate(`/profile/${post._user}`)
+              navigate(`/profile/${post._user}`);
             }}
           >
             <PostUserPicContainer>
@@ -107,11 +128,16 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
                 alt=""
               />
             </PostUserPicContainer>
-            <p
-              
-            >{author}</p>
+            <p>{author}</p>
           </PostUser>
-          <PostDate>{format(parseISO(post.date), "MMM dd, yyyy")}</PostDate>
+          <MetaDataRight>
+            <PostDate>{format(parseISO(post.date), "MMM dd, yyyy")}</PostDate>
+            {authContext.userId === post._user && (
+              <div onClick={handleDeletePost}>
+                <Cross dropShadow={true} scaleFactor={0.55} color={context.color} />
+              </div>
+            )}
+          </MetaDataRight>
         </PostMetaData>
         <PostTextContainer>
           <PostTitle>{post.title}</PostTitle>

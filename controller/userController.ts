@@ -59,7 +59,7 @@ export const login = async (req: Request, res: Response) => {
         .json({
           message: "Login successful",
           // we are sending the user as an object with only selected keys
-          user: { username: user.username }, // later I might want to send more keys here
+          user: { username: user.username, _id:user._id }, // later I might want to send more keys here
           token,
         });
     } else {
