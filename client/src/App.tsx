@@ -31,6 +31,7 @@ import Groups from "./components/MobileComponents/MobileGroups";
 import Info from "./icons/Info";
 
 import FollowSection from "./components/Follow/FollowSection";
+import Logout from "./components/Logout/Logout";
 
 
 const Main = styled.main`
@@ -94,7 +95,7 @@ function App() {
                     <Route path="/messages" element={<MessageMain />} />
                     <Route path="/profile/:_id" element={<Profile />} />
                     <Route path="/nexus" element={""} />
-                    {/* <Route path='/logout' element={<Logout/>}/> */}
+                    <Route path='/logout' element={<Logout/>}/>
                   </Routes>
                 </Center>
                 <Right>
