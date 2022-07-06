@@ -8,7 +8,7 @@ import Image from "../../icons/Image";
 import Gif from "../../icons/Gif";
 import Emoji from "../../icons/Emoji";
 import Button from "../../buttons/Button";
-import { ErrorModalProps } from "../../types";
+import { ConfirmModalProps } from "../../types";
 import axiosApiInstance from "../../util/axiosInstance";
 
 const Background = styled.div`
@@ -74,15 +74,15 @@ const Textarea = styled.textarea`
   font-size: 1.5rem;
 `;
 
-const ErrorModal: React.FC<ErrorModalProps> = ({ message }) => {
+const ConfirmModal: React.FC<ConfirmModalProps> = ({ confirmFn }) => {
   const context = React.useContext(Context);
   const theme = useTheme();
 
-  if (context.showErrorModal === true) {
+  if (context.showConfirmModal === true) {
     return (
       <Background
         onClick={() => {
-          context.setShowErrorModal(false);
+          context.setShowConfirmModal(false);
         }}
       >
         <Container
@@ -90,13 +90,21 @@ const ErrorModal: React.FC<ErrorModalProps> = ({ message }) => {
             event.stopPropagation();
           }}
         >
-          <Message>{message}</Message>
+          <Message>Are you sure?</Message>
           <button
             onClick={() => {
-              context.setShowErrorModal(false);
+              confirmFn()
+              context.setShowConfirmModal(false);
             }}
           >
-            OK
+            Confirm
+          </button>
+          <button
+            onClick={() => {
+              context.setShowConfirmModal(false);
+            }}
+          >
+            Abort
           </button>
         </Container>
       </Background>
@@ -106,4 +114,4 @@ const ErrorModal: React.FC<ErrorModalProps> = ({ message }) => {
   }
 };
 
-export default ErrorModal;
+export default ConfirmModal;
