@@ -10,6 +10,8 @@ export interface ContextProps {
   setShowPostModal: React.Dispatch<React.SetStateAction<boolean>>;
   showErrorModal: boolean;
   setShowErrorModal: React.Dispatch<React.SetStateAction<boolean>>;
+  showConfirmModal: boolean;
+  setShowConfirmModal: React.Dispatch<React.SetStateAction<boolean>>;
   color: string;
   numberIconDisplayState: boolean;
   numberIconNums: { mails: number; notifications: number };
@@ -20,15 +22,15 @@ export interface ContextProps {
 export interface AuthContextProps {
   loggedIn: boolean;
   username: string;
-  userId: string,
-  handleLogin: (_username: string,_userId: string) => void;
+  userId: string;
+  handleLogin: (_username: string, _userId: string) => void;
 }
 
 export interface IconProps {
   color: string;
   dropShadow: boolean;
   scaleFactor: number;
-  onClick?:() => {}
+  onClick?: () => {};
 }
 
 export interface FilterProps {
@@ -98,7 +100,12 @@ export interface ModalProps {
 
 export interface ErrorModalProps {
   show: boolean;
-  message: string
+  message: string;
+}
+
+export interface ConfirmModalProps {
+  // show: boolean;
+  confirmFn: () => {};
 }
 
 export interface PModalBottomContainerProps {
@@ -106,7 +113,7 @@ export interface PModalBottomContainerProps {
 }
 
 export interface ProfileUserState {
-  _id: string
-  _following:[string]
+  _id: string;
+  _following: [string];
   username: string;
 }

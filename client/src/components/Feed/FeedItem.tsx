@@ -10,6 +10,7 @@ import axiosApiInstance from "../../util/axiosInstance";
 import { format, parseISO } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import Cross from "../../icons/Cross";
+import ConfirmModal from "../modals/ConfirmModal";
 
 const PostItem = styled.div`
   width: calc(60vw - 2.6rem);
@@ -96,8 +97,7 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
       console.log(error);
     }
   }
-  // console.log(authContext.loggedUserID)
-
+  
   React.useEffect(() => {
     async function getUserById() {
       try {
@@ -114,6 +114,7 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
 
   return (
     <>
+    <ConfirmModal confirmFn={handleDeletePost}/>
       <PostItem>
         <PostMetaData>
           <PostUser
@@ -133,7 +134,7 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
           <MetaDataRight>
             <PostDate>{format(parseISO(post.date), "MMM dd, yyyy")}</PostDate>
             {authContext.userId === post._user && (
-              <div onClick={handleDeletePost}>
+              <div onClick={() => {context.setShowConfirmModal(true)}}>
                 <Cross dropShadow={true} scaleFactor={0.55} color={context.color} />
               </div>
             )}
