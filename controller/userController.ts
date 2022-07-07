@@ -2,7 +2,8 @@ import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/User";
 import generateToken from "../passport/authentificator";
-import { UserType } from "../types";
+
+import { UserType } from '../types';
 
 export async function test(req: Request, res: Response) {
   try {
@@ -83,6 +84,42 @@ export const logout = async (req: Request, res: Response) => {
   //.redirect("/");
 };
 
+
+// editProfile
+
+export const editProfile = async (req:Request, res:Response) => {
+  const user = req.user as UserType;
+  const userResolved = await User.findByIdAndUpdate(user._id, {firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, username: req.body.username, bio: req.body.bio, location: req.body.location})
+  return res.status(200).json("User updated")
+}
+
+// getting the profile 
+export const profile = async (req:Request,res:Response) => {
+  const user = req.user as UserType;
+  const updatedUser = await User.findById(user._id)
+  return res.status(200).json({ profile: updatedUser})
+};
+// upload image
+export const uploadImage = async (req:Request,res:Response) => {
+  const user = req.user as UserType;
+  const userUpdate = await User.findByIdAndUpdate(user._id, {avatar: `/uploads/${req.file?.filename}`})
+  return res.status(200).json({path:`/uploads/${req.file?.filename}`})
+}
+
+// upload background image
+export const uploadBackgroundImage = async (req:Request,res:Response) => {
+  const user = req.user as UserType;
+  const userUpdate = await User.findByIdAndUpdate(user._id, {background: `/uploads/${req.file?.filename}`} )
+  return res.status(200).json({path:`/uploads/${req.file?.filename}`})
+}
+
+// GET ALL USERS ( not really necessary)
+
+export const getAllUsers = async (req:Request,res:Response) => {
+  try {
+    const data = await User.find();
+    res.status(200).json(data);
+
 export const getUserById = async (req: Request, res: Response) => {
   try {
     const user = await User.findById(req.params.id);
@@ -113,9 +150,11 @@ export const unfollowUser = async (req: Request, res: Response) => {
       $pull: { _following: userToUnfollow._id },
     });
     return res.status(200).json(updatedUser);
+
   } catch (error) {
     return res.status(400).json({ message: "Error happened", error: error });
   }
 };
 
-export default { test, register, login, logout, getUserById, followUser, unfollowUser };
+export default { test, register, login, logout, getAllUsers, profile, editProfile, uploadImage, uploadBackgroundImage, followUser, unfollowUser, getUserById };
+

@@ -15,7 +15,7 @@ function configureJwtStrategy(passport: any){ // any needs to be changed
       (jwtPayload, done) => {
         return (
           User.findById(jwtPayload.sub)
-            .select("_id username email")
+            .select("_id username email firstName lastName")
             .then((user) => {
               return done(null, user);
             })

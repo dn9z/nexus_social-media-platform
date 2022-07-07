@@ -53,9 +53,14 @@ mongoose
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 
+app.use("/uploads", express.static("uploads"));
 app.use(express.static(path.join(__dirname, "client/build")));
 // * is the wildcard, anything else that's no matching a route above this.
+
+
+
 app.use("/uploads", express.static("uploads"));
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });

@@ -9,7 +9,7 @@ import CommentsList from "./CommentsList";
 import {CommentProps} from "../../types"
 import axios from "axios";
 
-const FormContainer = styled.form`
+const FormContainer = styled.div`
   margin-top: 30px;
   border-top: 1px solid grey;
   padding-top: 10px;
@@ -66,7 +66,7 @@ const Comments: React.FC<CommentProps> = ({post}) => {
     date: new Date(Date.now()),
     body: commentValue,
     post_id: post._id
-    // user_id
+
   }
   console.log(data)
 

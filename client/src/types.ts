@@ -6,6 +6,16 @@ export interface ThemeProps {
 }
 
 export interface ContextProps {
+
+  backgroundModalSaved: boolean;
+  setBackgroundModalSaved: React.Dispatch<React.SetStateAction<boolean>>
+  showBackgroundModal: boolean;
+  setShowBackgroundModal: React.Dispatch<React.SetStateAction<boolean>>
+
+  avatarModalSaved: boolean;
+  setAvatarModalSaved: React.Dispatch<React.SetStateAction<boolean>>
+  showAvatarModal: boolean;
+  setShowAvatarModal: React.Dispatch<React.SetStateAction<boolean>>
   showPostModal: boolean;
   setShowPostModal: React.Dispatch<React.SetStateAction<boolean>>;
   showErrorModal: boolean;
@@ -42,7 +52,9 @@ export interface CommentProps {
   post: {
     _user: string;
     _id: string;
-    // title: string;
+
+    date: string;
+    title: string;
     body: string;
   };
 }
@@ -67,13 +79,34 @@ export interface FeedProps {
     media?: string;
   };
 }
-
 export interface FormProps {
   children: JSX.Element[] | JSX.Element;
 }
 
 export interface InputTextFieldProps {
   passwordField: boolean;
+}
+
+export interface ProfileProps {
+  _id: string;
+  username: string;
+  email: string;
+  bio: string;
+  location: string;
+  avatar:string;
+  background: string;
+}
+
+export interface EditProfileProps {
+  _id: string;
+  firstName: string;
+  lastName:string;
+  username: string;
+  email: string;
+  bio: string;
+  location: string;
+  avatar: string;
+  background: string;
 }
 
 export interface RegisterProps {
