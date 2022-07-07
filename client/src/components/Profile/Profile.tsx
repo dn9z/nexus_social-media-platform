@@ -84,14 +84,6 @@ const AvatarImageContainer = styled.div`
   cursor: pointer;
 `;
 
-const Feed = styled.div`
-  text-align: center;
-  border: 2px solid black;
-  margin: 35px 15px 15px 15px;
-  border-radius: 5px;
-  height: auto;
-`;
-
 const Username = styled.div`
   font-weight: 700;
   font-size: 1.7rem;
@@ -135,7 +127,6 @@ const Profile: React.FC = () => {
   const navigate = useNavigate();
   const { _id } = useParams();
   const [currentUser, setCurrentUser] = React.useState<ProfileUserState | null>(null);
-  const [profile, setProfile] = useState<ProfileProps | null>(null);
 
   async function handleFollow() {
     try {
@@ -153,16 +144,6 @@ const Profile: React.FC = () => {
     }
   }
 
-  useEffect(() => {
-    axios
-      .get("/api/user/profile", {
-        withCredentials: true,
-      })
-      .then((response) => {
-        setProfile(response.data.profile);
-        console.log("Request Profile:", response.data.profile);
-      });
-  }, []);
 
   React.useEffect(() => {
     async function getUser() {
@@ -192,8 +173,8 @@ const Profile: React.FC = () => {
              <BackgroundContainer>
             <BackgroundImage
               src={
-                profile?.background
-                  ? process.env.REACT_APP_SERVER_URI + profile.background
+                currentUser.background
+                  ? process.env.REACT_APP_SERVER_URI + currentUser.background
                   : ""
               }
               alt="Background"
@@ -208,8 +189,8 @@ const Profile: React.FC = () => {
                   borderRadius: "50%",
                 }}
                 src={
-                  profile?.avatar
-                    ? process.env.REACT_APP_SERVER_URI + profile?.avatar
+                  currentUser.avatar
+                    ? process.env.REACT_APP_SERVER_URI + currentUser.avatar
                     : Pic
                 }
                 alt="Pic"
@@ -230,24 +211,24 @@ const Profile: React.FC = () => {
             <ProfileInfo>
             
               <Username>
-              <p>Username: {profile?.username}</p>
+              <p>Username: {currentUser.username}</p>
             </Username>
 
             <Email>
-              <p>Email: {profile?.email}</p>
+              <p>Email: {currentUser.email}</p>
             </Email>
 
-            {profile ? (
+            {currentUser ? (
               <Bio>
-                <p>{profile?.bio}</p>
+                <p>{currentUser.bio}</p>
               </Bio>
             ) : (
               ""
             )}
 
-            {profile?.location ? (
+            {currentUser.location ? (
               <Location>
-                <p>{profile?.location}</p>
+                <p>{currentUser.location}</p>
               </Location>
             ) : (
               ""

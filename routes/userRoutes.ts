@@ -13,8 +13,6 @@ router.post("/register", userController.register);
 
 router.get("/logout", userController.logout);
 
-router.get("/allUser", userController.getAllUsers);
-
 router.use(passport.authenticate("jwt", { session: false }));
 
 
