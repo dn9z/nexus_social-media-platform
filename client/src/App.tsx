@@ -8,6 +8,8 @@ import { AuthContext } from "./context/AuthContext";
 
 import SideMenu from "./components/SideMenu/SideMenu";
 import Profile from "./components/Profile/Profile";
+import EditProfile from "./components/Profile/EditProfile";
+
 import PostModal from "./components/modals/PostModal";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from "./components/Feed/Feed";
@@ -31,6 +33,8 @@ import Groups from "./components/MobileComponents/MobileGroups";
 import Info from "./icons/Info";
 
 import FollowSection from "./components/Follow/FollowSection";
+import AvatarUploadModal from "./components/modals/AvatarUploadModal";
+import BackgroundUploadModal from "./components/modals/BackgroundUploadModal";
 
 
 const Main = styled.main`
@@ -89,7 +93,8 @@ function App() {
                 </Left>
                 <Center>
                   <PostModal show={context.showPostModal} />
-
+                  <AvatarUploadModal show={context.showAvatarModal} />
+                  <BackgroundUploadModal show={context.showBackgroundModal} />
                   <Routes>
                   <Route path="/follow" element={<FollowSection />}/>
                     {/* <Route path="/register" element={<Register />} />
@@ -98,6 +103,8 @@ function App() {
                     <Route path="/" element={<Feed />} />
                     <Route path="/messages" element={<MessageMain />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/editprofile" element={<EditProfile />} />
+
                     <Route path="/nexus" element={""} />
                     {/* <Route path='/logout' element={<Logout/>}/> */}
                   </Routes>

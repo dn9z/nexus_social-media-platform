@@ -82,7 +82,7 @@ const Login: React.FC = () => {
     // setJson(JSON.stringify(data));
 
     try {
-      const response = await axios.post("http://localhost:3000/api/user/login", data, {
+      const response = await axios.post("/api/user/login", data, {
         withCredentials: true
       });
       if (response.status === 200) {

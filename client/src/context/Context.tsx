@@ -3,6 +3,16 @@ import { ContextProps } from "../types";
 
 /* create context with initialValues as arguments */
 export const Context = React.createContext<ContextProps>({
+  backgroundModalSaved: false,
+  setBackgroundModalSaved: () => {},
+  showBackgroundModal: false, 
+  setShowBackgroundModal:() => {},
+
+  avatarModalSaved: false,
+  setAvatarModalSaved: () => {},
+  showAvatarModal: false, 
+  setShowAvatarModal:() => {},
+
   showPostModal: false,
   setShowPostModal:() => {},
   color: "white",
@@ -15,6 +25,11 @@ export const Context = React.createContext<ContextProps>({
 function Provider(props: React.PropsWithChildren<{}>) {
 
   const [showPostModal, setShowPostModal] = React.useState(false);
+  const [showAvatarModal, setShowAvatarModal] = React.useState(false);
+  const [avatarModalSaved, setAvatarModalSaved] = React.useState(false);
+
+  const [showBackgroundModal, setShowBackgroundModal] = React.useState(false);
+  const [backgroundModalSaved, setBackgroundModalSaved] = React.useState(false);
 
   const [numberIconDisplayState, setNumberIconDisplayState] =
     React.useState(true);
@@ -24,11 +39,7 @@ function Provider(props: React.PropsWithChildren<{}>) {
     notifications: 0,
   });
 
-
   const [showPassword, toggleShowPassword] = React.useState(false);
-
-
- 
 
   let color = "white";
 
@@ -36,6 +47,16 @@ function Provider(props: React.PropsWithChildren<{}>) {
     <Context.Provider
       value={{
         color,
+
+        backgroundModalSaved,
+        setBackgroundModalSaved,
+        showBackgroundModal,
+        setShowBackgroundModal,
+
+        avatarModalSaved,
+        setAvatarModalSaved,
+        showAvatarModal,
+        setShowAvatarModal,
         showPostModal,
         setShowPostModal,
         numberIconDisplayState,

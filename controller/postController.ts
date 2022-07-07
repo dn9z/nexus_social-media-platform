@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
 import Post from "../models/Post";
-import { User } from "../types";
+import { UserType } from "../types";
 
 export async function createPost(req: Request, res: Response) {
   const file = req.file as Express.Multer.File;
-  const user = req.user as User;
+  const user = req.user as UserType;
   try {
     const newPost = await Post.create({
       _user: user._id,
