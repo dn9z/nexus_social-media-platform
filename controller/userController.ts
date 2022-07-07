@@ -113,12 +113,6 @@ export const uploadBackgroundImage = async (req:Request,res:Response) => {
   return res.status(200).json({path:`/uploads/${req.file?.filename}`})
 }
 
-// GET ALL USERS ( not really necessary)
-
-export const getAllUsers = async (req:Request,res:Response) => {
-  try {
-    const data = await User.find();
-    res.status(200).json(data);
 
 export const getUserById = async (req: Request, res: Response) => {
   try {
@@ -156,5 +150,5 @@ export const unfollowUser = async (req: Request, res: Response) => {
   }
 };
 
-export default { test, register, login, logout, getAllUsers, profile, editProfile, uploadImage, uploadBackgroundImage, followUser, unfollowUser, getUserById };
+export default { test, register, login, logout, profile, editProfile, uploadImage, uploadBackgroundImage, followUser, unfollowUser, getUserById };
 

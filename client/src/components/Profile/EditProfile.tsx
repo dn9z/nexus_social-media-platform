@@ -10,6 +10,7 @@ import axiosApiInstance from "../../util/axiosInstance";
 import EditAvatarButton from "../../buttons/EditAvatarButton";
 import EditBackgroundButton from "../../buttons/EditBackgroundButton";
 import { Context } from "../../context/Context";
+import { AuthContext } from "../../context/AuthContext";
 
 const Main = styled.div`
   height: 100vh;
@@ -145,6 +146,7 @@ objectFit: "cover";
 
 const EditProfile: React.FC = () => {
   const context = React.useContext(Context);
+  const authContext = React.useContext(AuthContext);
   // const [profile, setProfile] = useState<ProfileProps | null>(null);
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
@@ -188,7 +190,7 @@ const EditProfile: React.FC = () => {
     );
     if (response.status === 200) {
       console.log("Profile saved", profileInfo);
-      navigate("/profile");
+      navigate(`/profile/${authContext.userId}`);
     }
   };
 
@@ -198,7 +200,7 @@ const EditProfile: React.FC = () => {
     <Main>
       <Container>
         <Banner>
-          <BackButton onClick={() => navigate("/profile")}>X</BackButton>
+          <BackButton onClick={() => navigate(`/profile/${authContext.userId}`)}>X</BackButton>
           <Edit>Edit</Edit>
           <SaveButton onClick={handleClick}>Save</SaveButton>
         </Banner>

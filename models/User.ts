@@ -14,8 +14,7 @@ const userSchema = new Schema({
   personalText:{type:String},
   bio: {type:String},
   location: {type:String},
-  background: {type:String}
-
+  background: {type:String},
   _following:{type:[{type:Schema.Types.ObjectId, ref:'users'}]}
 
 })

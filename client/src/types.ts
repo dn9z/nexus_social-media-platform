@@ -149,4 +149,9 @@ export interface ProfileUserState {
   _id: string;
   _following: [string];
   username: string;
+  email: string;
+  bio: string;
+  location: string;
+  avatar:string;
+  background: string;
 }

@@ -59,7 +59,7 @@ const SideMenu: React.FC = () => {
   const navigate = useNavigate();
 
   const context = React.useContext(Context);
-  const { handleLogin } = React.useContext(AuthContext);
+  const { handleLogin, userId } = React.useContext(AuthContext);
   const theme = useTheme();
 
   const handleLogout = async () => {
@@ -86,7 +86,7 @@ const SideMenu: React.FC = () => {
         <Home dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Home</p>
       </Item>
-      <Item onClick={() => {}}>
+      <Item onClick={() => {navigate(`/profile/${userId}`)}}>
         <User dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Profile</p>
       </Item>
