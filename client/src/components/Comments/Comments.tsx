@@ -66,7 +66,7 @@ const Comments: React.FC<CommentProps> = ({post}) => {
     date: new Date(Date.now()),
     body: commentValue,
     post_id: post._id
-  
+
   }
   console.log(data)
 

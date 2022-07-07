@@ -33,8 +33,12 @@ import Groups from "./components/MobileComponents/MobileGroups";
 import Info from "./icons/Info";
 
 import FollowSection from "./components/Follow/FollowSection";
+
 import AvatarUploadModal from "./components/modals/AvatarUploadModal";
 import BackgroundUploadModal from "./components/modals/BackgroundUploadModal";
+
+import Logout from "./components/Logout/Logout";
+
 
 
 const Main = styled.main`
@@ -81,8 +85,6 @@ function App() {
         <ThemeProvider theme={{ mode: theme.mode }}>
           {/* <HomeIndex/> */}
           {/* <ProfileIndex/> */}
-
-
           <BrowserRouter>
             {loggedIn ? (
               <Main>
@@ -93,20 +95,25 @@ function App() {
                 </Left>
                 <Center>
                   <PostModal show={context.showPostModal} />
+
                   <AvatarUploadModal show={context.showAvatarModal} />
                   <BackgroundUploadModal show={context.showBackgroundModal} />
+
+
                   <Routes>
                   <Route path="/follow" element={<FollowSection />}/>
-                    {/* <Route path="/register" element={<Register />} />
-                    <Route path="/login" element={<Login />} /> */}
                     {/*<Route path="/topmenu" element={<TopMenu />} /> */}
                     <Route path="/" element={<Feed />} />
                     <Route path="/messages" element={<MessageMain />} />
+
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/editprofile" element={<EditProfile />} />
 
+
+                    <Route path="/profile/:_id" element={<Profile />} />
+
                     <Route path="/nexus" element={""} />
-                    {/* <Route path='/logout' element={<Logout/>}/> */}
+                    <Route path='/logout' element={<Logout/>}/>
                   </Routes>
                 </Center>
                 <Right>
@@ -119,12 +126,9 @@ function App() {
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                {/* <Route path="*" element={<LoginForm />} /> */}
               </Routes>
             )}
           </BrowserRouter>
-
-
         </ThemeProvider>
       </AppProvider>
   );

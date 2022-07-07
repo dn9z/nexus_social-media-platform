@@ -1,10 +1,11 @@
-import express, {Request, Response} from 'express'
+import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/User";
 import generateToken from "../passport/authentificator";
+
 import { UserType } from '../types';
 
-export async function test(req:Request,res:Response){
+export async function test(req: Request, res: Response) {
   try {
     return res.status(200).json({ message: "test successful" });
   } catch (error) {
@@ -12,7 +13,7 @@ export async function test(req:Request,res:Response){
   }
 }
 
-export const register = async (req:Request,res:Response) => {
+export const register = async (req: Request, res: Response) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
@@ -25,14 +26,14 @@ export const register = async (req:Request,res:Response) => {
       password: hashedPassword,
     });
     await user.save();
-    
+
     return res.status(200).json({ message: "User Created" });
   } catch (error) {
     return res.status(400).json({ message: "Something went wrong creating the user", error });
   }
 };
 
-export const login = async (req:Request,res:Response) => {
+export const login = async (req: Request, res: Response) => {
   //check if the user exists with that email
   const user = await User.findOne({ email: req.body.email });
 
@@ -59,8 +60,8 @@ export const login = async (req:Request,res:Response) => {
         .json({
           message: "Login successful",
           // we are sending the user as an object with only selected keys
-          user: { username: user.username }, // later I might want to send more keys here
-          token
+          user: { username: user.username, _id:user._id }, // later I might want to send more keys here
+          token,
         });
     } else {
       return res.status(400).json({ message: "Passwords not matching" });
@@ -71,8 +72,7 @@ export const login = async (req:Request,res:Response) => {
   }
 };
 
-// cookies are not getting cleared, needs to be addressed
-export const logout = async (req:Request,res:Response) => {
+export const logout = async (req: Request, res: Response) => {
   // Remove the httpOnly cookie
   res
     .clearCookie("jwt", {
@@ -83,6 +83,7 @@ export const logout = async (req:Request,res:Response) => {
     .json({ message: "Logout successful" }); // saying we want to send a JSON object
   //.redirect("/");
 };
+
 
 // editProfile
 
@@ -118,9 +119,42 @@ export const getAllUsers = async (req:Request,res:Response) => {
   try {
     const data = await User.find();
     res.status(200).json(data);
+
+export const getUserById = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.params.id);
+    return res.status(200).json(user);
   } catch (error) {
     return res.status(400).json({ message: "Error happened", error: error });
   }
 };
 
-export default { test, register, login, logout, getAllUsers, profile, editProfile, uploadImage, uploadBackgroundImage };
+export const followUser = async (req: Request, res: Response) => {
+  const user = req.user as UserType;
+  try {
+    const userToFollow = await User.findById(req.params.id);
+    const updatedUser = await User.findByIdAndUpdate(user._id, {
+      $push: { _following: userToFollow._id },
+    });
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    return res.status(400).json({ message: "Error happened", error: error });
+  }
+};
+
+export const unfollowUser = async (req: Request, res: Response) => {
+  const user = req.user as UserType;
+  try {
+    const userToUnfollow = await User.findById(req.params.id);
+    const updatedUser = await User.findByIdAndUpdate(user._id, {
+      $pull: { _following: userToUnfollow._id },
+    });
+    return res.status(200).json(updatedUser);
+
+  } catch (error) {
+    return res.status(400).json({ message: "Error happened", error: error });
+  }
+};
+
+export default { test, register, login, logout, getAllUsers, profile, editProfile, uploadImage, uploadBackgroundImage, followUser, unfollowUser, getUserById };
+

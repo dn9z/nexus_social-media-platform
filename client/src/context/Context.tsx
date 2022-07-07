@@ -15,6 +15,10 @@ export const Context = React.createContext<ContextProps>({
 
   showPostModal: false,
   setShowPostModal:() => {},
+  showErrorModal: false,
+  setShowErrorModal:() => {},
+  showConfirmModal: false,
+  setShowConfirmModal:() => {},
   color: "white",
   numberIconDisplayState: true,
   numberIconNums: { mails: 0, notifications: 0,},
@@ -25,11 +29,17 @@ export const Context = React.createContext<ContextProps>({
 function Provider(props: React.PropsWithChildren<{}>) {
 
   const [showPostModal, setShowPostModal] = React.useState(false);
+
   const [showAvatarModal, setShowAvatarModal] = React.useState(false);
   const [avatarModalSaved, setAvatarModalSaved] = React.useState(false);
 
   const [showBackgroundModal, setShowBackgroundModal] = React.useState(false);
   const [backgroundModalSaved, setBackgroundModalSaved] = React.useState(false);
+
+  const [showErrorModal, setShowErrorModal] = React.useState(false);
+  const [showConfirmModal, setShowConfirmModal] = React.useState(false);
+  
+
 
   const [numberIconDisplayState, setNumberIconDisplayState] =
     React.useState(true);
@@ -59,6 +69,10 @@ function Provider(props: React.PropsWithChildren<{}>) {
         setShowAvatarModal,
         showPostModal,
         setShowPostModal,
+        showErrorModal,
+        setShowErrorModal,
+        showConfirmModal,
+        setShowConfirmModal,
         numberIconDisplayState,
         numberIconNums,
 

@@ -10,10 +10,14 @@ const userSchema = new Schema({
   email:{type:String, required:true, unique: true},
   password:{type:String, required:true},
   avatar:{type:String},
+
   personalText:{type:String},
   bio: {type:String},
   location: {type:String},
   background: {type:String}
+
+  _following:{type:[{type:Schema.Types.ObjectId, ref:'users'}]}
+
 })
 
 

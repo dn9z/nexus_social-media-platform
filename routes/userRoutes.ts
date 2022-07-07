@@ -17,6 +17,7 @@ router.get("/allUser", userController.getAllUsers);
 
 router.use(passport.authenticate("jwt", { session: false }));
 
+
 const storage = multer.diskStorage({
     //this is where the file will go 
     destination:function(req, file, cb){
@@ -39,5 +40,12 @@ router.get("/profile", userController.profile);
 
 router.post("/uploadBackgroundImage",upload.single('image'), userController.uploadBackgroundImage)
 router.post("/uploadImage",upload.single('image'), userController.uploadImage)
+
+router.get("/getuserbyid/:id", userController.getUserById);
+
+router.patch("/followuser/:id", userController.followUser);
+
+router.patch("/unfollowuser/:id", userController.unfollowUser);
+
 
 export default router;

@@ -1,6 +1,4 @@
-
-import * as React from "react"
-
+import * as React from "react";
 
 export interface ThemeProps {
   mode: string;
@@ -19,29 +17,46 @@ export interface ContextProps {
   showAvatarModal: boolean;
   setShowAvatarModal: React.Dispatch<React.SetStateAction<boolean>>
   showPostModal: boolean;
-  setShowPostModal: React.Dispatch<React.SetStateAction<boolean>>
+  setShowPostModal: React.Dispatch<React.SetStateAction<boolean>>;
+  showErrorModal: boolean;
+  setShowErrorModal: React.Dispatch<React.SetStateAction<boolean>>;
+  showConfirmModal: boolean;
+  setShowConfirmModal: React.Dispatch<React.SetStateAction<boolean>>;
   color: string;
   numberIconDisplayState: boolean;
   numberIconNums: { mails: number; notifications: number };
   showPassword: boolean;
   toggleShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
- }
+}
 
 export interface AuthContextProps {
   loggedIn: boolean;
   username: string;
-  handleLogin: (_username:string) => void
+  userId: string;
+  handleLogin: (_username: string, _userId: string) => void;
 }
 
 export interface IconProps {
   color: string;
   dropShadow: boolean;
-  scaleFactor:number;
+  scaleFactor: number;
+  onClick?: () => {};
 }
 
 export interface FilterProps {
-  dropShadow:boolean;
+  dropShadow: boolean;
   scaleFactor: number;
+}
+
+export interface CommentProps {
+  post: {
+    _user: string;
+    _id: string;
+
+    date: string;
+    title: string;
+    body: string;
+  };
 }
 
 export interface FeedState {
@@ -52,15 +67,6 @@ export interface FeedState {
     title: string;
     body: string;
   }[];
-}
-
-export interface CommentProps {
-  post: {
-    _user: string;
-    _id: string;
-    // title: string;
-    body: string;
-  };
 }
 
 export interface FeedProps {
@@ -75,13 +81,10 @@ export interface FeedProps {
 }
 export interface FormProps {
   children: JSX.Element[] | JSX.Element;
-
 }
 
 export interface InputTextFieldProps {
-
   passwordField: boolean;
-
 }
 
 export interface ProfileProps {
@@ -128,10 +131,22 @@ export interface ModalProps {
   show: boolean;
 }
 
+export interface ErrorModalProps {
+  show: boolean;
+  message: string;
+}
+
+export interface ConfirmModalProps {
+  // show: boolean;
+  confirmFn: () => {};
+}
+
 export interface PModalBottomContainerProps {
   bottomBorder: boolean;
 }
 
-
-
-
+export interface ProfileUserState {
+  _id: string;
+  _following: [string];
+  username: string;
+}
