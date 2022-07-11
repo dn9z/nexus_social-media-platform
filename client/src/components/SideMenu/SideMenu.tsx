@@ -65,7 +65,7 @@ const SideMenu: React.FC = () => {
   const handleLogout = async () => {
     try {
       await axiosApiInstance.get("http://localhost:3000/api/user/logout");
-      handleLogin(""); // empty strings will resolve to falsey value
+      handleLogin("",""); // empty strings will resolve to falsey value
 
       // Navigate("/");
       navigate('/')

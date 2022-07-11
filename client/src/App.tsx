@@ -9,6 +9,7 @@ import { AuthContext } from "./context/AuthContext";
 import SideMenu from "./components/SideMenu/SideMenu";
 import Profile from "./components/Profile/Profile";
 import PostModal from "./components/modals/PostModal";
+import NewMessageModal from "./components/modals/NewMessageModal";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from "./components/Feed/Feed";
 import AppProvider from "./context/Context";
@@ -18,8 +19,6 @@ import HomeIndex from "./components/MobileComponents/Home/HomeIndex";
 import ProfileIndex from "./components/MobileComponents/Profile/ProfileIndex";
 
 
-import Register from "./components/Register/Register";
-import Login from "./components/Login/Login";
 
 import MessageMain from "./components/Messaging/MessageMain"
 
@@ -90,7 +89,7 @@ function App() {
                 </Left>
                 <Center>
                   <PostModal show={context.showPostModal} />
-
+                  <NewMessageModal show={context.showNewMessageModal} />
                   <Routes>
                     {/* <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} /> */}

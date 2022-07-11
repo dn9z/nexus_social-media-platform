@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import passport from "passport";
 import userRoutes from "./routes/userRoutes";
 import postRoutes from "./routes/postRoutes";
+import messageRoutes from "./routes/messageRoutes";
 
 import configurePassport from "./passport/passport-config";
 
@@ -44,6 +45,7 @@ mongoose
 
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/messages", messageRoutes)
 
 app.all("*", (req, res) => {
   res.status(500);

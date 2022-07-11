@@ -1,6 +1,4 @@
-
-import * as React from "react"
-
+import * as React from "react";
 
 export interface ThemeProps {
   mode: string;
@@ -9,28 +7,40 @@ export interface ThemeProps {
 
 export interface ContextProps {
   showPostModal: boolean;
-  setShowPostModal: React.Dispatch<React.SetStateAction<boolean>>
+  setShowPostModal: React.Dispatch<React.SetStateAction<boolean>>;
   color: string;
   numberIconDisplayState: boolean;
   numberIconNums: { mails: number; notifications: number };
   showPassword: boolean;
   toggleShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
- }
+  showNewMessageModal: boolean;
+  setShowNewMessageModal: React.Dispatch<React.SetStateAction<boolean>>;
+  conversationId: string;
+  setConversationId: React.Dispatch<React.SetStateAction<string>>;
+  isCreated: boolean;
+  setIsCreated: React.Dispatch<React.SetStateAction<boolean>>;
+  recipient: string | null;
+  setRecipient: React.Dispatch<React.SetStateAction<string | null>>;
+  recipientId: string | null;
+  setRecipientId: React.Dispatch<React.SetStateAction<string | null>>;
+}
 
 export interface AuthContextProps {
   loggedIn: boolean;
   username: string;
-  handleLogin: (_username:string) => void
+  handleLogin: (_username: string, _userId:string) => void;
+  userId: string;
+
 }
 
 export interface IconProps {
   color: string;
   dropShadow: boolean;
-  scaleFactor:number;
+  scaleFactor: number;
 }
 
 export interface FilterProps {
-  dropShadow:boolean;
+  dropShadow: boolean;
   scaleFactor: number;
 }
 
@@ -63,13 +73,10 @@ export interface FeedProps {
 
 export interface FormProps {
   children: JSX.Element[] | JSX.Element;
-
 }
 
 export interface InputTextFieldProps {
-
   passwordField: boolean;
-
 }
 
 export interface RegisterProps {
@@ -98,6 +105,8 @@ export interface PModalBottomContainerProps {
   bottomBorder: boolean;
 }
 
-
-
-
+export interface MessageProps {
+  text: string;
+  date: string;
+  username: string;
+}
