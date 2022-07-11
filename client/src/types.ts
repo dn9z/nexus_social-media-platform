@@ -161,7 +161,7 @@ export interface MessageProps {
   text: string;
   date: string;
   username: string;
-
+}
 export interface ConfirmModalProps {
   // show: boolean;
   confirmFn: () => {};
