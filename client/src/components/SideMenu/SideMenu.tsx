@@ -4,6 +4,7 @@ import { Context } from "../../context/Context";
 import Home from "../../icons/Home";
 import User from "../../icons/User";
 import Mail from "../../icons/Mail";
+import Logout from "../../icons/LogoutIcon";
 import Notifications from "../../icons/Notifications";
 import Bookmarks from "../../icons/Bookmarks";
 import Groups from "../../icons/Groups";
@@ -20,7 +21,7 @@ import { AuthContext } from "../../context/AuthContext";
 import axiosApiInstance from "../../util/axiosInstance";
 
 const Container = styled.div`
-  height: 630px;
+  height: auto;
   margin: 2rem;
   padding: 1rem;
   border: 1px solid grey;
@@ -59,36 +60,23 @@ const SideMenu: React.FC = () => {
   const navigate = useNavigate();
 
   const context = React.useContext(Context);
-  const { handleLogin, userId } = React.useContext(AuthContext);
+  const { userId } = React.useContext(AuthContext);
   const theme = useTheme();
-
-  const handleLogout = async () => {
-    try {
-      await axiosApiInstance.get("http://localhost:3000/api/user/logout");
-
-      handleLogin("", ""); // empty strings will resolve to falsey value
-
-
-      // Navigate("/");
-      navigate('/')
-    } catch (error) {
-      console.log(error);
-      // setIsError(true);
-      // setErrorMessage(error.response.data.message);
-    }
-  };
 
   return (
     <Container>
       <Header>
         <h1>NEXUS</h1>
       </Header>
-      <button onClick={handleLogout}>Logout</button>
       <Item onClick={() => {}}>
         <Home dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Home</p>
       </Item>
-      <Item onClick={() => {navigate(`/profile/${userId}`)}}>
+      <Item
+        onClick={() => {
+          navigate(`/profile/${userId}`);
+        }}
+      >
         <User dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Profile</p>
       </Item>
@@ -101,7 +89,11 @@ const SideMenu: React.FC = () => {
         <p>Mail</p>
       </Item>
       <Item onClick={() => {}}>
-        <Notifications dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <Notifications
+          dropShadow={true}
+          scaleFactor={0.55}
+          color={context.color}
+        />
         <NumberAlert
           displayState={context.numberIconDisplayState}
           number={context.numberIconNums.notifications}
@@ -122,11 +114,23 @@ const SideMenu: React.FC = () => {
       </Item>
       <Item onClick={() => theme.toggle()}>
         {theme.mode === "light" ? (
-          <DarkMode dropShadow={true} scaleFactor={0.55} color={context.color} />
+          <DarkMode
+            dropShadow={true}
+            scaleFactor={0.55}
+            color={context.color}
+          />
         ) : (
-          <LightMode dropShadow={true} scaleFactor={0.55} color={context.color} />
+          <LightMode
+            dropShadow={true}
+            scaleFactor={0.55}
+            color={context.color}
+          />
         )}
         {theme.mode === "light" ? <p>Dark mode</p> : <p>Light mode</p>}
+      </Item>
+      <Item onClick={() => navigate("/logout")}>
+        <Logout dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <p>Logout</p>
       </Item>
       <Button
         // onClick={(event) => context.handlePostClick(event)}
