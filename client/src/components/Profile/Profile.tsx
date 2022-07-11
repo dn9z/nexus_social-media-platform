@@ -19,7 +19,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: auto;
+  overflow: scroll;
 `;
 
 const Banner = styled.div`
@@ -50,7 +50,9 @@ const ProfileContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: 80vh;
+  overflow: visible;
 `;
+
 
 const BackgroundContainer = styled.div`
   display: flex;
@@ -246,8 +248,12 @@ const Profile: React.FC = () => {
               
               
             </ProfileInfo>
+            <div>
+            <Feed />
+            </div>
+            
           </ProfileContainer>
-          <Feed />
+         
         </Container>
       </>
     )
