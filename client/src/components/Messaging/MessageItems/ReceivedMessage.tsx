@@ -4,6 +4,7 @@ import { Context } from "../../../context/Context";
 import * as themeConf from "../../../styles/theme";
 import { useTheme } from "../../../context/ThemeManager";
 import UserPic from "../../User/UserPic"
+import { MessageProps } from "../../../types";
 
 const Container = styled.div`
   min-height: 50px;
@@ -46,15 +47,16 @@ const ChatBubble = styled.div`
     line-break: word;
   }
 `;
+const Username = styled.p`
+font-family: NotoSans;
+font-size: 0.8rem;
+margin-bottom: 0.5rem;
+letter-spacing: 0.1rem;`
 
-interface MessageProps {
-    text: string,
-    date: object
-}
 
 
-const ReceivedMessage: React.FC<MessageProps> = ({text, date}) => {
-  const theme = useTheme();
+const ReceivedMessage: React.FC<MessageProps> = ({text, date, username}) => {
+  
 
   return (
     <Container>
@@ -62,10 +64,11 @@ const ReceivedMessage: React.FC<MessageProps> = ({text, date}) => {
         <UserPic customSize="30px" image={undefined}/>
         <ColumnContainer>
           <ChatBubble>
+          <Username>{username}</Username>
             <p>{text}</p>
           </ChatBubble>
 
-          <DateBox>{date.toLocaleString()}</DateBox>
+          <DateBox>{date}</DateBox>
         </ColumnContainer>{" "}
       </RowContainer>
     </Container>

@@ -60,8 +60,10 @@ export const login = async (req: Request, res: Response) => {
         .json({
           message: "Login successful",
           // we are sending the user as an object with only selected keys
+
           user: { username: user.username, _id:user._id }, // later I might want to send more keys here
           token,
+
         });
     } else {
       return res.status(400).json({ message: "Passwords not matching" });
@@ -83,6 +85,7 @@ export const logout = async (req: Request, res: Response) => {
     .json({ message: "Logout successful" }); // saying we want to send a JSON object
   //.redirect("/");
 };
+
 
 
 // editProfile
@@ -151,4 +154,5 @@ export const unfollowUser = async (req: Request, res: Response) => {
 };
 
 export default { test, register, login, logout, profile, editProfile, uploadImage, uploadBackgroundImage, followUser, unfollowUser, getUserById };
+
 

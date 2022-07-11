@@ -11,6 +11,7 @@ import Profile from "./components/Profile/Profile";
 import EditProfile from "./components/Profile/EditProfile";
 
 import PostModal from "./components/modals/PostModal";
+import NewMessageModal from "./components/modals/NewMessageModal";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from "./components/Feed/Feed";
 import AppProvider from "./context/Context";
@@ -18,6 +19,7 @@ import AppProvider from "./context/Context";
 import TopMenu from "./components/MobileComponents/TopMenu";
 import HomeIndex from "./components/MobileComponents/Home/HomeIndex";
 import ProfileIndex from "./components/MobileComponents/Profile/ProfileIndex";
+
 
 import MessageMain from "./components/Messaging/MessageMain"
 
@@ -95,6 +97,9 @@ function App() {
                 </Left>
                 <Center>
                   <PostModal show={context.showPostModal} />
+
+                  <NewMessageModal show={context.showNewMessageModal} />
+
 
                   <AvatarUploadModal show={context.showAvatarModal} />
                   <BackgroundUploadModal show={context.showBackgroundModal} />

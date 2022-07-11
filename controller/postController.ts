@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import Post from "../models/Post";
+
 import { UserType } from "../types";
 
 import fs from 'fs'

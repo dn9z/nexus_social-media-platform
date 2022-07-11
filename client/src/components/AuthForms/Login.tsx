@@ -72,7 +72,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
 
   const context = React.useContext(Context);
-  const { handleLogin } = React.useContext(AuthContext);
+  const { handleLogin} = React.useContext(AuthContext);
 
   // const [json, setJson] = React.useState<string>();
   const { register, handleSubmit } = HookForm.useForm<LoginProps>();
@@ -85,9 +85,12 @@ const Login: React.FC = () => {
       });
       if (response.status === 200) {
         //everything went well!
+        console.log(response.data.user.username.username)
         console.log("login successful");
+
         handleLogin(response.data.user.username, response.data.user._id);
         navigate("/");
+        
       }
     } catch (error) {
       console.log(error);

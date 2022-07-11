@@ -5,6 +5,7 @@ import * as themeConf from "../../../styles/theme";
 import { useTheme } from "../../../context/ThemeManager";
 import Search from "../../../icons/Search";
 import NewMessage from "../../../icons/NewMessage";
+import SearchInput from "../../Inputs/SearchInput"
 
 const SearchContainer = styled.div`
   height: 20%;
@@ -39,57 +40,32 @@ const NewMessageContainer = styled.div`
   }
 `;
 
-const Prompt = styled.div`
-  width: 100%;
 
-  padding: 1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
 
-const SearchInput = styled.input`
+const Button = styled.button`
   all: unset;
-  width: 50%;
-  padding: 1rem;
-  border: 1px solid grey;
-  resize: none;
-
-  border-radius: 25px;
-
-  overflow: hidden;
-
-  font-family: Zilla;
-  font-size: 1rem;
 `;
-
-
 
 const NewMessage_Search: React.FC= () => {
+  const context = React.useContext(Context);
     const theme = useTheme();
   return (
     <SearchContainer>
           <NewMessageContainer>
             <p>Messages</p>{" "}
-            <IconContainer>
-              <NewMessage
-                dropShadow={false}
-                scaleFactor={0.65}
-                color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
-              />
+            <IconContainer >
+              <Button onClick={()=>context.setShowNewMessageModal(true)}>
+                <NewMessage
+                  dropShadow={false}
+                  scaleFactor={0.65}
+                  color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
+                />
+              </Button>
             </IconContainer>
           </NewMessageContainer>
-          <Prompt>
-            <SearchInput placeholder="Search messages" />
-            <IconContainer>
-              <Search
-                dropShadow={false}
-                scaleFactor={0.65}
-                color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
-              />
-            </IconContainer>
-          </Prompt>
+          
+            <SearchInput searchValue="Search messages" onChange={()=>{}} placeholder="Search messages" />
+          
         </SearchContainer>
   )
 }

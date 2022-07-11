@@ -24,11 +24,34 @@ export const Context = React.createContext<ContextProps>({
   numberIconNums: { mails: 0, notifications: 0,},
   toggleShowPassword: ()=>{},
   showPassword: false,
+  showNewMessageModal: false, 
+  setShowNewMessageModal: ()=>{},
+  conversationId: "", 
+  setConversationId: ()=>{},
+  isCreated: false,
+   setIsCreated: ()=>{},
+   recipient: "",
+   setRecipient: ()=>{},
+   recipientId: "",
+   setRecipientId: ()=>{},
+   
+
+ 
 });
 
 function Provider(props: React.PropsWithChildren<{}>) {
-
+  
   const [showPostModal, setShowPostModal] = React.useState(false);
+  const [showNewMessageModal, setShowNewMessageModal] = React.useState(false);
+  const [recipient, setRecipient] = React.useState<string | null>(null)
+  const [recipientId, setRecipientId] = React.useState<string | null>(null)
+  /**
+   * @params conversation states 
+   * @types id, object | null
+   * 
+   */
+  const [conversationId, setConversationId] = React.useState("");
+ 
 
   const [showAvatarModal, setShowAvatarModal] = React.useState(false);
   const [avatarModalSaved, setAvatarModalSaved] = React.useState(false);
@@ -49,7 +72,13 @@ function Provider(props: React.PropsWithChildren<{}>) {
     notifications: 0,
   });
 
+
+ const [isCreated, setIsCreated] = React.useState(false);
   const [showPassword, toggleShowPassword] = React.useState(false);
+
+  console.log(conversationId);
+
+
 
   let color = "white";
 
@@ -77,8 +106,18 @@ function Provider(props: React.PropsWithChildren<{}>) {
         numberIconNums,
 
         toggleShowPassword,
-        showPassword
-
+        showPassword,
+        showNewMessageModal, 
+        setShowNewMessageModal,
+        conversationId,
+        setConversationId,
+        isCreated,
+        setIsCreated,
+        recipient,
+        setRecipient,
+        recipientId,
+        setRecipientId
+    
       }}
     >
       {props.children}

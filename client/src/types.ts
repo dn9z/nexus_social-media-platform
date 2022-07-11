@@ -18,29 +18,47 @@ export interface ContextProps {
   setShowAvatarModal: React.Dispatch<React.SetStateAction<boolean>>
   showPostModal: boolean;
   setShowPostModal: React.Dispatch<React.SetStateAction<boolean>>;
+
   showErrorModal: boolean;
   setShowErrorModal: React.Dispatch<React.SetStateAction<boolean>>;
   showConfirmModal: boolean;
   setShowConfirmModal: React.Dispatch<React.SetStateAction<boolean>>;
+
   color: string;
   numberIconDisplayState: boolean;
   numberIconNums: { mails: number; notifications: number };
   showPassword: boolean;
   toggleShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
+
+  showNewMessageModal: boolean;
+  setShowNewMessageModal: React.Dispatch<React.SetStateAction<boolean>>;
+  conversationId: string;
+  setConversationId: React.Dispatch<React.SetStateAction<string>>;
+  isCreated: boolean;
+  setIsCreated: React.Dispatch<React.SetStateAction<boolean>>;
+  recipient: string | null;
+  setRecipient: React.Dispatch<React.SetStateAction<string | null>>;
+  recipientId: string | null;
+  setRecipientId: React.Dispatch<React.SetStateAction<string | null>>;
+
 }
 
 export interface AuthContextProps {
   loggedIn: boolean;
   username: string;
+
   userId: string;
   handleLogin: (_username: string, _userId: string) => void;
+
 }
 
 export interface IconProps {
   color: string;
   dropShadow: boolean;
   scaleFactor: number;
+
   onClick?: () => {};
+
 }
 
 export interface FilterProps {
@@ -85,6 +103,7 @@ export interface FormProps {
 
 export interface InputTextFieldProps {
   passwordField: boolean;
+
 }
 
 export interface ProfileProps {
@@ -107,6 +126,7 @@ export interface EditProfileProps {
   location: string;
   avatar: string;
   background: string;
+
 }
 
 export interface RegisterProps {
@@ -136,6 +156,12 @@ export interface ErrorModalProps {
   message: string;
 }
 
+
+export interface MessageProps {
+  text: string;
+  date: string;
+  username: string;
+
 export interface ConfirmModalProps {
   // show: boolean;
   confirmFn: () => {};
@@ -154,4 +180,5 @@ export interface ProfileUserState {
   location: string;
   avatar:string;
   background: string;
+
 }
