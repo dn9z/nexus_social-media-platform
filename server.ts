@@ -4,11 +4,19 @@ import cors from "cors";
 import mongoose, { ConnectOptions } from "mongoose";
 import cookieParser from "cookie-parser";
 import passport from "passport";
+import configurePassport from "./passport/passport-config";
 import userRoutes from "./routes/userRoutes";
 import postRoutes from "./routes/postRoutes";
 import messageRoutes from "./routes/messageRoutes";
 
-import configurePassport from "./passport/passport-config";
+import {fileURLToPath} from 'url';
+import { dirname } from 'path';
+import path from 'path';
+
+// const __filename = fileURLToPath(import.meta.url);
+// console.log("filename is", __filename);
+// const __dirname = dirname(__filename);
+// console.log("directoryname is", __dirname);
 
 dotenv.config();
 const app = express();
@@ -46,6 +54,18 @@ mongoose
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/messages", messageRoutes)
+
+app.use("/uploads", express.static("uploads"));
+app.use(express.static(path.join(__dirname, "client/build")));
+// * is the wildcard, anything else that's no matching a route above this.
+
+
+
+app.use("/uploads", express.static("uploads"));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
 
 app.all("*", (req, res) => {
   res.status(500);

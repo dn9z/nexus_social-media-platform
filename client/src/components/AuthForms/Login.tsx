@@ -79,19 +79,16 @@ const Login: React.FC = () => {
   const { mode } = useTheme();
 
   const onSubmit = async (data: LoginProps) => {
-    // setJson(JSON.stringify(data));
-
     try {
-      const response = await axios.post("http://localhost:3000/api/user/login", data, {
+      const response = await axios.post("/api/user/login", data, {
         withCredentials: true
       });
       if (response.status === 200) {
         //everything went well!
         console.log(response.data.user.username.username)
         console.log("login successful");
-       
-        console.log(response.data)
-        handleLogin(response.data.user.username.username, response.data.user.username._id);
+
+        handleLogin(response.data.user.username, response.data.user._id);
         navigate("/");
         
       }

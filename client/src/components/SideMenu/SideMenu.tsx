@@ -59,13 +59,15 @@ const SideMenu: React.FC = () => {
   const navigate = useNavigate();
 
   const context = React.useContext(Context);
-  const { handleLogin } = React.useContext(AuthContext);
+  const { handleLogin, userId } = React.useContext(AuthContext);
   const theme = useTheme();
 
   const handleLogout = async () => {
     try {
       await axiosApiInstance.get("http://localhost:3000/api/user/logout");
-      handleLogin("",""); // empty strings will resolve to falsey value
+
+      handleLogin("", ""); // empty strings will resolve to falsey value
+
 
       // Navigate("/");
       navigate('/')
@@ -86,7 +88,7 @@ const SideMenu: React.FC = () => {
         <Home dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Home</p>
       </Item>
-      <Item onClick={() => {}}>
+      <Item onClick={() => {navigate(`/profile/${userId}`)}}>
         <User dropShadow={true} scaleFactor={0.55} color={context.color} />
         <p>Profile</p>
       </Item>

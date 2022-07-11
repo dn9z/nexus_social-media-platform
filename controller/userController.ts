@@ -1,9 +1,11 @@
-import express, {Request, Response} from 'express'
+import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/User";
 import generateToken from "../passport/authentificator";
 
-export async function test(req:Request,res:Response){
+import { UserType } from '../types';
+
+export async function test(req: Request, res: Response) {
   try {
     return res.status(200).json({ message: "test successful" });
   } catch (error) {
@@ -11,7 +13,7 @@ export async function test(req:Request,res:Response){
   }
 }
 
-export const register = async (req:Request,res:Response) => {
+export const register = async (req: Request, res: Response) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
@@ -24,14 +26,14 @@ export const register = async (req:Request,res:Response) => {
       password: hashedPassword,
     });
     await user.save();
-    
+
     return res.status(200).json({ message: "User Created" });
   } catch (error) {
     return res.status(400).json({ message: "Something went wrong creating the user", error });
   }
 };
 
-export const login = async (req:Request,res:Response) => {
+export const login = async (req: Request, res: Response) => {
   //check if the user exists with that email
   const user = await User.findOne({ email: req.body.email });
 
@@ -58,8 +60,10 @@ export const login = async (req:Request,res:Response) => {
         .json({
           message: "Login successful",
           // we are sending the user as an object with only selected keys
-          user: { username: user }, // later I might want to send more keys here
-          token
+
+          user: { username: user.username, _id:user._id }, // later I might want to send more keys here
+          token,
+
         });
     } else {
       return res.status(400).json({ message: "Passwords not matching" });
@@ -70,8 +74,7 @@ export const login = async (req:Request,res:Response) => {
   }
 };
 
-// cookies are not getting cleared, needs to be addressed
-export const logout = async (req:Request,res:Response) => {
+export const logout = async (req: Request, res: Response) => {
   // Remove the httpOnly cookie
   res
     .clearCookie("jwt", {
@@ -85,4 +88,71 @@ export const logout = async (req:Request,res:Response) => {
 
 
 
-export default { test, register, login, logout };
+// editProfile
+
+export const editProfile = async (req:Request, res:Response) => {
+  const user = req.user as UserType;
+  const userResolved = await User.findByIdAndUpdate(user._id, {firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, username: req.body.username, bio: req.body.bio, location: req.body.location})
+  return res.status(200).json("User updated")
+}
+
+// getting the profile 
+export const profile = async (req:Request,res:Response) => {
+  const user = req.user as UserType;
+  const updatedUser = await User.findById(user._id)
+  return res.status(200).json({ profile: updatedUser})
+};
+// upload image
+export const uploadImage = async (req:Request,res:Response) => {
+  const user = req.user as UserType;
+  const userUpdate = await User.findByIdAndUpdate(user._id, {avatar: `/uploads/${req.file?.filename}`})
+  return res.status(200).json({path:`/uploads/${req.file?.filename}`})
+}
+
+// upload background image
+export const uploadBackgroundImage = async (req:Request,res:Response) => {
+  const user = req.user as UserType;
+  const userUpdate = await User.findByIdAndUpdate(user._id, {background: `/uploads/${req.file?.filename}`} )
+  return res.status(200).json({path:`/uploads/${req.file?.filename}`})
+}
+
+
+export const getUserById = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findById(req.params.id);
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(400).json({ message: "Error happened", error: error });
+  }
+};
+
+export const followUser = async (req: Request, res: Response) => {
+  const user = req.user as UserType;
+  try {
+    const userToFollow = await User.findById(req.params.id);
+    const updatedUser = await User.findByIdAndUpdate(user._id, {
+      $push: { _following: userToFollow._id },
+    });
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    return res.status(400).json({ message: "Error happened", error: error });
+  }
+};
+
+export const unfollowUser = async (req: Request, res: Response) => {
+  const user = req.user as UserType;
+  try {
+    const userToUnfollow = await User.findById(req.params.id);
+    const updatedUser = await User.findByIdAndUpdate(user._id, {
+      $pull: { _following: userToUnfollow._id },
+    });
+    return res.status(200).json(updatedUser);
+
+  } catch (error) {
+    return res.status(400).json({ message: "Error happened", error: error });
+  }
+};
+
+export default { test, register, login, logout, profile, editProfile, uploadImage, uploadBackgroundImage, followUser, unfollowUser, getUserById };
+
+

@@ -1,15 +1,19 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Context } from "../../context/Context";
+import { AuthContext } from "../../context/AuthContext";
 import * as themeConf from "../../styles/theme";
-import Button from "../../buttons/Button"
-import {FeedProps} from "../../types"
+import Button from "../../buttons/Button";
+import { FeedProps } from "../../types";
 import Comments from "../Comments/Comments";
+import axiosApiInstance from "../../util/axiosInstance";
+import { format, parseISO } from "date-fns";
+import { useNavigate } from "react-router-dom";
+import Cross from "../../icons/Cross";
+import ConfirmModal from "../modals/ConfirmModal";
 
 const PostItem = styled.div`
-  /* border: 1px solid black; */
   width: calc(60vw - 2.6rem);
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -27,9 +31,15 @@ const PostMetaData = styled.div`
   justify-content: space-between;
 `;
 
+const MetaDataRight = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const PostUser = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
   > p {
     margin-left: 1rem;
     font-size: 1.4rem;
@@ -71,15 +81,47 @@ const PostBody = styled.div`
   font-size: 1.25rem;
 `;
 
-
-
 const FeedItem: React.FC<FeedProps> = ({ post }) => {
   const context = React.useContext(Context);
+  const authContext = React.useContext(AuthContext);
+
+  const [author, setAuthor] = React.useState("");
+  const navigate = useNavigate();
+
+  async function handleDeletePost() {
+    try {
+      const res = await axiosApiInstance.delete(
+        `http://localhost:3000/api/post/delete/${post._id}`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  React.useEffect(() => {
+    async function getUserById() {
+      try {
+        const res = await axiosApiInstance.get(
+          `http://localhost:3000/api/user/getuserbyid/${post._user}`
+        );
+        setAuthor(res.data.username);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getUserById();
+  }, []);
+
   return (
     <>
+    <ConfirmModal confirmFn={handleDeletePost}/>
       <PostItem>
         <PostMetaData>
-          <PostUser>
+          <PostUser
+            onClick={() => {
+              navigate(`/profile/${post._user}`);
+            }}
+          >
             <PostUserPicContainer>
               <img
                 style={{ width: "100%", borderRadius: "50%" }}
@@ -87,29 +129,35 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
                 alt=""
               />
             </PostUserPicContainer>
-
-            <p>Username/Groupname</p>
+            <p>{author}</p>
           </PostUser>
-          <PostDate>1980-10-10</PostDate>
+          <MetaDataRight>
+            <PostDate>{format(parseISO(post.date), "MMM dd, yyyy")}</PostDate>
+            {authContext.userId === post._user && (
+              <div onClick={() => {context.setShowConfirmModal(true)}}>
+                <Cross dropShadow={true} scaleFactor={0.55} color={context.color} />
+              </div>
+            )}
+          </MetaDataRight>
         </PostMetaData>
-
         <PostTextContainer>
           <PostTitle>{post.title}</PostTitle>
           <PostBody>{post.body}</PostBody>
         </PostTextContainer>
         <PostMedia>
-          <img
-            style={{ width: "100%", marginBottom: "20px" }}
-            src="https://its-mobility.de/wp-content/uploads/placeholder.png"
-            alt=""
-          />
+          {post.media && (
+            <img
+              // style={{ width: "100%", marginBottom: "20px" }}
+              src={`http://localhost:3000/${post.media}`}
+              alt=""
+            />
+          )}
         </PostMedia>
-        <div style={{placeSelf:"flex-end"}}>
-          <Button onClick={() => context.setShowPostModal(true)} text="Share" type="button"/>
+        <div style={{ placeSelf: "flex-end" }}>
+          <Button onClick={() => context.setShowPostModal(true)} text="Share" type="button" />
         </div>
-        <Comments post={post}/>
+        <Comments post={post} />
       </PostItem>
-      
     </>
   );
 };

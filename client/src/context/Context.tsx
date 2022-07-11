@@ -3,8 +3,22 @@ import { ContextProps } from "../types";
 
 /* create context with initialValues as arguments */
 export const Context = React.createContext<ContextProps>({
+  backgroundModalSaved: false,
+  setBackgroundModalSaved: () => {},
+  showBackgroundModal: false, 
+  setShowBackgroundModal:() => {},
+
+  avatarModalSaved: false,
+  setAvatarModalSaved: () => {},
+  showAvatarModal: false, 
+  setShowAvatarModal:() => {},
+
   showPostModal: false,
   setShowPostModal:() => {},
+  showErrorModal: false,
+  setShowErrorModal:() => {},
+  showConfirmModal: false,
+  setShowConfirmModal:() => {},
   color: "white",
   numberIconDisplayState: true,
   numberIconNums: { mails: 0, notifications: 0,},
@@ -39,6 +53,17 @@ function Provider(props: React.PropsWithChildren<{}>) {
   const [conversationId, setConversationId] = React.useState("");
  
 
+  const [showAvatarModal, setShowAvatarModal] = React.useState(false);
+  const [avatarModalSaved, setAvatarModalSaved] = React.useState(false);
+
+  const [showBackgroundModal, setShowBackgroundModal] = React.useState(false);
+  const [backgroundModalSaved, setBackgroundModalSaved] = React.useState(false);
+
+  const [showErrorModal, setShowErrorModal] = React.useState(false);
+  const [showConfirmModal, setShowConfirmModal] = React.useState(false);
+  
+
+
   const [numberIconDisplayState, setNumberIconDisplayState] =
     React.useState(true);
 
@@ -47,10 +72,12 @@ function Provider(props: React.PropsWithChildren<{}>) {
     notifications: 0,
   });
 
+
  const [isCreated, setIsCreated] = React.useState(false);
   const [showPassword, toggleShowPassword] = React.useState(false);
 
   console.log(conversationId);
+
 
 
   let color = "white";
@@ -59,8 +86,22 @@ function Provider(props: React.PropsWithChildren<{}>) {
     <Context.Provider
       value={{
         color,
+
+        backgroundModalSaved,
+        setBackgroundModalSaved,
+        showBackgroundModal,
+        setShowBackgroundModal,
+
+        avatarModalSaved,
+        setAvatarModalSaved,
+        showAvatarModal,
+        setShowAvatarModal,
         showPostModal,
         setShowPostModal,
+        showErrorModal,
+        setShowErrorModal,
+        showConfirmModal,
+        setShowConfirmModal,
         numberIconDisplayState,
         numberIconNums,
 

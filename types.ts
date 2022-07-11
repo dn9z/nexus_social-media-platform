@@ -1,4 +1,6 @@
+
 import { ObjectId } from "mongoose";
+
 
 export type UserType = {
   _id: string;
@@ -6,8 +8,10 @@ export type UserType = {
   email: string;
 };
 
+
 export type Message = {
   _user: ObjectId;
   username: string;
   text: string;
 };
+
