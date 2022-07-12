@@ -125,6 +125,24 @@ export interface FeedProps {
     media?: string;
   };
 }
+
+export interface UserSearchState {
+  user: {
+    _id: string;
+    username: string;
+    avatar: string;
+  }[];
+}
+
+export interface UserItemProps {
+  user: {
+    _id: string;
+    username: string;
+    avatar: string;
+
+  };
+}
+
 export interface FormProps {
   children: JSX.Element[] | JSX.Element;
 }
