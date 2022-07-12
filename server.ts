@@ -7,7 +7,6 @@ import passport from "passport";
 import configurePassport from "./passport/passport-config";
 import userRoutes from "./routes/userRoutes";
 import postRoutes from "./routes/postRoutes";
-import commentRoutes from "./routes/commentRoutes";
 import messageRoutes from "./routes/messageRoutes";
 
 import {fileURLToPath} from 'url';
@@ -54,7 +53,6 @@ mongoose
 
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
-app.use("/api/comment", commentRoutes);
 app.use("/api/messages", messageRoutes)
 
 app.use("/uploads", express.static("uploads"));

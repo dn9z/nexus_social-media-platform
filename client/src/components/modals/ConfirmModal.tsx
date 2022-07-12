@@ -74,20 +74,15 @@ const Textarea = styled.textarea`
   font-size: 1.5rem;
 `;
 
-const ConfirmModal: React.FC<ConfirmModalProps> = ({
-  showConfirmModal,
-  setShowConfirmModal,
-  confirmFn,
-  idToDelete,
-}) => {
+const ConfirmModal: React.FC<ConfirmModalProps> = ({ confirmFn }) => {
   const context = React.useContext(Context);
   const theme = useTheme();
 
-  if (showConfirmModal === true) {
+  if (context.showConfirmModal === true) {
     return (
       <Background
         onClick={() => {
-          setShowConfirmModal(false);
+          context.setShowConfirmModal(false);
         }}
       >
         <Container
@@ -98,17 +93,15 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
           <Message>Are you sure?</Message>
           <button
             onClick={() => {
-              confirmFn(idToDelete);
-              setShowConfirmModal(false);
-              context.setNeedRefresh(!context.needRefresh);
-              context.setPageNumber(1)
+              confirmFn()
+              context.setShowConfirmModal(false);
             }}
           >
             Confirm
           </button>
           <button
             onClick={() => {
-              setShowConfirmModal(false);
+              context.setShowConfirmModal(false);
             }}
           >
             Abort
