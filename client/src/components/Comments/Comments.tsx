@@ -60,6 +60,19 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
 
   const [commentBodyInput, setCommentBodyInput] = useState<String>("");
   const [needRefresh, setNeedRefresh] = useState(false);
+  const [commentValue, setCommentValue] = useState<String>("")
+  
+  const addComment = async (e:React.MouseEvent) => 
+{
+  e.preventDefault();
+  console.log("The Value is", commentValue)
+  const data = {
+    date: new Date(Date.now()),
+    body: commentValue,
+    post_id: post._id
+
+  }
+  console.log(data)
 
   const addComment = async (e: React.MouseEvent) => {
     e.preventDefault();

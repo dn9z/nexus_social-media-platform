@@ -1,12 +1,16 @@
 import express, { Request, Response } from "express";
 import Post from "../models/Post";
+
 import { UserType } from "../types";
+
 import fs from 'fs'
 
 export async function createPost(req: Request, res: Response) {
   const user = req.user as UserType;
   const file = req.file as Express.Multer.File;
+
   const path = file === undefined ? "" : file.path;
+
   try {
     const newPost = await Post.create({
       _user: user._id,
