@@ -24,22 +24,14 @@ export interface ContextProps {
   showConfirmModal: boolean;
   setShowConfirmModal: React.Dispatch<React.SetStateAction<boolean>>;
 
-  color: string;
-  numberIconDisplayState: boolean;
-  numberIconNums: { mails: number; notifications: number };
+
+
   showPassword: boolean;
   toggleShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
 
   showNewMessageModal: boolean;
   setShowNewMessageModal: React.Dispatch<React.SetStateAction<boolean>>;
-  conversationId: string;
-  setConversationId: React.Dispatch<React.SetStateAction<string>>;
-  isCreated: boolean;
-  setIsCreated: React.Dispatch<React.SetStateAction<boolean>>;
-  recipient: string | null;
-  setRecipient: React.Dispatch<React.SetStateAction<string | null>>;
-  recipientId: string | null;
-  setRecipientId: React.Dispatch<React.SetStateAction<string | null>>;
+
 
 }
 

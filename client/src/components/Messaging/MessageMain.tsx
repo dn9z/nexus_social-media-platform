@@ -1,20 +1,14 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Context } from "../../context/Context";
+import { useMessageContext } from "../../context/MessageContext";
 import * as themeConf from "../../styles/theme";
-import { useTheme } from "../../context/ThemeManager";
-import Search from "../../icons/Search";
-import NewMessage from "../../icons/NewMessage";
-import Send from "../../icons/Send";
-import Emoji from "../../icons/Emoji";
-import Button from "../../buttons/Button";
-import NewMessageModal from "../modals/NewMessageModal";
 import SentMessage from "./MessageItems/SentMessage";
 import ReceivedMessage from "./MessageItems/ReceivedMessage";
 import MessagePrompt from "./Controls/MessagePrompt";
 import NewMessageSearch from "./Controls/NewMessageSearch";
 import axiosApiInstance from "../../util/axiosInstance";
 import { AuthContext } from "../../context/AuthContext";
+import { useInterval } from "usehooks-ts";
 import UserPic from "../User/UserPic";
 
 const Container = styled.div`
@@ -77,8 +71,22 @@ const ListItemContainer = styled.div`
     letter-spacing: 0.1rem;
   }
 `;
-
+/** */
 const MessageMain: React.FC = () => {
+  const {
+    conversationId,
+    setConversationId,
+    isCreated,
+    recipient,
+    setRecipient,
+    recipientId,
+    setRecipientId,
+    users,
+    setUsers,
+  } = useMessageContext();
+
+  const { userId } = React.useContext(AuthContext);
+
   const [conversationToDisplay, setConversationToDisplay] = React.useState<
     Array<{
       date: string;
@@ -88,16 +96,7 @@ const MessageMain: React.FC = () => {
       _id: string;
     }>
   >();
-  const {
-    conversationId,
-    setConversationId,
-    isCreated,
-    recipient,
-    setRecipient,
-    recipientId,
-    setRecipientId,
-  } = React.useContext(Context);
-  const { userId } = React.useContext(AuthContext);
+
   const [list, setList] = React.useState<
     Array<{
       _id: string;
@@ -105,12 +104,15 @@ const MessageMain: React.FC = () => {
     }>
   >();
 
-  const [users, setUsers] =
-    React.useState<Array<{ username: string; _id: string }>>();
+  const POLL_RATE = 500;
 
-  console.log(userId);
+  /**
+   * useInterval is a hook that runs a function every x seconds
+   * @param callback - function to run
+   * @param POLL_RATE - how often to run the function
+   */
 
-  React.useEffect(() => {
+  useInterval(() => {
     const getConversations = async () => {
       const response = await axiosApiInstance.get(
         `http://localhost:3000/api/messages/myconversations`
@@ -119,7 +121,7 @@ const MessageMain: React.FC = () => {
       setList(response.data.foundConversations);
     };
     getConversations();
-  }, []);
+  }, POLL_RATE);
 
   React.useEffect(() => {
     const getConversations = async () => {

@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { Context } from "../../context/Context";
 import { AuthContext } from "../../context/AuthContext";
+import { useMessageContext } from "../../context/MessageContext";
 import * as themeConf from "../../styles/theme";
 import { useTheme } from "../../context/ThemeManager";
 import MessagePrompt from "../Messaging/Controls/MessagePrompt";
@@ -10,6 +11,7 @@ import { ModalProps, PModalBottomContainerProps } from "../../types";
 import axiosApiInstance from "../../util/axiosInstance";
 import UserPic from "../User/UserPic";
 import { contextType } from "react-infinite-scroller";
+
 
 const Background = styled.div`
   background-color: #4141418d;
@@ -73,19 +75,13 @@ const ListItem = styled.div`
   }
 `;
 const NewMessageModal: React.FC<ModalProps> = (props) => {
+  const msg = useMessageContext()
+
   const context = React.useContext(Context);
   const { userId } = React.useContext(AuthContext);
 
   const [selectedUser, setSelectedUser] = React.useState("");
 
-  const [users, setUsers] =
-    React.useState<Array<{ username: string; _id: string }>>();
-
-  const [conversations, setConversations] = React.useState<
-    Array<{
-      participants: { _userFrom: string; _userTo: string };
-    }>
-  >();
 
   const [usersToDisplay, setUsersToDisplay] =
     React.useState<Array<{ username: string; _id: string }>>();
@@ -96,7 +92,7 @@ const NewMessageModal: React.FC<ModalProps> = (props) => {
         "http://localhost:3000/api/messages/users"
       );
 
-      setUsers(response.data.foundUsers);
+      msg.setUsers(response.data.foundUsers);
     };
     getUsers();
   }, []);
@@ -107,31 +103,31 @@ const NewMessageModal: React.FC<ModalProps> = (props) => {
         "http://localhost:3000/api/messages/conversations"
       );
 
-      setConversations(response.data.foundConversations);
+      msg.setConversations(response.data.foundConversations);
     };
     getConversations();
   }, []);
 
+
+
   React.useEffect(() => {
     function filterUsers(item: { username: string; _id: string }) {
       //filter out users that have already been contacted
-      return !conversations!.some(
+      return !msg.conversations!.some(
         (entry) => entry.participants._userTo === item._id
       );
     }
 
-    const newArray = users?.filter(filterUsers);
+    const newArray = msg.users?.filter(filterUsers);
     setUsersToDisplay(newArray);
-  }, [users, conversations]);
+  }, [msg.users, msg.conversations]);
 
-  /**
-   *
-   * @param event - the event that triggered the function
-   */
+
+
   const startConversation = async (event: React.SyntheticEvent) => {
     event.preventDefault();
-    context.setRecipientId(event.currentTarget.getAttribute("data-id"));
-    context.setRecipient(event.currentTarget.getAttribute("data-name"));
+    msg.setRecipientId(event.currentTarget.getAttribute("data-id"));
+    msg.setRecipient(event.currentTarget.getAttribute("data-name"));
     await axiosApiInstance
       .post("http://localhost:3000/api/messages/conversation", {
         _userFrom: userId,
@@ -139,7 +135,7 @@ const NewMessageModal: React.FC<ModalProps> = (props) => {
       })
       .then((response) => {
         console.log(response);
-        context.setConversationId(response.data.createdConversation._id);
+        msg.setConversationId(response.data.createdConversation._id);
       })
       .catch((err) => {
         context.setShowNewMessageModal(true);
