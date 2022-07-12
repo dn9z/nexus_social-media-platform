@@ -14,7 +14,7 @@ import NumberAlert from "../../icons/NumberAlert"
 import Button from "../../buttons/Button"
 import * as themeConf from "../../styles/theme"
 import { useTheme } from '../../context/ThemeManager';
-
+import {useCount} from "../../context/NumberContext";
 
 const Container = styled.div`
   position: absolute;
@@ -53,24 +53,25 @@ const Item = styled.button`
 
 const HamburgerMenu: React.FC = () => {
   const context = React.useContext(Context);
+  const count = useCount()
   const theme = useTheme();
  
   return (
     <Container>
       {" "}
       <Item onClick={() => {}}>
-        <Home dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <Home dropShadow={true} scaleFactor={0.55} color="white" />
         <p>Home</p>
       </Item>
       <Item onClick={() => {}}>
-        <User dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <User dropShadow={true} scaleFactor={0.55} color="white" />
         <p>Profile</p>
       </Item>
       <Item onClick={() => {}}>
-        <Mail dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <Mail dropShadow={true} scaleFactor={0.55} color="white" />
         <NumberAlert
-          displayState={context.numberIconDisplayState}
-          number={context.numberIconNums.mails}
+            displayState={true}
+            number={count.messageNumberState.count}
         />
         <p>Mail</p>
       </Item>
@@ -78,24 +79,24 @@ const HamburgerMenu: React.FC = () => {
         <Notifications
           dropShadow={true}
           scaleFactor={0.55}
-          color={context.color}
+          color="white"
         />
         <NumberAlert
-          displayState={context.numberIconDisplayState}
-          number={context.numberIconNums.notifications}
+           displayState={true}
+           number={count.notificationNumberState.count}
         />
         <p>Notifications</p>
       </Item>
       <Item onClick={() => {}}>
-        <Bookmarks dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <Bookmarks dropShadow={true} scaleFactor={0.55} color="white" />
         <p>Bookmarks</p>
       </Item>
       <Item onClick={() => {}}>
-        <Groups dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <Groups dropShadow={true} scaleFactor={0.55} color="white" />
         <p>Nexi</p>
       </Item>
       <Item onClick={() => {}}>
-        <Settings dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <Settings dropShadow={true} scaleFactor={0.55} color="white" />
         <p>Settings</p>
       </Item>
       <Item onClick={() => theme.toggle()}>
@@ -103,13 +104,13 @@ const HamburgerMenu: React.FC = () => {
           <DarkMode
             dropShadow={true}
             scaleFactor={0.55}
-            color={context.color}
+            color="white"
           />
         ) : (
           <LightMode
             dropShadow={true}
             scaleFactor={0.55}
-            color={context.color}
+            color="white"
           />
         )}
         {theme.mode === "light" ? <p>Dark mode</p> : <p>Light mode</p>}

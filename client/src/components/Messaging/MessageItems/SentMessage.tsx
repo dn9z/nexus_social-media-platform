@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Context } from "../../../context/Context";
 import * as themeConf from "../../../styles/theme";
 import { useTheme } from "../../../context/ThemeManager";
+import { MessageProps } from "../../../types";
 
 const UserContainer = styled.div`
   min-height: 50px;
@@ -38,25 +39,25 @@ const ChatBubble = styled.div`
     line-break: word;
   }
 `;
+const Username = styled.p`
+font-family: NotoSans;
+font-size: 0.8rem;
+margin-bottom: 0.5rem;
+letter-spacing: 0.1rem;`
 
 
 
-interface MessageProps {
-    text: string,
-    date: object
-}
-
-const SentMessage: React.FC<MessageProps> = ({text,date}) => {
+const SentMessage: React.FC<MessageProps> = ({text,date,username}) => {
   
   return (
     <UserContainer>
       <ColumnContainer>
         <ChatBubble>
-          
+        <Username>{username}</Username>
           <p>{text}</p>
           
         </ChatBubble>
-        <DateBox>{date.toLocaleString()}</DateBox>
+        <DateBox>{date}</DateBox>
       </ColumnContainer>
     </UserContainer>
   );

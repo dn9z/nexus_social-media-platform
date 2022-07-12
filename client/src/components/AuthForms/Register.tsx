@@ -75,7 +75,7 @@ const Register: React.FC = () => {
     console.log(data)
     if(data.password === data.rePassword){
       try {
-        const response = await axios.post("http://localhost:3000/api/user/register", data);
+        const response = await axios.post("/api/user/register", data);
         if (response.status === 200) {
           //everything went well!
           console.log("user was created");

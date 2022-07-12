@@ -3,6 +3,16 @@ import { ContextProps } from "../types";
 
 /* create context with initialValues as arguments */
 export const Context = React.createContext<ContextProps>({
+  backgroundModalSaved: false,
+  setBackgroundModalSaved: () => {},
+  showBackgroundModal: false, 
+  setShowBackgroundModal:() => {},
+
+  avatarModalSaved: false,
+  setAvatarModalSaved: () => {},
+  showAvatarModal: false, 
+  setShowAvatarModal:() => {},
+
   showPostModal: false,
   setShowPostModal:() => {},
   showErrorModal: false,
@@ -18,11 +28,25 @@ export const Context = React.createContext<ContextProps>({
   showPassword: false,
   pageNumber: 1,
   setPageNumber:() => {},
+
+  toggleShowPassword: ()=>{},
+  showPassword: false,
+  showNewMessageModal: false, 
+  setShowNewMessageModal: ()=>{},
 });
 
 function Provider(props: React.PropsWithChildren<{}>) {
-
+  
   const [showPostModal, setShowPostModal] = React.useState(false);
+  const [showNewMessageModal, setShowNewMessageModal] = React.useState(false);
+
+
+  const [showAvatarModal, setShowAvatarModal] = React.useState(false);
+  const [avatarModalSaved, setAvatarModalSaved] = React.useState(false);
+
+  const [showBackgroundModal, setShowBackgroundModal] = React.useState(false);
+  const [backgroundModalSaved, setBackgroundModalSaved] = React.useState(false);
+
   const [showErrorModal, setShowErrorModal] = React.useState(false);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
   
@@ -36,26 +60,31 @@ function Provider(props: React.PropsWithChildren<{}>) {
   const [pageNumber, setPageNumber] = React.useState(1);
   
 
-  const [numberIconDisplayState, setNumberIconDisplayState] =
-    React.useState(true);
 
-  const [numberIconNums, setNumberIconNums] = React.useState({
-    mails: 0,
-    notifications: 0,
-  });
+
 
 
   const [showPassword, toggleShowPassword] = React.useState(false);
 
-
  
 
-  let color = "white";
+
+
 
   return (
     <Context.Provider
       value={{
-        color,
+   
+
+        backgroundModalSaved,
+        setBackgroundModalSaved,
+        showBackgroundModal,
+        setShowBackgroundModal,
+
+        avatarModalSaved,
+        setAvatarModalSaved,
+        showAvatarModal,
+        setShowAvatarModal,
         showPostModal,
         setShowPostModal,
         showErrorModal,
@@ -71,8 +100,11 @@ function Provider(props: React.PropsWithChildren<{}>) {
         setPageNumber,
 
         toggleShowPassword,
-        showPassword
-
+        showPassword,
+        showNewMessageModal, 
+        setShowNewMessageModal,
+      
+    
       }}
     >
       {props.children}

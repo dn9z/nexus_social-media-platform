@@ -8,6 +8,7 @@ import configurePassport from "./passport/passport-config";
 import userRoutes from "./routes/userRoutes";
 import postRoutes from "./routes/postRoutes";
 import commentRoutes from "./routes/commentRoutes";
+import messageRoutes from "./routes/messageRoutes";
 
 import {fileURLToPath} from 'url';
 import { dirname } from 'path';
@@ -54,13 +55,19 @@ mongoose
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
+app.use("/api/messages", messageRoutes)
 
-app.use(express.static(path.join(__dirname, "client/build")));
-// * is the wildcard, anything else that's no matching a route above this.
 app.use("/uploads", express.static("uploads"));
-app.get("*", (req, res) => {
+/*  app.use(express.static(path.join(__dirname, "client/build")));  */
+// * is the wildcard, anything else that's no matching a route above this.
+
+
+
+app.use("/uploads", express.static("uploads"));
+
+/* app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
-});
+}); */
 
 app.all("*", (req, res) => {
   res.status(500);
