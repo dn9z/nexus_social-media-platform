@@ -48,7 +48,7 @@ export const paginate = async (req: Request, res: Response) => {
   const skipRows = (page - 1) * pageSize;
   try {
     let posts = [];
-    posts = await Post.find({ _user: user._id }).skip(skipRows).limit(pageSize);
+    posts = await Post.find({ _user: user._id }).sort({ date: -1 }).skip(skipRows).limit(pageSize);
     return res.status(200).json(posts);
   } catch (error) {
     return res.status(400).json({ message: "Error happened", error });

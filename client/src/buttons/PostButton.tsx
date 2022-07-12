@@ -15,6 +15,7 @@ const Button = styled.button`
   margin-top: 20px;
   background-color: springgreen;
   color: white;
+  cursor: pointer;
   &:hover {
     background-color: white;
     border: 1px solid springgreen;
@@ -31,16 +32,16 @@ const Button = styled.button`
 `;
 
 interface ButtonProps {
-    text: string
-    onClick: (event: React.MouseEvent) => void;
+  text: string;
+  onClick: (event: React.MouseEvent) => void;
 }
 
 const PostButton: React.FC<ButtonProps> = (props) => {
   return (
     <Button onClick={props.onClick}>
-    <p>{props.text}</p>
-  </Button>
-  )
-}
+      <p>{props.text}</p>
+    </Button>
+  );
+};
 
-export default PostButton
+export default PostButton;

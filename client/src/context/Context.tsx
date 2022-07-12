@@ -7,13 +7,17 @@ export const Context = React.createContext<ContextProps>({
   setShowPostModal:() => {},
   showErrorModal: false,
   setShowErrorModal:() => {},
-  showConfirmModal: false,
-  setShowConfirmModal:() => {},
+  postsUpdated: false,
+  setPostsUpdated:() => {},
+  needRefresh: false,
+  setNeedRefresh:() => {},
   color: "white",
   numberIconDisplayState: true,
   numberIconNums: { mails: 0, notifications: 0,},
   toggleShowPassword: ()=>{},
   showPassword: false,
+  pageNumber: 1,
+  setPageNumber:() => {},
 });
 
 function Provider(props: React.PropsWithChildren<{}>) {
@@ -21,6 +25,15 @@ function Provider(props: React.PropsWithChildren<{}>) {
   const [showPostModal, setShowPostModal] = React.useState(false);
   const [showErrorModal, setShowErrorModal] = React.useState(false);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
+  
+  const [postsUpdated, setPostsUpdated] = React.useState(false);
+  
+  const [needRefresh, setNeedRefresh] = React.useState(false);
+  
+  const [commentRefresh, setCommentRefresh] = React.useState(false);
+
+
+  const [pageNumber, setPageNumber] = React.useState(1);
   
 
   const [numberIconDisplayState, setNumberIconDisplayState] =
@@ -47,10 +60,15 @@ function Provider(props: React.PropsWithChildren<{}>) {
         setShowPostModal,
         showErrorModal,
         setShowErrorModal,
-        showConfirmModal,
-        setShowConfirmModal,
+        needRefresh,
+        setNeedRefresh,
+        postsUpdated,
+        setPostsUpdated,
         numberIconDisplayState,
         numberIconNums,
+
+        pageNumber,
+        setPageNumber,
 
         toggleShowPassword,
         showPassword
