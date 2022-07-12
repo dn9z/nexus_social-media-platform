@@ -21,10 +21,15 @@ export interface ContextProps {
 
   showErrorModal: boolean;
   setShowErrorModal: React.Dispatch<React.SetStateAction<boolean>>;
-  showConfirmModal: boolean;
-  setShowConfirmModal: React.Dispatch<React.SetStateAction<boolean>>;
-
-
+  needRefresh: boolean;
+  setNeedRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+  postsUpdated: boolean;
+  setPostsUpdated: React.Dispatch<React.SetStateAction<boolean>>;
+  pageNumber: number;
+  setPageNumber: React.Dispatch<React.SetStateAction<number>>;
+  color: string;
+  numberIconDisplayState: boolean;
+  numberIconNums: { mails: number; notifications: number };
 
   showPassword: boolean;
   toggleShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
@@ -62,10 +67,35 @@ export interface CommentProps {
   post: {
     _user: string;
     _id: string;
-
     date: string;
-    title: string;
     body: string;
+  };
+}
+
+export interface CommentListProps {
+  post: {
+    _user: string;
+    _id: string;
+    body: string;
+    date: string;
+  };
+}
+
+export interface CommentState {
+  comment: {
+    _user: string;
+    _id: string;
+    body: string;
+    date: string;
+  }[];
+}
+
+export interface CommentItemProps {
+  comment: {
+    _user: string;
+    _id: string;
+    body: string;
+    date: string;
   };
 }
 
@@ -155,8 +185,10 @@ export interface MessageProps {
   username: string;
 }
 export interface ConfirmModalProps {
-  // show: boolean;
-  confirmFn: () => {};
+  showConfirmModal: boolean;
+  setShowConfirmModal: React.Dispatch<React.SetStateAction<boolean>>;
+  confirmFn: (arg0:string) => void;
+  idToDelete:string;
 }
 
 export interface PModalBottomContainerProps {
