@@ -5,6 +5,7 @@ import { Context } from "../../context/Context";
 import Home from "../../icons/Home";
 import User from "../../icons/User";
 import Mail from "../../icons/Mail";
+import Logout from "../../icons/LogoutIcon";
 import Notifications from "../../icons/Notifications";
 import Bookmarks from "../../icons/Bookmarks";
 import Groups from "../../icons/Groups";
@@ -22,7 +23,7 @@ import axiosApiInstance from "../../util/axiosInstance";
 import {useCount} from "../../context/NumberContext";
 
 const Container = styled.div`
-  height: 630px;
+  height: auto;
   margin: 2rem;
   padding: 1rem;
   border: 1px solid grey;
@@ -63,8 +64,9 @@ const SideMenu: React.FC = () => {
   const count = useCount()
 
   const context = React.useContext(Context);
-  const { handleLogin, userId } = React.useContext(AuthContext);
+  const { userId } = React.useContext(AuthContext);
   const theme = useTheme();
+
 
 
 
@@ -84,18 +86,22 @@ const SideMenu: React.FC = () => {
     }
   };
 
+
   return (
     <Container>
       <Header>
         <h1>NEXUS</h1>
       </Header>
-      <button onClick={handleLogout}>Logout</button>
       <Item onClick={() => {}}>
         <Home dropShadow={true} scaleFactor={0.55} color="white" />
         <p>Home</p>
       </Item>
+
       <Item onClick={() => {navigate(`/profile/${userId}`)}}>
         <User dropShadow={true} scaleFactor={0.55} color="white" />
+
+ 
+
         <p>Profile</p>
       </Item>
       <Item onClick={() => {navigate(`/messages`)}}>
@@ -107,7 +113,10 @@ const SideMenu: React.FC = () => {
         <p>Mail</p>
       </Item>
       <Item onClick={() => {}}>
+
         <Notifications dropShadow={true} scaleFactor={0.55} color="white" />
+
+
         <NumberAlert
           displayState={true}
           number={count.notificationNumberState.count}
@@ -128,11 +137,17 @@ const SideMenu: React.FC = () => {
       </Item>
       <Item onClick={() => theme.toggle()}>
         {theme.mode === "light" ? (
+
           <DarkMode dropShadow={true} scaleFactor={0.55} color="white" />
         ) : (
           <LightMode dropShadow={true} scaleFactor={0.55} color="white" />
+
         )}
         {theme.mode === "light" ? <p>Dark mode</p> : <p>Light mode</p>}
+      </Item>
+      <Item onClick={() => navigate("/logout")}>
+        <Logout dropShadow={true} scaleFactor={0.55} color="white" />
+        <p>Logout</p>
       </Item>
       <Button
         // onClick={(event) => context.handlePostClick(event)}
