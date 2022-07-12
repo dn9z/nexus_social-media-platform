@@ -40,6 +40,7 @@ import AvatarUploadModal from "./components/modals/AvatarUploadModal";
 import BackgroundUploadModal from "./components/modals/BackgroundUploadModal";
 
 import Logout from "./components/Logout/Logout";
+import UserSearch from "./components/UserSearch/UserSearch";
 
 
 
@@ -116,6 +117,7 @@ function App() {
 
 
                     <Route path="/profile/:_id" element={<Profile />} />
+                    <Route path="/search" element={<UserSearch/>} />
 
                     <Route path="/nexus" element={""} />
                     <Route path='/logout' element={<Logout/>}/>
