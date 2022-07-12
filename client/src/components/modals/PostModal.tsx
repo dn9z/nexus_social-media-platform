@@ -116,8 +116,8 @@ const PostModal: React.FC<ModalProps> = (props) => {
 
       if (response.status === 200) {
         console.log("post was created");
-        // setShowModal(false)
         context.setShowPostModal(false);
+        context.setNeedRefresh(true)
       }
     } catch (error) {
       console.log(error);
