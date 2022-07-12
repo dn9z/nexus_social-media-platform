@@ -12,7 +12,6 @@ const ButtonStyled = styled.button`
   background-color: springgreen;
   margin: 10px;
   color: white;
-  cursor: pointer;
   &:hover {
     background-color: grey;
     // border: 0.5px solid springgreen;

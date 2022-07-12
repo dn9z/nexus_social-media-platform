@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import Image from "../../icons/Image";
 import Gif from "../../icons/Gif";
@@ -6,10 +6,8 @@ import Emoji from "../../icons/Emoji";
 import CommentButton from "../../buttons/CommentButton";
 import { useTheme } from "../../context/ThemeManager";
 import CommentsList from "./CommentsList";
-import { CommentProps } from "../../types";
+import {CommentProps} from "../../types"
 import axios from "axios";
-import axiosApiInstance from "../../util/axiosInstance";
-import { Context } from "../../context/Context";
 
 const FormContainer = styled.div`
   margin-top: 30px;
@@ -38,7 +36,7 @@ const CommentContainer = styled.form`
 `;
 
 const Textarea = styled.textarea`
-  width: 100%;
+  width: 80%;
   font-family: Zilla;
   font-size: 1.4rem;
   resize: none;
@@ -48,20 +46,18 @@ const Textarea = styled.textarea`
 `;
 
 const EmojiContainer = styled.div`
+ 
   height: 100%;
   margin: auto;
-
+  
   align-items: center;
+  
 `;
 
-const Comments: React.FC<CommentProps> = ({ post }) => {
+const Comments: React.FC<CommentProps> = ({post}) => {
   const theme = useTheme();
-  const context = React.useContext(Context);
 
-  const [commentBodyInput, setCommentBodyInput] = useState<String>("");
-  const [needRefresh, setNeedRefresh] = useState(false);
   const [commentValue, setCommentValue] = useState<String>("")
-  
   const addComment = async (e:React.MouseEvent) => 
 {
   e.preventDefault();
@@ -74,47 +70,32 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
   }
   console.log(data)
 
-  const addComment = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    const data = {
-      _post: post._id,
-      date: new Date(Date.now()),
-      body: commentBodyInput,
-    };
+  try {
+    const response = await axios.post("http://localhost:3000/api/comment/create", data);
 
-    try {
-      const response = await axiosApiInstance.post(
-        "http://localhost:3000/api/comment/create",
-        data
-      );
-
-      if (response.status === 200) {
-        console.log("comment was created");
-        context.setNeedRefresh(!context.needRefresh)
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.status === 200) {
+      console.log("comment was created");
+    
     }
-  };
+  } catch (error) {
+    console.log(error);
+   
+  }
+}
 
   return (
     <>
-      <FormContainer>
-        <PicContainer>
-          <img
-            style={{ width: "100%", borderRadius: "50%" }}
-            src="https://www.zvr-info.de/wp-content/uploads/2018/02/Platzhalter.png"
-            alt=""
-          />
-        </PicContainer>
-        <CommentContainer>
-          <Textarea
-            onChange={(e) => {
-              setCommentBodyInput(e.target.value);
-            }}
-            placeholder="Comment..."
-          ></Textarea>
-          {/* <EmojiContainer>
+    <FormContainer>
+      <PicContainer>
+        <img
+          style={{ width: "100%", borderRadius: "50%" }}
+          src="https://www.zvr-info.de/wp-content/uploads/2018/02/Platzhalter.png"
+          alt=""
+        />
+      </PicContainer>
+      <CommentContainer>
+        <Textarea onChange={(e) => {setCommentValue(e.target.value)}} placeholder="Comment..."></Textarea>
+        <EmojiContainer>
           <div>
             <Image
               dropShadow={false}
@@ -132,12 +113,13 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
               color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
             />
           </div>
-        </EmojiContainer> */}
-        </CommentContainer>
-        <CommentButton text="Reply" type="submit" onClick={addComment} />
-      </FormContainer>
-      <CommentsList post={post} />
+        </EmojiContainer>
+      </CommentContainer>
+      <CommentButton text="Reply" type="submit" onClick={addComment}/>
+    </FormContainer>
+    <CommentsList/>
     </>
+
   );
 };
 

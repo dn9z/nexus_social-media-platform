@@ -46,7 +46,6 @@ const Item = styled.button`
   align-items: center;
   border-radius: 25px;
   padding: 0.25rem;
-  cursor: pointer;
   &:active,
   &:hover {
     background-color: ${themeConf.menuItemHoverColor};
