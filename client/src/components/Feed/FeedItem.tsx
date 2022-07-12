@@ -135,7 +135,7 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
             <PostDate>{format(parseISO(post.date), "MMM dd, yyyy")}</PostDate>
             {authContext.userId === post._user && (
               <div onClick={() => {context.setShowConfirmModal(true)}}>
-                <Cross dropShadow={true} scaleFactor={0.55} color={context.color} />
+                <Cross dropShadow={true} scaleFactor={0.55} color="white" />
               </div>
             )}
           </MetaDataRight>
