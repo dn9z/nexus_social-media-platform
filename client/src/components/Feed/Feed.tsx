@@ -44,6 +44,7 @@ const Feed: React.FC = () => {
   //     context.setNeedRefresh(false)
   //     loadMore()
   //   }
+  //
   // }, [context.needRefresh])
 
   return (
