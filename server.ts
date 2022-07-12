@@ -8,6 +8,7 @@ import configurePassport from "./passport/passport-config";
 import userRoutes from "./routes/userRoutes";
 import postRoutes from "./routes/postRoutes";
 import messageRoutes from "./routes/messageRoutes";
+import commentRoutes from "./routes/commentRoutes";
 
 import {fileURLToPath} from 'url';
 import { dirname } from 'path';
@@ -54,6 +55,7 @@ mongoose
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/messages", messageRoutes)
+app.use("/api/comment", commentRoutes);
 
 app.use("/uploads", express.static("uploads"));
 app.use(express.static(path.join(__dirname, "client/build")));
