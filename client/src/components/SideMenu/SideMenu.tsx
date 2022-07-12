@@ -64,7 +64,7 @@ const SideMenu: React.FC = () => {
   const count = useCount()
 
   const context = React.useContext(Context);
-  const { userId } = React.useContext(AuthContext);
+  const { userId, handleLogin } = React.useContext(AuthContext);
   const theme = useTheme();
 
 
