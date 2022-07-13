@@ -21,28 +21,20 @@ export interface ContextProps {
 
   showErrorModal: boolean;
   setShowErrorModal: React.Dispatch<React.SetStateAction<boolean>>;
+
   needRefresh: boolean;
   setNeedRefresh: React.Dispatch<React.SetStateAction<boolean>>;
   postsUpdated: boolean;
   setPostsUpdated: React.Dispatch<React.SetStateAction<boolean>>;
   pageNumber: number;
   setPageNumber: React.Dispatch<React.SetStateAction<number>>;
-  color: string;
-  numberIconDisplayState: boolean;
-  numberIconNums: { mails: number; notifications: number };
+
   showPassword: boolean;
   toggleShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
 
   showNewMessageModal: boolean;
   setShowNewMessageModal: React.Dispatch<React.SetStateAction<boolean>>;
-  conversationId: string;
-  setConversationId: React.Dispatch<React.SetStateAction<string>>;
-  isCreated: boolean;
-  setIsCreated: React.Dispatch<React.SetStateAction<boolean>>;
-  recipient: string | null;
-  setRecipient: React.Dispatch<React.SetStateAction<string | null>>;
-  recipientId: string | null;
-  setRecipientId: React.Dispatch<React.SetStateAction<string | null>>;
+
 
 }
 

@@ -5,7 +5,8 @@ import * as themeConf from "./styles/theme";
 import { useTheme } from "./context/ThemeManager";
 import { Context } from "./context/Context";
 import { AuthContext } from "./context/AuthContext";
-
+import { MessageProvider, useMessageContext } from "./context/MessageContext";
+import axiosApiInstance from "./util/axiosInstance";
 import SideMenu from "./components/SideMenu/SideMenu";
 import Profile from "./components/Profile/Profile";
 import EditProfile from "./components/Profile/EditProfile";
@@ -20,8 +21,7 @@ import TopMenu from "./components/MobileComponents/TopMenu";
 import HomeIndex from "./components/MobileComponents/Home/HomeIndex";
 import ProfileIndex from "./components/MobileComponents/Profile/ProfileIndex";
 
-
-import MessageMain from "./components/Messaging/MessageMain"
+import MessageMain from "./components/Messaging/MessageMain";
 
 import Register from "./components/AuthForms/Register";
 import Login from "./components/AuthForms/Login";
@@ -41,8 +41,6 @@ import BackgroundUploadModal from "./components/modals/BackgroundUploadModal";
 
 import Logout from "./components/Logout/Logout";
 import UserSearch from "./components/UserSearch/UserSearch";
-
-
 
 const Main = styled.main`
   display: flex;
@@ -80,64 +78,72 @@ function App() {
   const theme = useTheme();
 
   const context = React.useContext(Context);
+
   const { loggedIn } = React.useContext(AuthContext);
+ 
 
   return (
-      <AppProvider>
-        <GlobalStyle />
-        <ThemeProvider theme={{ mode: theme.mode }}>
-          {/* <HomeIndex/> */}
-          {/* <ProfileIndex/> */}
-          <BrowserRouter>
-            {loggedIn ? (
-              <Main>
-                <Left>
+    <AppProvider>
+      <GlobalStyle />
+      <ThemeProvider theme={{ mode: theme.mode }}>
+        {/* <HomeIndex/> */}
+        {/* <ProfileIndex/> */}
+        <BrowserRouter>
+          {loggedIn ? (
+            <Main>
+              <Left>
+                <MessageProvider>
                   <CountProvider>
                     <SideMenu />
                   </CountProvider>
-                </Left>
-                <Center>
-                  <PostModal show={context.showPostModal} />
-
+                </MessageProvider>
+              </Left>
+              <Center>
+                <PostModal show={context.showPostModal} />
+                <MessageProvider>
                   <NewMessageModal show={context.showNewMessageModal} />
+                </MessageProvider>
+                <AvatarUploadModal show={context.showAvatarModal} />
+                <BackgroundUploadModal show={context.showBackgroundModal} />
 
+                <Routes>
+                  <Route path="/follow" element={<FollowSection />} />
+                  {/*<Route path="/topmenu" element={<TopMenu />} /> */}
+                  <Route path="/" element={<Feed />} />
+                  <Route
+                    path="/messages"
+                    element={
+                      <MessageProvider>
+                        <MessageMain />
+                      </MessageProvider>
+                    }
+                  />
 
-                  <AvatarUploadModal show={context.showAvatarModal} />
-                  <BackgroundUploadModal show={context.showBackgroundModal} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/editprofile" element={<EditProfile />} />
 
+                  <Route path="/profile/:_id" element={<Profile />} />
+                  <Route path="/search" element={<UserSearch/>} />
 
-                  <Routes>
-                  <Route path="/follow" element={<FollowSection />}/>
-                    {/*<Route path="/topmenu" element={<TopMenu />} /> */}
-                    <Route path="/" element={<Feed />} />
-                    <Route path="/messages" element={<MessageMain />} />
-
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/editprofile" element={<EditProfile />} />
-
-
-                    <Route path="/profile/:_id" element={<Profile />} />
-                    <Route path="/search" element={<UserSearch/>} />
-
-                    <Route path="/nexus" element={""} />
-                    <Route path='/logout' element={<Logout/>}/>
-                  </Routes>
-                </Center>
-                <Right>
-                  <Recommendations />
-                  <Activity />
-                </Right>
-              </Main>
-            ) : (
-              <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-              </Routes>
-            )}
-          </BrowserRouter>
-        </ThemeProvider>
-      </AppProvider>
+                  <Route path="/nexus" element={""} />
+                  <Route path="/logout" element={<Logout />} />
+                </Routes>
+              </Center>
+              <Right>
+                <Recommendations />
+                <Activity />
+              </Right>
+            </Main>
+          ) : (
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </Routes>
+          )}
+        </BrowserRouter>
+      </ThemeProvider>
+    </AppProvider>
   );
 }
 

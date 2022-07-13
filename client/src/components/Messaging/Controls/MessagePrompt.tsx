@@ -8,6 +8,7 @@ import Image from "../../../icons/Image";
 import Gif from "../../../icons/Gif";
 import Send from "../../../icons/Send";
 import axiosApiInstance from "../../../util/axiosInstance";
+import { useMessageContext } from "../../../context/MessageContext";
 
 
 const IconContainer = styled.div`
@@ -61,6 +62,7 @@ username: string
 
 }
 const MessagePrompt: React.FC<MessageProps> = (props) => {
+  const msg = useMessageContext()
   const context = React.useContext(Context)
   const {  userId } = React.useContext(AuthContext);
   const [message, setMessage] = React.useState("");
@@ -89,7 +91,7 @@ const MessagePrompt: React.FC<MessageProps> = (props) => {
     const data = {
       _userFrom: userId,
       _userTo: props._userTo,
-      _conversation: context.conversationId,
+      _conversation: msg.conversationId,
       date: new Date(Date.now()),
       text: message,
       /* media: "empty", */
@@ -103,7 +105,7 @@ const MessagePrompt: React.FC<MessageProps> = (props) => {
 
       if (response.status === 200) {
         
-        context.setIsCreated(!context.isCreated);
+        msg.setIsCreated(!msg.isCreated);
       }
     } catch (error) {
       console.log(error);

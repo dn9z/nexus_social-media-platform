@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Context } from "../../context/Context";
+
 import Home from "../../icons/Home";
 import User from "../../icons/User";
 import Mail from "../../icons/Mail";
@@ -19,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import axiosApiInstance from "../../util/axiosInstance";
+import {useCount} from "../../context/NumberContext";
 
 const Container = styled.div`
   height: auto;
@@ -60,9 +62,31 @@ const Item = styled.button`
 const SideMenu: React.FC = () => {
   const navigate = useNavigate();
 
+  const count = useCount()
+
   const context = React.useContext(Context);
-  const { userId } = React.useContext(AuthContext);
+  const { userId, handleLogin } = React.useContext(AuthContext);
   const theme = useTheme();
+
+
+
+
+  const handleLogout = async () => {
+    try {
+      await axiosApiInstance.get("http://localhost:3000/api/user/logout");
+
+      handleLogin("", ""); // empty strings will resolve to falsey value
+
+
+      // Navigate("/");
+      navigate('/')
+    } catch (error) {
+      console.log(error);
+      // setIsError(true);
+      // setErrorMessage(error.response.data.message);
+    }
+  };
+
 
   return (
     <Container>
@@ -70,67 +94,60 @@ const SideMenu: React.FC = () => {
         <h1>NEXUS</h1>
       </Header>
       <Item onClick={() => {}}>
-        <Home dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <Home dropShadow={true} scaleFactor={0.55} color="white" />
         <p>Home</p>
       </Item>
-      <Item
-        onClick={() => {
-          navigate(`/profile/${userId}`);
-        }}
-      >
-        <User dropShadow={true} scaleFactor={0.55} color={context.color} />
+
+      <Item onClick={() => {navigate(`/profile/${userId}`)}}>
+        <User dropShadow={true} scaleFactor={0.55} color="white" />
+
+ 
+
         <p>Profile</p>
       </Item>
-      <Item onClick={() => {}}>
-        <Mail dropShadow={true} scaleFactor={0.55} color={context.color} />
+      <Item onClick={() => {navigate(`/messages`)}}>
+        <Mail dropShadow={true} scaleFactor={0.55} color="white" />
         <NumberAlert
-          displayState={context.numberIconDisplayState}
-          number={context.numberIconNums.mails}
+          displayState={true}
+          number={count.messageNumberState.count}
         />
         <p>Mail</p>
       </Item>
       <Item onClick={() => {}}>
-        <Notifications
-          dropShadow={true}
-          scaleFactor={0.55}
-          color={context.color}
-        />
+
+        <Notifications dropShadow={true} scaleFactor={0.55} color="white" />
+
+
         <NumberAlert
-          displayState={context.numberIconDisplayState}
-          number={context.numberIconNums.notifications}
+          displayState={true}
+          number={count.notificationNumberState.count}
         />
         <p>Notifications</p>
       </Item>
       <Item onClick={() => {}}>
-        <Bookmarks dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <Bookmarks dropShadow={true} scaleFactor={0.55} color="white" />
         <p>Bookmarks</p>
       </Item>
       <Item onClick={() => {}}>
-        <Groups dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <Groups dropShadow={true} scaleFactor={0.55} color="white" />
         <p>Nexi</p>
       </Item>
       <Item onClick={() => {}}>
-        <Settings dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <Settings dropShadow={true} scaleFactor={0.55} color="white" />
         <p>Settings</p>
       </Item>
       <Item onClick={() => theme.toggle()}>
         {theme.mode === "light" ? (
-          <DarkMode
-            dropShadow={true}
-            scaleFactor={0.55}
-            color={context.color}
-          />
+
+          <DarkMode dropShadow={true} scaleFactor={0.55} color="white" />
         ) : (
-          <LightMode
-            dropShadow={true}
-            scaleFactor={0.55}
-            color={context.color}
-          />
+          <LightMode dropShadow={true} scaleFactor={0.55} color="white" />
+
         )}
         {theme.mode === "light" ? <p>Dark mode</p> : <p>Light mode</p>}
       </Item>
       <Item onClick={() => navigate("/logout")}>
-        <Logout dropShadow={true} scaleFactor={0.55} color={context.color} />
+        <Logout dropShadow={true} scaleFactor={0.55} color="white" />
         <p>Logout</p>
       </Item>
       <Button

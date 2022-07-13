@@ -21,38 +21,20 @@ export const Context = React.createContext<ContextProps>({
   setPostsUpdated:() => {},
   needRefresh: false,
   setNeedRefresh:() => {},
-  color: "white",
-  numberIconDisplayState: true,
-  numberIconNums: { mails: 0, notifications: 0,},
   toggleShowPassword: ()=>{},
   showPassword: false,
   showNewMessageModal: false, 
   setShowNewMessageModal: ()=>{},
-  conversationId: "", 
-  setConversationId: ()=>{},
-  isCreated: false,
-   setIsCreated: ()=>{},
-   recipient: "",
-   setRecipient: ()=>{},
-   recipientId: "",
-   setRecipientId: ()=>{},
   pageNumber: 1,
   setPageNumber:() => {},
+
 });
 
 function Provider(props: React.PropsWithChildren<{}>) {
   
   const [showPostModal, setShowPostModal] = React.useState(false);
   const [showNewMessageModal, setShowNewMessageModal] = React.useState(false);
-  const [recipient, setRecipient] = React.useState<string | null>(null)
-  const [recipientId, setRecipientId] = React.useState<string | null>(null)
-  /**
-   * @params conversation states 
-   * @types id, object | null
-   * 
-   */
-  const [conversationId, setConversationId] = React.useState("");
- 
+
 
   const [showAvatarModal, setShowAvatarModal] = React.useState(false);
   const [avatarModalSaved, setAvatarModalSaved] = React.useState(false);
@@ -74,28 +56,20 @@ function Provider(props: React.PropsWithChildren<{}>) {
   
 
 
-  const [numberIconDisplayState, setNumberIconDisplayState] =
-    React.useState(true);
-
-  const [numberIconNums, setNumberIconNums] = React.useState({
-    mails: 0,
-    notifications: 0,
-  });
 
 
- const [isCreated, setIsCreated] = React.useState(false);
+
   const [showPassword, toggleShowPassword] = React.useState(false);
 
-  console.log(conversationId);
+ 
 
 
 
-  let color = "white";
 
   return (
     <Context.Provider
       value={{
-        color,
+   
 
         backgroundModalSaved,
         setBackgroundModalSaved,
@@ -114,8 +88,6 @@ function Provider(props: React.PropsWithChildren<{}>) {
         setNeedRefresh,
         postsUpdated,
         setPostsUpdated,
-        numberIconDisplayState,
-        numberIconNums,
 
         pageNumber,
         setPageNumber,
@@ -124,14 +96,7 @@ function Provider(props: React.PropsWithChildren<{}>) {
         showPassword,
         showNewMessageModal, 
         setShowNewMessageModal,
-        conversationId,
-        setConversationId,
-        isCreated,
-        setIsCreated,
-        recipient,
-        setRecipient,
-        recipientId,
-        setRecipientId
+      
     
       }}
     >

@@ -147,7 +147,7 @@ const FeedItem: React.FC<FeedProps> = ({ post }) => {
                   setShowConfirmModal(true);
                 }}
               >
-                <Cross dropShadow={true} scaleFactor={0.5} color={context.color} />
+                <Cross dropShadow={true} scaleFactor={0.5} color="white" />
               </div>
             )}
           </MetaDataRight>

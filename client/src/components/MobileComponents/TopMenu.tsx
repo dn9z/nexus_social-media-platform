@@ -39,7 +39,7 @@ const TopMenu: React.FC = () => {
   return (
     <Container>
       <Item onClick={() => setHidden((s) => !s)}>
-        <Hamburger dropShadow={false} scaleFactor={0.55} color={context.color} />
+        <Hamburger dropShadow={false} scaleFactor={0.55} color="white" />
         {!hidden ? <HamburgerMenu /> : null}
       </Item>
 
@@ -48,7 +48,7 @@ const TopMenu: React.FC = () => {
       </Label>
 
       <Item onClick={() => {}}>
-        <User dropShadow={false} scaleFactor={0.55} color={context.color} />
+        <User dropShadow={false} scaleFactor={0.55} color="white" />
       </Item>
     </Container>
   );

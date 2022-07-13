@@ -108,7 +108,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
                     setShowConfirmModal(true);
                   }}
                 >
-                  <Cross dropShadow={true} scaleFactor={0.45} color={context.color} />
+                  <Cross dropShadow={true} scaleFactor={0.45} color="white" />
                 </DeleteContainer>
               )}
             </CommentMetaDataRight>
