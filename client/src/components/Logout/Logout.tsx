@@ -27,7 +27,7 @@ export default function Logout() {
     try {
       await axiosApiInstance.get("/api/user/logout");
       handleLogin("", ""); // empty strings will resolve to falsey value
-      navigate("/");
+      navigate("/login");
     } catch (e) {
       console.log(e);
     }

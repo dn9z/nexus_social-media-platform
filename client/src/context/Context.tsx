@@ -35,7 +35,6 @@ function Provider(props: React.PropsWithChildren<{}>) {
   const [showPostModal, setShowPostModal] = React.useState(false);
   const [showNewMessageModal, setShowNewMessageModal] = React.useState(false);
 
-
   const [showAvatarModal, setShowAvatarModal] = React.useState(false);
   const [avatarModalSaved, setAvatarModalSaved] = React.useState(false);
 
@@ -43,34 +42,18 @@ function Provider(props: React.PropsWithChildren<{}>) {
   const [backgroundModalSaved, setBackgroundModalSaved] = React.useState(false);
 
   const [showErrorModal, setShowErrorModal] = React.useState(false);
-  const [showConfirmModal, setShowConfirmModal] = React.useState(false);
   
   const [postsUpdated, setPostsUpdated] = React.useState(false);
   
   const [needRefresh, setNeedRefresh] = React.useState(false);
-  
-  const [commentRefresh, setCommentRefresh] = React.useState(false);
-
 
   const [pageNumber, setPageNumber] = React.useState(1);
   
-
-
-
-
-
   const [showPassword, toggleShowPassword] = React.useState(false);
-
- 
-
-
-
 
   return (
     <Context.Provider
       value={{
-   
-
         backgroundModalSaved,
         setBackgroundModalSaved,
         showBackgroundModal,
@@ -96,8 +79,6 @@ function Provider(props: React.PropsWithChildren<{}>) {
         showPassword,
         showNewMessageModal, 
         setShowNewMessageModal,
-      
-    
       }}
     >
       {props.children}
