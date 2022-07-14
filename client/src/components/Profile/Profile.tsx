@@ -182,7 +182,7 @@ console.log(currentUser);
             <BackgroundImage
               src={
                 currentUser.background
-                  ? process.env.REACT_APP_SERVER_URI + currentUser.background
+                  ? "http://localhost:3001/" + currentUser.background
                   : Pic
               }
               alt="Background"
@@ -198,7 +198,7 @@ console.log(currentUser);
                 }}
                 src={
                   currentUser.avatar
-                    ? process.env.REACT_APP_SERVER_URI + currentUser.avatar
+                    ? "http://localhost:3001/" + currentUser.avatar
                     : Pic
                 }
                 alt="Pic"

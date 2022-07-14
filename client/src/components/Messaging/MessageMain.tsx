@@ -1,11 +1,13 @@
 import * as React from "react";
 import styled from "styled-components";
 import { useMessageContext } from "../../context/MessageContext";
+import {Context} from "../../context/Context";
 import * as themeConf from "../../styles/theme";
 import SentMessage from "./MessageItems/SentMessage";
 import ReceivedMessage from "./MessageItems/ReceivedMessage";
 import MessagePrompt from "./Controls/MessagePrompt";
 import NewMessageSearch from "./Controls/NewMessageSearch";
+import NewMessageModal from "../modals/NewMessageModal";
 import axiosApiInstance from "../../util/axiosInstance";
 import { AuthContext } from "../../context/AuthContext";
 import { useInterval } from "usehooks-ts";
@@ -86,6 +88,7 @@ const MessageMain: React.FC = () => {
   } = useMessageContext();
 
   const { userId } = React.useContext(AuthContext);
+  const context = React.useContext(Context);
 
   const [conversationToDisplay, setConversationToDisplay] = React.useState<
     Array<{
@@ -220,6 +223,7 @@ const MessageMain: React.FC = () => {
 
   return (
     <Container>
+       <NewMessageModal show={context.showNewMessageModal} />
       <ListContainer>
         <NewMessageSearch />
         {conversationListItem()}
