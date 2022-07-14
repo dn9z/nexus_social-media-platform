@@ -5,14 +5,14 @@ import * as themeConf from "./styles/theme";
 import { useTheme } from "./context/ThemeManager";
 import { Context } from "./context/Context";
 import { AuthContext } from "./context/AuthContext";
-import { MessageProvider, useMessageContext } from "./context/MessageContext";
+import { MessageProvider} from "./context/MessageContext";
 import axiosApiInstance from "./util/axiosInstance";
 import SideMenu from "./components/SideMenu/SideMenu";
 import Profile from "./components/Profile/Profile";
 import EditProfile from "./components/Profile/EditProfile";
 
 import PostModal from "./components/modals/PostModal";
-import NewMessageModal from "./components/modals/NewMessageModal";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Feed from "./components/Feed/Feed";
 import AppProvider from "./context/Context";
@@ -96,20 +96,18 @@ function App() {
           <Main>
             {loggedIn && (
               <Left>
-                <MessageProvider>
+               
                   <CountProvider>
                     <SideMenu />
                   </CountProvider>
-                </MessageProvider>
+               
               </Left>
             )}
             <Center>
               {loggedIn && (
                 <>
                   <PostModal show={context.showPostModal} />
-                  <MessageProvider>
-                    <NewMessageModal show={context.showNewMessageModal} />
-                  </MessageProvider>
+                  
                   <AvatarUploadModal show={context.showAvatarModal} />
                   <BackgroundUploadModal show={context.showBackgroundModal} />
                 </>
