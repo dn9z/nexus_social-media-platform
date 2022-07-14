@@ -13,14 +13,20 @@ import {
 } from "../../types";
 import Button from "../../buttons/Button";
 import Info from "../../icons/Info";
+import Logo from "../../icons/Logo";
 import Visbility from "../../buttons/Visbility";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import StandardHeader from "../../components/Header/StandardHeader";
+
+
+const c1 = "#7a5dd1";
+const c2 = "#00ffd0";
 
 const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
-  height: 630px;
+  height: 430px;
   width: 275px;
   margin: 2rem;
   padding: 1rem;
@@ -29,6 +35,7 @@ const FormContainer = styled.form`
   background-color: ${themeConf.backgroundColor};
   margin: auto;
   margin-top: 5rem;
+  position: relative;
 `;
 
 const Container = styled.div`
@@ -68,6 +75,34 @@ const Icon = styled.div`
   justify-content: center;
 `;
 
+const Footer = styled.div`
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1rem 0.25rem;
+  > p {
+    font-family: Inconsolata;
+    font-size: 1rem;
+    font-weight: 500;
+    padding-right: 1rem;
+    color: ${themeConf.fontColor};
+  }
+  > a {
+    font-family: Quicksand;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 10%;
+    color: ${themeConf.fontColor};
+    text-decoration: none;
+    &:hover {
+      background-color: ${themeConf.menuItemHoverColor};
+    }
+  }
+`;
+
 const Login: React.FC = () => {
   const navigate = useNavigate();
 
@@ -101,6 +136,9 @@ const Login: React.FC = () => {
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
+      <StandardHeader headingSize="1.75rem" subheading="" width="200px">
+        <Logo scaleFactor={3} colorProps={{ colorOne: c1, colorTwo: c2 }} />
+      </StandardHeader>
       <Container>
         <Label>
           <label>E-Mail</label>
@@ -128,10 +166,10 @@ const Login: React.FC = () => {
         </Field>
       </Container>
       <Button onClick={() => {}} text="Login" type="submit" />
-      <div>
-        <span>No account? </span>
+      <Footer>
+        <p>No account? </p>
         <Link to="/register">Sign Up!</Link>
-      </div>
+      </Footer>
     </FormContainer>
   );
 };
