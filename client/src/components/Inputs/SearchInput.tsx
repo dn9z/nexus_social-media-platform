@@ -5,8 +5,6 @@ import * as themeConf from "../../styles/theme";
 import { useTheme } from "../../context/ThemeManager";
 import Search from "../../icons/Search";
 
-
-
 const IconContainer = styled.div`
   display: flex;
   align-items: center;
@@ -19,7 +17,6 @@ const IconContainer = styled.div`
     background-color: ${themeConf.menuItemHoverColor};
   }
 `;
-
 
 const Prompt = styled.div`
   width: 100%;
@@ -45,34 +42,38 @@ const SearchInput = styled.input`
   font-family: Zilla;
   font-size: 1rem;
 `;
+
+const Button = styled.button`
+  all: unset;
+`;
 interface SearchInputProps {
   placeholder: string;
   searchValue: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement> 
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onClick: (() => void) | ((event:React.SyntheticEvent) => void)
 }
 
 const NewMessage_Search: React.FC<SearchInputProps> = (props) => {
   const context = React.useContext(Context);
-    const theme = useTheme();
+  const theme = useTheme();
   return (
-   
-          
-          <Prompt>
-            <SearchInput
-            onChange={props.onChange} 
-            value={props.searchValue}
-            placeholder={props.placeholder} />
-            <IconContainer>
-              <Search
-                
-                dropShadow={false}
-                scaleFactor={0.65}
-                color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
-              />
-            </IconContainer>
-          </Prompt>
-       
-  )
-}
+    <Prompt>
+      <SearchInput
+        onChange={props.onChange}
+        value={props.searchValue}
+        placeholder={props.placeholder}
+      />
+      <IconContainer>
+        <Button onClick={props.onClick}>
+          <Search
+            dropShadow={false}
+            scaleFactor={0.65}
+            color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
+          />
+        </Button>
+      </IconContainer>
+    </Prompt>
+  );
+};
 
-export default NewMessage_Search
+export default NewMessage_Search;

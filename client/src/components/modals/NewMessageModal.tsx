@@ -10,6 +10,7 @@ import SearchInput from "../Inputs/SearchInput";
 import { ModalProps, PModalBottomContainerProps } from "../../types";
 import axiosApiInstance from "../../util/axiosInstance";
 import UserPic from "../User/UserPic";
+import Pic from "../../img/Portrait_Placeholder.png";
 import { contextType } from "react-infinite-scroller";
 
 
@@ -84,7 +85,7 @@ const NewMessageModal: React.FC<ModalProps> = (props) => {
 
 
   const [usersToDisplay, setUsersToDisplay] =
-    React.useState<Array<{ username: string; _id: string }>>();
+    React.useState<Array<{ username: string; _id: string, avatar:string }>>();
 
   React.useEffect(() => {
     const getUsers = async () => {
@@ -111,7 +112,7 @@ const NewMessageModal: React.FC<ModalProps> = (props) => {
 
 
   React.useEffect(() => {
-    function filterUsers(item: { username: string; _id: string }) {
+    function filterUsers(item: { username: string; _id: string, avatar:string }) {
       //filter out users that have already been contacted
       return !msg.conversations!.some(
         (entry) => entry.participants._userTo === item._id
@@ -154,7 +155,7 @@ const NewMessageModal: React.FC<ModalProps> = (props) => {
             onClick={(event) => startConversation(event)}
             key={index}
           >
-            <UserPic image={undefined} customSize="30px" />
+            <UserPic image={user.avatar ? user.avatar : Pic} customSize="30px" />
             <div key={user._id}>{`${user.username}`}</div>
           </ListItem>
         );
@@ -177,6 +178,7 @@ const NewMessageModal: React.FC<ModalProps> = (props) => {
           <Right>
             <BottomContainer bottomBorder={true}>
               <SearchInput
+              onClick={(event:React.SyntheticEvent) => {event.preventDefault()}}
                 onChange={(event) => {
                   setSelectedUser(event.target.value);
                 }}

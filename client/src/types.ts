@@ -203,6 +203,7 @@ export interface MessageProps {
   text: string;
   date: string;
   username: string;
+  avatar:string;
 }
 export interface ConfirmModalProps {
   showConfirmModal: boolean;

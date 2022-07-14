@@ -22,7 +22,10 @@ border-radius: 100%;
 `
 
 const UserPic: React.FC<UserPicProps> = ({customSize, image}) => {
-  return <Container customSize={customSize}><img src={image} alt="" /></Container>;
+  return <Container customSize={customSize}><img style={{
+    width: "100%",
+    borderRadius: "50%",
+  }} src={image} alt="User Pic" /></Container>;
 };
 
 export default UserPic;

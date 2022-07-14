@@ -40,7 +40,7 @@ router.post("/uploadBackgroundImage",upload.single('image'), userController.uplo
 router.post("/uploadImage",upload.single('image'), userController.uploadImage)
 
 router.get("/getuserbyid/:id", userController.getUserById);
-
+/* router.get("/getusersbyname//[a-zA-Z0-9]/g/", userController.getUsersByName); */
 router.get("/getusersbyname/:username", userController.getUsersByName);
 
 router.patch("/followuser/:id", userController.followUser);

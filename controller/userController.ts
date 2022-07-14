@@ -61,7 +61,7 @@ export const login = async (req: Request, res: Response) => {
           message: "Login successful",
           // we are sending the user as an object with only selected keys
 
-          user: { username: user.username, _id:user._id }, // later I might want to send more keys here
+          user: { username: user.username, _id: user._id }, // later I might want to send more keys here
           token,
 
         });
@@ -90,30 +90,30 @@ export const logout = async (req: Request, res: Response) => {
 
 // editProfile
 
-export const editProfile = async (req:Request, res:Response) => {
+export const editProfile = async (req: Request, res: Response) => {
   const user = req.user as UserType;
-  const userResolved = await User.findByIdAndUpdate(user._id, {firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, username: req.body.username, bio: req.body.bio, location: req.body.location})
+  const userResolved = await User.findByIdAndUpdate(user._id, { firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, username: req.body.username, bio: req.body.bio, location: req.body.location })
   return res.status(200).json("User updated")
 }
 
 // getting the profile 
-export const profile = async (req:Request,res:Response) => {
+export const profile = async (req: Request, res: Response) => {
   const user = req.user as UserType;
   const updatedUser = await User.findById(user._id)
-  return res.status(200).json({ profile: updatedUser})
+  return res.status(200).json({ profile: updatedUser })
 };
 // upload image
-export const uploadImage = async (req:Request,res:Response) => {
+export const uploadImage = async (req: Request, res: Response) => {
   const user = req.user as UserType;
-  const userUpdate = await User.findByIdAndUpdate(user._id, {avatar: `/uploads/${req.file?.filename}`})
-  return res.status(200).json({path:`/uploads/${req.file?.filename}`})
+  const userUpdate = await User.findByIdAndUpdate(user._id, { avatar: `/uploads/${req.file?.filename}` })
+  return res.status(200).json({ path: `/uploads/${req.file?.filename}` })
 }
 
 // upload background image
-export const uploadBackgroundImage = async (req:Request,res:Response) => {
+export const uploadBackgroundImage = async (req: Request, res: Response) => {
   const user = req.user as UserType;
-  const userUpdate = await User.findByIdAndUpdate(user._id, {background: `/uploads/${req.file?.filename}`} )
-  return res.status(200).json({path:`/uploads/${req.file?.filename}`})
+  const userUpdate = await User.findByIdAndUpdate(user._id, { background: `/uploads/${req.file?.filename}` })
+  return res.status(200).json({ path: `/uploads/${req.file?.filename}` })
 }
 
 
@@ -155,7 +155,10 @@ export const unfollowUser = async (req: Request, res: Response) => {
 
 export const getUsersByName = async (req: Request, res: Response) => {
   try {
-    const users = await User.find({username:req.params.username});
+    /* const users = await User.find({username:req.params.input.match(/[a-zA-Z0-9]/g)}); */
+    /*  const users = await User.find({username:{ $regex: /[a-zA-Z0-9]/g}}); */
+      const users = await User.find({username:{ $regex: req.params.username}}); 
+    /* const users = await User.find({username:req.params.username});   */
     return res.status(200).json(users);
   } catch (error) {
     return res.status(400).json({ message: "Error happened", error: error });
