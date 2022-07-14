@@ -153,6 +153,15 @@ export const unfollowUser = async (req: Request, res: Response) => {
   }
 };
 
-export default { test, register, login, logout, profile, editProfile, uploadImage, uploadBackgroundImage, followUser, unfollowUser, getUserById };
+export const getUsersByName = async (req: Request, res: Response) => {
+  try {
+    const users = await User.find({username:req.params.username});
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(400).json({ message: "Error happened", error: error });
+  }
+};
+
+export default { test, register, login, logout, profile, editProfile, uploadImage, uploadBackgroundImage, followUser, unfollowUser, getUserById, getUsersByName };
 
 

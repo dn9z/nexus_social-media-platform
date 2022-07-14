@@ -41,6 +41,8 @@ router.post("/uploadImage",upload.single('image'), userController.uploadImage)
 
 router.get("/getuserbyid/:id", userController.getUserById);
 
+router.get("/getusersbyname/:username", userController.getUsersByName);
+
 router.patch("/followuser/:id", userController.followUser);
 
 router.patch("/unfollowuser/:id", userController.unfollowUser);

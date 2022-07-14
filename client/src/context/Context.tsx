@@ -17,25 +17,23 @@ export const Context = React.createContext<ContextProps>({
   setShowPostModal:() => {},
   showErrorModal: false,
   setShowErrorModal:() => {},
-  showConfirmModal: false,
-  setShowConfirmModal:() => {},
-
-
+  postsUpdated: false,
+  setPostsUpdated:() => {},
+  needRefresh: false,
+  setNeedRefresh:() => {},
   toggleShowPassword: ()=>{},
   showPassword: false,
   showNewMessageModal: false, 
   setShowNewMessageModal: ()=>{},
+  pageNumber: 1,
+  setPageNumber:() => {},
 
-   
-
- 
 });
 
 function Provider(props: React.PropsWithChildren<{}>) {
   
   const [showPostModal, setShowPostModal] = React.useState(false);
   const [showNewMessageModal, setShowNewMessageModal] = React.useState(false);
-
 
   const [showAvatarModal, setShowAvatarModal] = React.useState(false);
   const [avatarModalSaved, setAvatarModalSaved] = React.useState(false);
@@ -44,25 +42,18 @@ function Provider(props: React.PropsWithChildren<{}>) {
   const [backgroundModalSaved, setBackgroundModalSaved] = React.useState(false);
 
   const [showErrorModal, setShowErrorModal] = React.useState(false);
-  const [showConfirmModal, setShowConfirmModal] = React.useState(false);
   
+  const [postsUpdated, setPostsUpdated] = React.useState(false);
+  
+  const [needRefresh, setNeedRefresh] = React.useState(false);
 
-
-
-
-
+  const [pageNumber, setPageNumber] = React.useState(1);
+  
   const [showPassword, toggleShowPassword] = React.useState(false);
-
- 
-
-
-
 
   return (
     <Context.Provider
       value={{
-   
-
         backgroundModalSaved,
         setBackgroundModalSaved,
         showBackgroundModal,
@@ -76,16 +67,18 @@ function Provider(props: React.PropsWithChildren<{}>) {
         setShowPostModal,
         showErrorModal,
         setShowErrorModal,
-        showConfirmModal,
-        setShowConfirmModal,
-  
+        needRefresh,
+        setNeedRefresh,
+        postsUpdated,
+        setPostsUpdated,
+
+        pageNumber,
+        setPageNumber,
 
         toggleShowPassword,
         showPassword,
         showNewMessageModal, 
         setShowNewMessageModal,
-      
-    
       }}
     >
       {props.children}

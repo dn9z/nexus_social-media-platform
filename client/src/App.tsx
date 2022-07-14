@@ -40,7 +40,12 @@ import AvatarUploadModal from "./components/modals/AvatarUploadModal";
 import BackgroundUploadModal from "./components/modals/BackgroundUploadModal";
 
 import Logout from "./components/Logout/Logout";
+
 import StandardBackground from "./components/Backgrounds/StandardBackground";
+
+import UserSearch from "./components/UserSearch/UserSearch";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+
 
 const Main = styled.main`
   display: flex;
@@ -55,7 +60,7 @@ const Left = styled.div`
 `;
 
 const Center = styled.div`
-  width: 60vw;
+width: 100%;
 `;
 
 const Right = styled.div`
@@ -80,7 +85,6 @@ function App() {
   const context = React.useContext(Context);
 
   const { loggedIn } = React.useContext(AuthContext);
- 
 
   return (
     <AppProvider>
@@ -89,8 +93,8 @@ function App() {
         {/* <HomeIndex/> */}
         {/* <ProfileIndex/> */}
         <BrowserRouter>
-          {loggedIn ? (
-            <Main>
+          <Main>
+            {loggedIn && (
               <Left>
                 <MessageProvider>
                   <CountProvider>
@@ -98,48 +102,91 @@ function App() {
                   </CountProvider>
                 </MessageProvider>
               </Left>
-              <Center>
-                <PostModal show={context.showPostModal} />
-                <MessageProvider>
-                  <NewMessageModal show={context.showNewMessageModal} />
-                </MessageProvider>
-                <AvatarUploadModal show={context.showAvatarModal} />
-                <BackgroundUploadModal show={context.showBackgroundModal} />
-
-                <Routes>
-                  <Route path="/follow" element={<FollowSection />} />
-                  {/*<Route path="/topmenu" element={<TopMenu />} /> */}
-                  <Route path="/" element={<Feed />} />
-                  <Route
-                    path="/messages"
-                    element={
-                      <MessageProvider>
+            )}
+            <Center>
+              {loggedIn && (
+                <>
+                  <PostModal show={context.showPostModal} />
+                  <MessageProvider>
+                    <NewMessageModal show={context.showNewMessageModal} />
+                  </MessageProvider>
+                  <AvatarUploadModal show={context.showAvatarModal} />
+                  <BackgroundUploadModal show={context.showBackgroundModal} />
+                </>
+              )}
+              <Routes>
+                <Route
+                  path="/follow"
+                  element={
+                    <ProtectedRoute auth={loggedIn}>
+                      <FollowSection />
+                    </ProtectedRoute>
+                  }
+                />
+                {/*<Route path="/topmenu" element={<TopMenu />} /> */}
+                <Route
+                  path="/"
+                  element={
+                    <ProtectedRoute auth={loggedIn}>
+                      <Feed />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/messages"
+                  element={
+                    <MessageProvider>
+                      <ProtectedRoute auth={loggedIn}>
                         <MessageMain />
-                      </MessageProvider>
-                    }
-                  />
-
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/editprofile" element={<EditProfile />} />
-
-                  <Route path="/profile/:_id" element={<Profile />} />
-
-                  <Route path="/nexus" element={""} />
-                  <Route path="/logout" element={<Logout />} />
-                </Routes>
-              </Center>
+                      </ProtectedRoute>
+                    </MessageProvider>
+                  }
+                />
+                {/* <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute auth={loggedIn}>
+                      <Profile />
+                    </ProtectedRoute>
+                  }
+                /> */}
+                <Route
+                  path="/editprofile"
+                  element={
+                    <ProtectedRoute auth={loggedIn}>
+                      <EditProfile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/profile/:_id"
+                  element={
+                    <ProtectedRoute auth={loggedIn}>
+                      <Profile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/search"
+                  element={
+                    <ProtectedRoute auth={loggedIn}>
+                      <UserSearch />
+                    </ProtectedRoute>
+                  }
+                />
+                {/* <Route path="/nexus" element={""} /> */}
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+              </Routes>
+            </Center>
+            {loggedIn && (
               <Right>
                 <Recommendations />
                 <Activity />
               </Right>
-            </Main>
-          ) : (
-            <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-            </Routes>
-          )}
+            )}
+          </Main>
         </BrowserRouter>
         <StandardBackground/>
       </ThemeProvider>

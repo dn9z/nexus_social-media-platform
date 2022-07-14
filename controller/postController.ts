@@ -4,6 +4,7 @@ import Post from "../models/Post";
 import { UserType } from "../types";
 
 import fs from 'fs'
+import User from "../models/User";
 
 export async function createPost(req: Request, res: Response) {
   const user = req.user as UserType;
@@ -46,13 +47,16 @@ export async function deletePost(req: Request, res: Response) {
 }
 
 export const paginate = async (req: Request, res: Response) => {
-  const user = req.user as UserType;
+  const reqUser = req.user as UserType;
   const page = Number(req.query.page) || 1;
   const pageSize = Number(req.query.pageSize) || 10;
   const skipRows = (page - 1) * pageSize;
   try {
+    const user = await User.findById(reqUser._id)
+    const following = user._following
+
     let posts = [];
-    posts = await Post.find({ _user: user._id }).skip(skipRows).limit(pageSize);
+    posts = await Post.find({ $or:[{'_user': reqUser._id}, { '_user': { $in: following } }] }).sort({ date: -1 }).skip(skipRows).limit(pageSize);
     return res.status(200).json(posts);
   } catch (error) {
     return res.status(400).json({ message: "Error happened", error });
