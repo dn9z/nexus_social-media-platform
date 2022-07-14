@@ -63,4 +63,18 @@ export const paginate = async (req: Request, res: Response) => {
   }
 };
 
-export default { createPost, deletePost, paginate };
+export const paginateById = async (req: Request, res: Response) => {
+  const profileId = req.params.id
+  const page = Number(req.query.page) || 1;
+  const pageSize = Number(req.query.pageSize) || 10;
+  const skipRows = (page - 1) * pageSize;
+  try {
+    let posts = [];
+    posts = await Post.find({_user: profileId}).sort({ date: -1 }).skip(skipRows).limit(pageSize);
+    return res.status(200).json(posts);
+  } catch (error) {
+    return res.status(400).json({ message: "Error happened", error });
+  }
+};
+
+export default { createPost, deletePost, paginate, paginateById };

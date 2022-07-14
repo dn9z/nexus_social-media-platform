@@ -108,6 +108,10 @@ export interface FeedState {
 }
 
 export interface FeedProps {
+  profileId?: string;
+}
+
+export interface FeedItemProps {
   post: {
     _user: string;
     _id: string;

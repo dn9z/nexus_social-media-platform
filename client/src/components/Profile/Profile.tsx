@@ -249,7 +249,7 @@ const Profile: React.FC = () => {
               
             </ProfileInfo>
             <div>
-            <Feed />
+            <Feed profileId={_id} />
             </div>
             
           </ProfileContainer>

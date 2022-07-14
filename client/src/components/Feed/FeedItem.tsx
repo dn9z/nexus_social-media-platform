@@ -4,7 +4,7 @@ import { Context } from "../../context/Context";
 import { AuthContext } from "../../context/AuthContext";
 import * as themeConf from "../../styles/theme";
 import Button from "../../buttons/Button";
-import { FeedProps } from "../../types";
+import { FeedItemProps } from "../../types";
 import Comments from "../Comments/Comments";
 import axiosApiInstance from "../../util/axiosInstance";
 import { format, parseISO } from "date-fns";
@@ -80,7 +80,7 @@ const PostBody = styled.div`
   font-size: 1.25rem;
 `;
 
-const FeedItem: React.FC<FeedProps> = ({ post }) => {
+const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
   const context = React.useContext(Context);
   const authContext = React.useContext(AuthContext);
 

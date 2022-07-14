@@ -13,4 +13,6 @@ router.delete("/delete/:id", postController.deletePost);
 
 router.get("/paginate", postController.paginate);
 
+router.get("/paginatebyid/:id", postController.paginateById);
+
 export default router

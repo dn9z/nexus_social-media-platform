@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import styled from "styled-components";
 import FeedItem from "./FeedItem";
-import {FeedState} from "../../types"
+import {FeedProps, FeedState} from "../../types"
 import axiosApiInstance from "../../util/axiosInstance";
 import { Context } from "../../context/Context";
 
@@ -12,7 +12,7 @@ const ListContainer = styled.div`
   overflow: auto;
 `;
 
-const Feed: React.FC = () => {
+const Feed: React.FC<FeedProps> = ({profileId}) => {
   const [hasMore, setHasMore] = useState(true);
   // const [pageNumber, setPageNumber] = useState(1);
   const [posts, setPosts] = useState<FeedState["post"]>([]);
@@ -30,9 +30,21 @@ const Feed: React.FC = () => {
     }
   }
 
+  async function loadMoreById() {
+    try {
+      const res = await axiosApiInstance.get(`http://localhost:3000/api/post/paginatebyid/${profileId}?page=${context.pageNumber}`);
+
+        setPosts([...posts, ...res.data]);
+        context.setPageNumber(context.pageNumber + 1);
+        setHasMore(res.data.length > 0);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   useEffect(() => {
     setPosts([]);
-    loadMore();
+    !profileId ? loadMore() : loadMoreById();
     return () => {
       context.setPageNumber(1);
     };
@@ -51,7 +63,9 @@ const Feed: React.FC = () => {
       <ListContainer>
         <InfiniteScroll
           pageStart={0}
-          loadMore={loadMore}
+          loadMore={() => {
+            !profileId ? loadMore() : loadMoreById();
+          }}
           hasMore={hasMore}
           loader={
             <div className="loader" key={0}>
