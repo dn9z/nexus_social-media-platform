@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import * as themeConf from "../../styles/theme";
 import Image from "../../icons/Image";
 import Gif from "../../icons/Gif";
 import Emoji from "../../icons/Emoji";
@@ -12,8 +13,9 @@ import axiosApiInstance from "../../util/axiosInstance";
 import { Context } from "../../context/Context";
 
 const FormContainer = styled.div`
-  margin-top: 30px;
-  border-top: 1px solid grey;
+  margin-top: 35px;
+  height: 100%;
+  border-top: 1px solid ${themeConf.fontColor};
   padding-top: 10px;
   display: flex;
   align-items: center;
@@ -28,21 +30,25 @@ const PicContainer = styled.div`
 const CommentContainer = styled.form`
   display: flex;
   justify-content: space-between;
+  margin: 1rem;
   align-items: center;
   border-radius: 5px;
   width: 100%;
-  height: 50px;
-  border: 2px solid grey;
-  border-radius: 10px;
+  height: 60px;
+  border: 1px solid grey;
+  border-radius: 5px;
   background-color: rgba(211, 211, 211, 0.35);
 `;
 
 const Textarea = styled.textarea`
   width: 100%;
+  height: auto;
+  padding: 0.5rem;
+  color: ${themeConf.fontColor};
   font-family: Zilla;
   font-size: 1.4rem;
   resize: none;
-  background-color: rgba(211, 211, 211, 0.2);
+  background-color: transparent;
   border: none;
   outline: none;
 `;

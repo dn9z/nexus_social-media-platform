@@ -9,10 +9,9 @@ const ButtonStyled = styled.button`
   justify-content: center;
   border-radius: 25px;
   padding: 0.25rem;
-  height: 40px;
-  width: 110px;
-  margin-left: 20px;
-  margin-top: 20px;
+  height: 30px;
+  width: 90px;
+  margin-left: 3rem;
   background-color: springgreen;
   border: 1px solid white;
   color: white;
@@ -27,7 +26,7 @@ const ButtonStyled = styled.button`
   }
   > p {
     font-family: Quicksand;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
   }
 `;
@@ -35,11 +34,11 @@ const ButtonStyled = styled.button`
 interface ButtonProps {
     text: string;
     type?: "button" | "submit" | "reset" | undefined;
-    onClick?: (event: React.MouseEvent) => void | undefined;
+    onClick?: () => Promise<void>;
    
 }
 
-const Button: React.FC<ButtonProps> = (props) => {
+const FollowButton: React.FC<ButtonProps> = (props) => {
     return (
         <ButtonStyled onClick={props.onClick} type={props.type} >
         <p>{ props.text }</p>
@@ -47,4 +46,4 @@ const Button: React.FC<ButtonProps> = (props) => {
   )
 }
 
-export default Button
+export default FollowButton

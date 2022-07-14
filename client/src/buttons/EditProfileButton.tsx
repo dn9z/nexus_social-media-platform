@@ -10,9 +10,9 @@ const ButtonStyled = styled.button`
   justify-content: center;
   border-radius: 25px;
   padding: 0.5rem;
-  border: 2px solid rgba(0, 0, 0, 0.7);
+  border: 2px solid white;
   background-color: springgreen;
-  color: rgba(0, 0, 0, 0.7);
+  color: white;
   &:hover {
     background-color: white;
     border: 1px solid springgreen;

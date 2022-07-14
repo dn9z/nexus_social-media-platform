@@ -2,10 +2,12 @@ import React from "react";
 import { CommentItemProps } from "../../types";
 import axiosApiInstance from "../../util/axiosInstance";
 import { format, parseISO } from "date-fns";
+import * as themeConf from "../../styles/theme";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { Context } from "../../context/Context";
+import {useTheme} from "../../context/ThemeManager";
 import Cross from "../../icons/Cross";
 import ConfirmModal from "../modals/ConfirmModal";
 
@@ -16,12 +18,12 @@ const CommentItemContainer = styled.li`
   align-items: center;
   border-radius: 5px;
   /* width: 100%; */
-  /* height: 3rem; */
-  border: 2px solid grey;
-  border-radius: 10px;
-  background-color: rgba(211, 211, 211, 0.35);
-  margin-bottom: 0.5rem;
-  padding-left: 0.6rem;
+  height: auto; 
+  border-bottom: 1px solid grey;
+  border-radius: 5px;
+  background-color: rgba(211, 211, 211, 0.05);
+  margin: 1rem 0.5rem;
+  padding: 0.6rem;
 `;
 
 const CommentItemMetaData = styled.div`
@@ -30,7 +32,7 @@ const CommentItemMetaData = styled.div`
   justify-content: space-between;
   font-weight: 600;
   height: 1rem;
-  /* margin: ; */
+   margin-bottom: 1rem; 
 `;
 
 const CommentMetaDataRight = styled.div`
@@ -50,12 +52,24 @@ const CommentItemUser = styled.div`
 const CommentItemBody = styled.div`
   width: 100%;
 `;
+
+const DateDiv = styled.div`
+font-family: Inconsolata;
+  color: ${themeConf.fontColor};`
+
+  const UserNameWrapper = styled.div`
+  font-family: Quicksand;
+  margin-left: 0.5rem;
+  `
+const CommentBodyWrapper = styled.div`
+font-family: NotoSans;`
+
 const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
   const navigate = useNavigate();
   const [username, setUsername] = React.useState("");
   const authContext = React.useContext(AuthContext);
   const context = React.useContext(Context);
-
+const theme = useTheme();
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
 
   async function handleDeleteComment(_idToDelete: string) {
@@ -98,23 +112,23 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
                 navigate(`/profile/${comment._user}`);
               }}
             >
-              {username}
+              <UserNameWrapper>{username}</UserNameWrapper>
             </CommentItemUser>
             <CommentMetaDataRight>
-              <div>{format(parseISO(comment.date), "MMM dd, yyyy")}</div>
+              <DateDiv>{format(parseISO(comment.date), "MMM dd, yyyy")}</DateDiv>
               {authContext.userId === comment._user && (
                 <DeleteContainer
                   onClick={() => {
                     setShowConfirmModal(true);
                   }}
                 >
-                  <Cross dropShadow={true} scaleFactor={0.45} color="white" />
+                  <Cross dropShadow={true} scaleFactor={0.45} color={theme.mode === "dark" ? "white" : "black"} />
                 </DeleteContainer>
               )}
             </CommentMetaDataRight>
           </CommentItemMetaData>
           <CommentItemBody>
-            <div>{comment.body}</div>
+            <CommentBodyWrapper>{comment.body}</CommentBodyWrapper>
           </CommentItemBody>
         </CommentItemContainer>
       ) : null}
