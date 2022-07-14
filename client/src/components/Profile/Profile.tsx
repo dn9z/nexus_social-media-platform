@@ -13,7 +13,7 @@ import axiosApiInstance from "../../util/axiosInstance";
 import { useParams } from "react-router-dom";
 import Feed from "../Feed/Feed";
 import { ProfileUserState } from "../../types";
-
+import FollowButton from "../../buttons/FollowButton"
 
 const Container = styled.div`
   display: flex;
@@ -105,6 +105,10 @@ const Location = styled.div`
 `;
 const FollowContainer = styled.div`
   display: flex;
+  flex-direction: row;
+  margin: 1rem;
+  align-items: center;
+  height: auto;
   font-weight: bold;
 `;
 
@@ -123,13 +127,15 @@ const BackgroundImage = styled.img`
   object-fit: "cover";
   width: 100%;
 `;
+/* process.env.REACT_APP_SERVER_URI "http://localhost:3001/" */
+
 
 const Profile: React.FC = () => {
 
   const navigate = useNavigate();
   const { _id } = useParams();
   const [currentUser, setCurrentUser] = React.useState<ProfileUserState | null>(null);
-
+console.log(currentUser);
   async function handleFollow() {
     try {
       const res = await axiosApiInstance.patch(`http://localhost:3000/api/user/followuser/${_id}`);
@@ -177,7 +183,7 @@ const Profile: React.FC = () => {
               src={
                 currentUser.background
                   ? process.env.REACT_APP_SERVER_URI + currentUser.background
-                  : ""
+                  : Pic
               }
               alt="Background"
             />
@@ -240,9 +246,19 @@ const Profile: React.FC = () => {
                 <Following>Following:</Following>
                 <Followers>Followers:</Followers>
                 {!currentUser._following.includes(currentUser._id) ? (
-                  <button onClick={handleFollow}>Follow</button>
+                  <FollowButton
+                  // onClick={(event) => context.handlePostClick(event)}
+                  onClick={handleFollow}
+                  text="Follow"
+                  type="button"
+                />
                 ) : (
-                  <button onClick={handleUnfollow}>Unfollow</button>
+                  <FollowButton
+                  // onClick={(event) => context.handlePostClick(event)}
+                  onClick={handleUnfollow}
+                  text="Unfollow"
+                  type="button"
+                />
                 )}
               </FollowContainer>
               

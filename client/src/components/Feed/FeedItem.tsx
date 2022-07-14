@@ -11,9 +11,10 @@ import { format, parseISO } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import Cross from "../../icons/Cross";
 import ConfirmModal from "../modals/ConfirmModal";
+import { useTheme } from "../../context/ThemeManager";
 
 const PostItem = styled.div`
-  width: calc(60vw - 2.6rem);
+  width: calc(100% - 2.6rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -64,8 +65,12 @@ const PostMedia = styled.div`
   width: 70%;
 `;
 
-const PostTextContainer = styled.div``;
+const PostTextContainer = styled.div`
+  margin: 1rem;
+  
+`;
 const PostTitle = styled.div`
+  margin: 1rem 0 1rem 15px;
   font-family: Quicksand;
   text-decoration: none;
   font-size: 1.45rem;
@@ -74,8 +79,7 @@ const PostTitle = styled.div`
   border-bottom: 1px solid ${themeConf.fontColor};
 `;
 const PostBody = styled.div`
-  margin-top: 5px;
-  margin-left: 15px;
+  margin: 1rem 0 1rem 15px;
   font-family: Zilla;
   font-size: 1.25rem;
 `;
@@ -88,14 +92,14 @@ const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
 
   const [author, setAuthor] = React.useState("");
   const navigate = useNavigate();
-
+  const theme = useTheme();
   async function handleDeletePost(_idToDelete: string) {
     try {
       const res = await axiosApiInstance.delete(
         `http://localhost:3000/api/post/delete/${_idToDelete}`
       );
-      context.setPageNumber(1)
-      context.setNeedRefresh(!context.needRefresh)
+      context.setPageNumber(1);
+      context.setNeedRefresh(!context.needRefresh);
     } catch (error) {
       console.log(error);
     }
@@ -147,7 +151,11 @@ const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
                   setShowConfirmModal(true);
                 }}
               >
-                <Cross dropShadow={true} scaleFactor={0.5} color="white" />
+                <Cross
+                  dropShadow={true}
+                  scaleFactor={0.5}
+                  color={theme.mode === "dark" ? "white" : "black"}
+                />
               </div>
             )}
           </MetaDataRight>
@@ -157,7 +165,9 @@ const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
           <PostBody>{post.body}</PostBody>
         </PostTextContainer>
         <PostMedia>
-          {post.media && <img src={`http://localhost:3000/${post.media}`} alt="" />}
+          {post.media && (
+            <img src={`http://localhost:3000/${post.media}`} alt="" />
+          )}
         </PostMedia>
         {/* <div style={{ placeSelf: "flex-end" }}>
           <Button onClick={() => context.setShowPostModal(true)} text="Share" type="button" />
