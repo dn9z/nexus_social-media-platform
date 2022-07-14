@@ -4,6 +4,7 @@ import { Context } from "../../context/Context";
 
 import Home from "../../icons/Home";
 import User from "../../icons/User";
+import Users from "../../icons/Users";
 import Mail from "../../icons/Mail";
 import Logout from "../../icons/LogoutIcon";
 import Notifications from "../../icons/Notifications";
@@ -103,7 +104,14 @@ const SideMenu: React.FC = () => {
 
  
 
-        <p>Profile</p>
+        <p>You</p>
+      </Item>
+      <Item onClick={() => {navigate(`/search`)}}>
+        <Users dropShadow={true} scaleFactor={0.55} color="white" />
+
+ 
+
+        <p>Others</p>
       </Item>
       <Item onClick={() => {navigate(`/messages`)}}>
         <Mail dropShadow={true} scaleFactor={0.55} color="white" />

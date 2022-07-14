@@ -6,6 +6,7 @@ import axiosApiInstance from "../../util/axiosInstance";
 import { Context } from "../../context/Context";
 import { UserSearchState } from "../../types";
 import UserItem from "./UserItem";
+import SearchInput from "../../components/Inputs/SearchInput";
 
 const ListContainer = styled.div`
   width: 100%;
@@ -24,9 +25,7 @@ const SearchBarContainer = styled.div`
   width: 100%;
 `;
 
-const SearchBar = styled.input`
-  width: 20%;
-`;
+
 
 const UserSearch: React.FC = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -48,7 +47,17 @@ const UserSearch: React.FC = () => {
     <>
       <ListContainer>
         <SearchBarContainer>
-          <SearchBar
+        <SearchInput
+              onClick={() => {
+                searchInput.length > 0 && getUsers()
+              }}
+                onChange={(e) => {
+                  setSearchInput(e.target.value);
+                }}
+                searchValue={searchInput}
+                placeholder="Search users"
+              />
+         {/*  <SearchBar
             onChange={(e) => {
               setSearchInput(e.target.value);
             }}
@@ -56,7 +65,7 @@ const UserSearch: React.FC = () => {
           />
           <button onClick={() => {
             searchInput.length > 0 && getUsers()
-          }}>Search</button>
+          }}>Search</button> */}
         </SearchBarContainer>
         <UsersList>
           {users.map((element, i) => {

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import styled from "styled-components";
 import * as themeConf from "../../styles/theme";
-
+import UserPic from "../User/UserPic";
 import axiosApiInstance from "../../util/axiosInstance";
 import { Context } from "../../context/Context";
 import { UserItemProps } from "../../types";
@@ -10,26 +10,24 @@ import Pic from "../../img/Portrait_Placeholder.png";
 import { useNavigate } from "react-router-dom";
 
 const UserItemContainer = styled.li`
-  width: 100%;
+  width: 40vw;
   height: 100%;
   display: flex;
   cursor: pointer;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 1rem;
 `;
 
-const AvatarImageContainer = styled.div`
-  /* display: flex; */
-  /* border: 4px solid white; */
-  /* box-shadow: 0px 5px 15px black; */
-  /* border-radius: 50%; */
-  /* position: absolute; */
-  /* bottom: -3rem; */
-  /* left: 5rem; */
-  width: 1rem;
-  height: 1rem;
-  /* background-color: ${themeConf.backgroundColor}; */
-  /* cursor: pointer; */
-`;
-
+const UserInfo = styled.div`
+  display: flex;
+  margin-left: 1.5rem;
+  font-family: Quicksand;
+  font-size: 1.25rem;
+`
+/* "http://localhost:3001/"
+process.env.REACT_APP_SERVER_URI */
 const UserItem: React.FC<UserItemProps> = ({ user }) => {
 
   const navigate = useNavigate()
@@ -39,17 +37,11 @@ const UserItem: React.FC<UserItemProps> = ({ user }) => {
       <UserItemContainer onClick={() => {
         navigate(`/profile/${user._id}`);
       }}>
-        <AvatarImageContainer>
-          <img
-            style={{
-              width: "100%",
-              borderRadius: "50%",
-            }}
-            src={user.avatar ? process.env.REACT_APP_SERVER_URI + user.avatar : Pic}
-            alt="Avatar"
-          />
-        </AvatarImageContainer>
-        <div>{user.username}</div>
+       
+          <UserPic customSize="50px" image={user.avatar ? process.env.REACT_APP_SERVER_URI + user.avatar : Pic} />
+       
+       
+        <UserInfo>{user.username}</UserInfo>
       </UserItemContainer>
     </>
   );

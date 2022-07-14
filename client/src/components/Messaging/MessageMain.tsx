@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { useMessageContext } from "../../context/MessageContext";
-import {Context} from "../../context/Context";
+import { Context } from "../../context/Context";
 import * as themeConf from "../../styles/theme";
 import SentMessage from "./MessageItems/SentMessage";
 import ReceivedMessage from "./MessageItems/ReceivedMessage";
@@ -12,6 +12,7 @@ import axiosApiInstance from "../../util/axiosInstance";
 import { AuthContext } from "../../context/AuthContext";
 import { useInterval } from "usehooks-ts";
 import UserPic from "../User/UserPic";
+import Pic from "../../img/Portrait_Placeholder.png";
 
 const Container = styled.div`
   width: calc(60vw - 2.6rem);
@@ -165,7 +166,9 @@ const MessageMain: React.FC = () => {
   const getUsername = (id: string) => {
     return users?.find((user) => user._id === id)!.username;
   };
-
+  const getAvatar = (id: string) => {
+    return users?.find((user) => user._id === id)!.avatar;
+  };
   const conversationListItem = () => {
     if (list) {
       return list!.map((conversation) => {
@@ -179,7 +182,14 @@ const MessageMain: React.FC = () => {
             }}
           >
             <ListItemContainer>
-              <UserPic customSize="30px" image={undefined} />
+              <UserPic
+                customSize="40px"
+                image={
+                  getAvatar(conversation.participants._userTo)
+                    ? getAvatar(conversation.participants._userTo)
+                    : Pic
+                }
+              />
               <p>{getUsername(conversation.participants._userTo)}</p>
             </ListItemContainer>
           </div>
@@ -205,6 +215,7 @@ const MessageMain: React.FC = () => {
               text={message.text}
               username={getUsername(message.participants._userFrom)!}
               date={message.date}
+              avatar=""
             />
           );
         } else {
@@ -214,6 +225,9 @@ const MessageMain: React.FC = () => {
               text={message.text}
               username={getUsername(message.participants._userFrom)!}
               date={message.date}
+              avatar={getAvatar(message.participants._userFrom)
+                ? getAvatar(message.participants._userFrom)
+                : Pic}
             />
           );
         }
@@ -223,7 +237,7 @@ const MessageMain: React.FC = () => {
 
   return (
     <Container>
-       <NewMessageModal show={context.showNewMessageModal} />
+      <NewMessageModal show={context.showNewMessageModal} />
       <ListContainer>
         <NewMessageSearch />
         {conversationListItem()}
@@ -239,3 +253,5 @@ const MessageMain: React.FC = () => {
 };
 
 export default MessageMain;
+
+/* user.avatar ? "http://localhost:3001/" + user.avatar : Pic */

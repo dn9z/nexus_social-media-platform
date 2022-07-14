@@ -49,7 +49,7 @@ const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 80vh;
+  min-height: 80vh;
   overflow: visible;
 `;
 
@@ -58,16 +58,16 @@ const BackgroundContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   border-bottom: 6px solid rgb(51, 51, 51);
-  height: 70%;
+  height: 60%;
   position: relative;
   background: springgreen;
 `;
 const ProfileInfo = styled.div`
-  padding: 60px 10px 10px 10px;
+  padding: 60px 10px 10px 10px; // top, right, bottom, left
   display: flex;
   flex-direction: column;
-  border-bottom: 2px solid black;
-  box-shadow: 0px 2px 20px black;
+  border: 1px solid grey;
+  box-shadow: 1px 1px 2px grey, 2px 2px 3px silver, 3px 3px 5px silver;
   height: 30%;
   background-color: ${themeConf.backgroundColor};
   font-family: Quicksand;
@@ -92,7 +92,7 @@ const Username = styled.div`
   margin-bottom: 1rem;
 `;
 const Email = styled.div`
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 700;
 `;
 const Bio = styled.div`

@@ -55,13 +55,13 @@ letter-spacing: 0.1rem;`
 
 
 
-const ReceivedMessage: React.FC<MessageProps> = ({text, date, username}) => {
+const ReceivedMessage: React.FC<MessageProps> = ({text, date, username, avatar}) => {
   
 
   return (
     <Container>
       <RowContainer>
-        <UserPic customSize="30px" image={undefined}/>
+        <UserPic customSize="30px" image={avatar}/>
         <ColumnContainer>
           <ChatBubble>
           <Username>{username}</Username>

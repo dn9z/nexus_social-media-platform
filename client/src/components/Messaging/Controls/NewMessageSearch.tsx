@@ -64,7 +64,7 @@ const NewMessage_Search: React.FC= () => {
             </IconContainer>
           </NewMessageContainer>
           
-            <SearchInput searchValue="Search messages" onChange={()=>{}} placeholder="Search messages" />
+            <SearchInput onClick={()=>{}} searchValue="Search messages" onChange={()=>{}} placeholder="Search messages" />
           
         </SearchContainer>
   )

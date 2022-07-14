@@ -6,9 +6,9 @@ type ProviderProps = { children: React.ReactNode };
 
 const MessageContext = React.createContext<
   | {
-      users: Array<{ username: string; _id: string }> | undefined;
+      users: Array<{ username: string; _id: string;avatar: string;}> | undefined;
       setUsers: React.Dispatch<
-        React.SetStateAction<{ username: string; _id: string }[] | undefined>
+        React.SetStateAction<{ username: string; _id: string;avatar: string; }[] | undefined>
       >;
       conversations:
         | Array<{ participants: { _userFrom: string; _userTo: string } }>
@@ -32,7 +32,7 @@ const MessageContext = React.createContext<
 
 function MessageProvider({ children }: ProviderProps) {
   const [users, setUsers] = React.useState<
-    Array<{ username: string; _id: string }> | undefined
+    Array<{ username: string; _id: string, avatar:string }> | undefined
   >(undefined);
   const [conversations, setConversations] = React.useState<
     | Array<{
