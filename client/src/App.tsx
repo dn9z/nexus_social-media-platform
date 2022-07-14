@@ -40,6 +40,7 @@ import AvatarUploadModal from "./components/modals/AvatarUploadModal";
 import BackgroundUploadModal from "./components/modals/BackgroundUploadModal";
 
 import Logout from "./components/Logout/Logout";
+import StandardBackground from "./components/Backgrounds/StandardBackground";
 
 const Main = styled.main`
   display: flex;
@@ -140,6 +141,7 @@ function App() {
             </Routes>
           )}
         </BrowserRouter>
+        <StandardBackground/>
       </ThemeProvider>
     </AppProvider>
   );
