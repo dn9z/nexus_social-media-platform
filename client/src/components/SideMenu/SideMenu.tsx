@@ -94,7 +94,7 @@ const SideMenu: React.FC = () => {
       <Header>
         <h1>NEXUS</h1>
       </Header>
-      <Item onClick={() => {}}>
+      <Item onClick={() => {navigate(`/`)}}>
         <Home dropShadow={true} scaleFactor={0.55} color="white" />
         <p>Home</p>
       </Item>
@@ -121,7 +121,7 @@ const SideMenu: React.FC = () => {
         />
         <p>Mail</p>
       </Item>
-      <Item onClick={() => {}}>
+     {/*  <Item onClick={() => {}}>
 
         <Notifications dropShadow={true} scaleFactor={0.55} color="white" />
 
@@ -143,7 +143,7 @@ const SideMenu: React.FC = () => {
       <Item onClick={() => {}}>
         <Settings dropShadow={true} scaleFactor={0.55} color="white" />
         <p>Settings</p>
-      </Item>
+      </Item> */}
       <Item onClick={() => theme.toggle()}>
         {theme.mode === "light" ? (
 

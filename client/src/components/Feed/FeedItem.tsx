@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Cross from "../../icons/Cross";
 import ConfirmModal from "../modals/ConfirmModal";
 import { useTheme } from "../../context/ThemeManager";
+import UserPic from "../User/UserPic";
 
 const PostItem = styled.div`
   width: calc(100% - 2.6rem);
@@ -89,7 +90,7 @@ const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
   const authContext = React.useContext(AuthContext);
 
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
-
+  const [avatar, setAvatar] = React.useState("");
   const [author, setAuthor] = React.useState("");
   const navigate = useNavigate();
   const theme = useTheme();
@@ -111,6 +112,7 @@ const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
         const res = await axiosApiInstance.get(
           `http://localhost:3000/api/user/getuserbyid/${post._user}`
         );
+        setAvatar(res.data.avatar);
         setAuthor(res.data.username);
       } catch (error) {
         console.log(error);
@@ -134,13 +136,7 @@ const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
               navigate(`/profile/${post._user}`);
             }}
           >
-            <PostUserPicContainer>
-              <img
-                style={{ width: "100%", borderRadius: "50%" }}
-                src="https://www.zvr-info.de/wp-content/uploads/2018/02/Platzhalter.png"
-                alt=""
-              />
-            </PostUserPicContainer>
+            <UserPic customSize="50px" image={avatar}/>
             <p>{author}</p>
           </PostUser>
           <MetaDataRight>

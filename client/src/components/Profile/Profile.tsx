@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import Feed from "../Feed/Feed";
 import { ProfileUserState } from "../../types";
 import FollowButton from "../../buttons/FollowButton"
+import Mail from "../../icons/Mail";
 
 const Container = styled.div`
   display: flex;
@@ -127,6 +128,28 @@ const BackgroundImage = styled.img`
   object-fit: "cover";
   width: 100%;
 `;
+
+const BottomContainer = styled.div`
+display: flex;
+flex-direction: row;
+width: 100%;
+justify-content: space-between;
+align-items: center;
+`
+
+const Button = styled.div<{type:string}>`
+all: unset;
+display: flex;
+align-items: center;
+justify-content: center;
+width: 55px;
+height: 55px;
+border: 1px solid ${themeConf.backgroundColor};
+border-radius: 50%;
+cursor: pointer;
+&:hover {
+  background-color: ${themeConf.menuItemHoverColor};`
+
 /* process.env.REACT_APP_SERVER_URI "http://localhost:3001/" */
 
 
@@ -135,7 +158,7 @@ const Profile: React.FC = () => {
   const navigate = useNavigate();
   const { _id } = useParams();
   const [currentUser, setCurrentUser] = React.useState<ProfileUserState | null>(null);
-console.log(currentUser);
+
   async function handleFollow() {
     try {
       const res = await axiosApiInstance.patch(`http://localhost:3000/api/user/followuser/${_id}`);
@@ -242,26 +265,31 @@ console.log(currentUser);
               ""
             )}
 
-              <FollowContainer>
-                <Following>Following:</Following>
-                <Followers>Followers:</Followers>
-                {!currentUser._following.includes(currentUser._id) ? (
-                  <FollowButton
-                  // onClick={(event) => context.handlePostClick(event)}
-                  onClick={handleFollow}
-                  text="Follow"
-                  type="button"
-                />
-                ) : (
-                  <FollowButton
-                  // onClick={(event) => context.handlePostClick(event)}
-                  onClick={handleUnfollow}
-                  text="Unfollow"
-                  type="button"
-                />
-                )}
-              </FollowContainer>
-              
+              <BottomContainer>
+                <FollowContainer>
+                  <Following>Following:</Following>
+                  <Followers>Followers:</Followers>
+                  {!currentUser._following.includes(currentUser._id) ? (
+                    <FollowButton
+                    // onClick={(event) => context.handlePostClick(event)}
+                    onClick={handleFollow}
+                    text="Follow"
+                    type="button"
+                  />
+                  ) : (
+                    <FollowButton
+                    // onClick={(event) => context.handlePostClick(event)}
+                    onClick={handleUnfollow}
+                    text="Unfollow"
+                    type="button"
+                  />
+                  )}
+                
+                </FollowContainer>
+                <Button type="button">
+                  <Mail dropShadow={true} scaleFactor={0.65} color="white" />
+                </Button>
+              </BottomContainer>
               
             </ProfileInfo>
             <div>
