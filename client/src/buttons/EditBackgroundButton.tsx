@@ -6,19 +6,20 @@ all: unset;
 position: absolute;
 top: 50%;
 left: 50%;
+color: springgreen;
 transform: translate(-50%, -50%);
 height: 30px;
-border: 1px solid black;
+border: 1px solid springgreen;
 background-color: white;
 font-size: 1.2rem;
 border-radius: 50%;
 padding: 0.5rem;
+cursor: pointer;
 
-box-shadow: 0px 0px 2px 2px black;
 &:hover {
-  background-color: grey;
-  color: springgreen;
-  border: 2px solid white;
+  background-color: springgreen;
+  color: white;
+  border: 1px solid white;
 }
 > p {
   font-family: Quicksand;
