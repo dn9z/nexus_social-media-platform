@@ -11,6 +11,8 @@ import { CommentProps } from "../../types";
 import axios from "axios";
 import axiosApiInstance from "../../util/axiosInstance";
 import { Context } from "../../context/Context";
+import {AuthContext} from "../../context/AuthContext";
+import UserPic from "../User/UserPic";
 
 const FormContainer = styled.div`
   margin-top: 35px;
@@ -63,10 +65,28 @@ const EmojiContainer = styled.div`
 const Comments: React.FC<CommentProps> = ({ post }) => {
   const theme = useTheme();
   const context = React.useContext(Context);
+  const { userId} = React.useContext(AuthContext);
+
   const [commentValue, setCommentValue] = useState<String>("")
   const [commentBodyInput, setCommentBodyInput] = useState<String>("");
+  const [avatar, setAvatar] = useState("")
   const [needRefresh, setNeedRefresh] = useState(false);
   
+  React.useEffect(() => {
+    async function getUserById() {
+      try {
+        const res = await axiosApiInstance.get(
+          `http://localhost:3000/api/user/getuserbyid/${userId}`
+        );
+        setAvatar(res.data.avatar);
+        
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getUserById();
+  }, []);
+
   const addComment = async (e: React.MouseEvent) => {
     e.preventDefault();
     const data = {
@@ -94,11 +114,7 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
     <>
       <FormContainer>
         <PicContainer>
-          <img
-            style={{ width: "100%", borderRadius: "50%" }}
-            src="https://www.zvr-info.de/wp-content/uploads/2018/02/Platzhalter.png"
-            alt=""
-          />
+          <UserPic image={avatar} customSize="40px"/>
         </PicContainer>
         <CommentContainer>
           <Textarea
