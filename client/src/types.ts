@@ -148,6 +148,10 @@ export interface InputTextFieldProps {
 
 }
 
+export interface ResponsiveProps {
+  width: string
+  } 
+
 export interface ProfileProps {
   _id: string;
   username: string;

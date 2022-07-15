@@ -18,19 +18,29 @@ import StandardHeader from "../../components/Header/StandardHeader";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
+import { useMediaQuery } from "usehooks-ts";
+
 const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   height: 650px;
   width: 545px;
-  margin: 2rem;
+  margin: 5rem auto;
   padding: 1rem;
   position: relative;
   border: 1px solid grey;
   box-shadow: 1px 1px 2px grey, 2px 2px 3px silver, 3px 3px 5px silver;
   background-color: ${themeConf.backgroundColor};
-  margin: auto;
-  margin-top: 5rem;
+
+  @media (max-width: 575px) {
+    align-items: center;
+    margin: 0;
+    height: auto;
+    width: 100vw;
+    padding-top: 3rem;
+    border: none;
+    box-shadow: none;
+  }
 `;
 
 const Container = styled.div`
@@ -86,7 +96,32 @@ const Subheading = styled.div`
     letter-spacing: 0.75rem;
     transform: scale(1.3);
   }
+
+  @media (max-width: 575px) {
+    display: flex;
+    position: relative;
+    left: -15px;
+    right: 0;
+    margin: 0;
+    top: 0;
+    font-size: clamp(0.8rem, 0.0407rem + 4.339vw, 1.6rem);
+    width: 80vw;
+
+    & > div {
+      width: 130px;
+      margin: 0;
+      margin-top: 0.2rem;
+      margin-left: 0.8rem;
+      margin-right: 0.8rem;
+      padding-left: 0.8rem;
+      font-size: clamp(0.8rem, 0.0407rem + 4.339vw, 1.6rem);
+      height: 1rem;
+      letter-spacing: 0.4rem;
+      
+    }
+  }
 `;
+
 const Field = styled.div`
   display: flex;
   flex-direction: row;
@@ -145,6 +180,9 @@ const Footer = styled.div`
       background-color: ${themeConf.menuItemHoverColor};
     }
   }
+    @media (max-width: 575px) {
+      position: relative;
+    }
 `;
 
 const c1 = "#7a5dd1";
@@ -152,6 +190,8 @@ const c2 = "#00ffd0";
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
+  const small = useMediaQuery("(max-width: 359px)");
+  const medium = useMediaQuery("(max-width: 575px)");
 
   const context = React.useContext(Context);
   // const [json, setJson] = React.useState<string>();
@@ -181,13 +221,23 @@ const Register: React.FC = () => {
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      <StandardHeader headingSize="3.75rem" subheading="welcome to" width="500px">
-        <Logo scaleFactor={6} colorProps={{ colorOne: c1, colorTwo: c2 }} />
+      <StandardHeader
+        headingSize={small ? "1.4rem" : "1.75rem"}
+        subheading={medium ? "" : "welcome to"}
+        width={"230px"}
+      >
+        <Logo
+          scaleFactor={small ? 2 : 3}
+          colorProps={{ colorOne: c1, colorTwo: c2 }}
+        />
       </StandardHeader>
-      <Subheading>
-        The social board with its <div>users</div>
-        <br /> in focus
-      </Subheading>
+    
+        <Subheading>
+          The social board with its <div>users</div> 
+          <br />in focus
+        </Subheading>
+      
+
       <Container>
         <Label>
           <label>First name</label>
