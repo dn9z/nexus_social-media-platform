@@ -127,6 +127,11 @@ const MessageMain: React.FC = () => {
     getConversations();
   }, POLL_RATE);
 
+  /**
+   * useEffect to load conversations when new message isCreated, making sure to render on state change
+   * @param isCreated - boolean to check if message isCreated
+   * @param conversationId - id of conversation to load
+   */
   React.useEffect(() => {
     const getConversations = async () => {
       if (isCreated === false) {
@@ -158,7 +163,7 @@ const MessageMain: React.FC = () => {
   }, []);
 
   /**
-   * function to find the recipients username in users[] with an id (string)
+   * function to find the recipients username in users[] with id (string)
    * @param id : string
    * @returns
    */
@@ -166,9 +171,16 @@ const MessageMain: React.FC = () => {
   const getUsername = (id: string) => {
     return users?.find((user) => user._id === id)!.username;
   };
+
+  /**
+   * function to find the recipients avatar in users[] with id (string)
+   * @param id : string
+   * @returns
+   */
   const getAvatar = (id: string) => {
     return users?.find((user) => user._id === id)!.avatar;
   };
+
   const conversationListItem = () => {
     if (list) {
       return list!.map((conversation) => {
@@ -225,9 +237,11 @@ const MessageMain: React.FC = () => {
               text={message.text}
               username={getUsername(message.participants._userFrom)!}
               date={message.date}
-              avatar={getAvatar(message.participants._userFrom)
-                ? getAvatar(message.participants._userFrom)
-                : Pic}
+              avatar={
+                getAvatar(message.participants._userFrom)
+                  ? getAvatar(message.participants._userFrom)
+                  : Pic
+              }
             />
           );
         }

@@ -8,13 +8,18 @@ import Pic from "../../img/Portrait_Placeholder.png";
 
 import { ProfileProps } from "../../types";
 import EditProfileButton from "../../buttons/EditProfileButton";
-
+import {
+  MessageProvider,
+  useMessageContext,
+} from "../../context/MessageContext";
 import axiosApiInstance from "../../util/axiosInstance";
 import { useParams } from "react-router-dom";
 import Feed from "../Feed/Feed";
 import { ProfileUserState } from "../../types";
-import FollowButton from "../../buttons/FollowButton"
+import FollowButton from "../../buttons/FollowButton";
 import Mail from "../../icons/Mail";
+import MessageBridge from "../Bridges/MessageBridge";
+import UserPic from "../User/UserPic";
 
 const Container = styled.div`
   display: flex;
@@ -49,19 +54,19 @@ const ProfileContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  min-height: 80vh;
-  overflow: visible;
+  width: 99%;
+  min-height: 70vh;
+ 
 `;
-
 
 const BackgroundContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   border-bottom: 6px solid rgb(51, 51, 51);
-  height: 60%;
+  height: 40%;
   position: relative;
   background: springgreen;
+  
 `;
 const ProfileInfo = styled.div`
   padding: 60px 10px 10px 10px; // top, right, bottom, left
@@ -69,20 +74,19 @@ const ProfileInfo = styled.div`
   flex-direction: column;
   border: 1px solid grey;
   box-shadow: 1px 1px 2px grey, 2px 2px 3px silver, 3px 3px 5px silver;
-  height: 30%;
+  height: 60%;
   background-color: ${themeConf.backgroundColor};
   font-family: Quicksand;
 `;
 const AvatarImageContainer = styled.div`
   display: flex;
-  border: 4px solid white;
-  box-shadow: 0px 5px 15px black;
+
+  box-shadow: 0px 2px 10px black;
   border-radius: 50%;
   position: absolute;
   bottom: -3rem;
   left: 5rem;
-  width: 10rem;
-  height: 10rem;
+
   background-color: ${themeConf.backgroundColor};
   cursor: pointer;
 `;
@@ -124,44 +128,32 @@ const ButtonContainer = styled.div`
   right: 1rem;
 `;
 const BackgroundImage = styled.img`
-
   object-fit: "cover";
   width: 100%;
 `;
 
 const BottomContainer = styled.div`
-display: flex;
-flex-direction: row;
-width: 100%;
-justify-content: space-between;
-align-items: center;
-`
-
-const Button = styled.div<{type:string}>`
-all: unset;
-display: flex;
-align-items: center;
-justify-content: center;
-width: 55px;
-height: 55px;
-border: 1px solid ${themeConf.backgroundColor};
-border-radius: 50%;
-cursor: pointer;
-&:hover {
-  background-color: ${themeConf.menuItemHoverColor};`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 /* process.env.REACT_APP_SERVER_URI "http://localhost:3001/" */
 
-
 const Profile: React.FC = () => {
-
   const navigate = useNavigate();
   const { _id } = useParams();
-  const [currentUser, setCurrentUser] = React.useState<ProfileUserState | null>(null);
+  const [currentUser, setCurrentUser] = React.useState<ProfileUserState | null>(
+    null
+  );
 
   async function handleFollow() {
     try {
-      const res = await axiosApiInstance.patch(`http://localhost:3000/api/user/followuser/${_id}`);
+      const res = await axiosApiInstance.patch(
+        `http://localhost:3000/api/user/followuser/${_id}`
+      );
     } catch (error) {
       console.log(error);
     }
@@ -169,17 +161,20 @@ const Profile: React.FC = () => {
 
   async function handleUnfollow() {
     try {
-      const res = await axiosApiInstance.patch(`http://localhost:3000/api/user/unfollowuser/${_id}`);
+      const res = await axiosApiInstance.patch(
+        `http://localhost:3000/api/user/unfollowuser/${_id}`
+      );
     } catch (error) {
       console.log(error);
     }
   }
 
-
   React.useEffect(() => {
     async function getUser() {
       try {
-        const res = await axiosApiInstance.get(`http://localhost:3000/api/user/getuserbyid/${_id}`);
+        const res = await axiosApiInstance.get(
+          `http://localhost:3000/api/user/getuserbyid/${_id}`
+        );
         setCurrentUser(res.data);
       } catch (error) {
         console.log(error);
@@ -187,9 +182,8 @@ const Profile: React.FC = () => {
     }
     getUser();
   }, []);
-  
 
-    return (
+  return (
     currentUser && (
       <>
         <Container>
@@ -197,73 +191,69 @@ const Profile: React.FC = () => {
             <h1>{currentUser.username}</h1>
             <h3>NEXUS</h3>
           </Banner>
-          
-          <ProfileContainer>
-          
-          
-             <BackgroundContainer>
-            <BackgroundImage
-              src={
-                currentUser.background
-                  ? process.env.REACT_APP_SERVER_URI + currentUser.background
-                  : Pic
-              }
-              alt="Background"
-            />
 
-            <AvatarImageContainer>
-              <img
-                style={{
-                  maxHeight: "100%",
-                  width: "150px",
-                  objectFit: "cover",
-                  borderRadius: "50%",
-                }}
+          <ProfileContainer>
+            <BackgroundContainer>
+              <BackgroundImage
                 src={
-                  currentUser.avatar
-                    ? process.env.REACT_APP_SERVER_URI + currentUser.avatar
+                  currentUser.background
+                    ? "http://localhost:3001/" + currentUser.background
                     : Pic
                 }
-                alt="Pic"
+                alt="Background"
               />
-            </AvatarImageContainer>
 
-            <ButtonContainer>
-              <EditProfileButton
-                onClick={() => navigate("/editprofile")}
-                text="Edit Profile"
-                type="button"
-              />
-            </ButtonContainer>
-          </BackgroundContainer>
-            
-            
-            
+              <AvatarImageContainer>
+                <UserPic image={currentUser.avatar} customSize="150px"/>
+             {/*    <img
+                  style={{
+                    maxHeight: "100%",
+                    width: "150px",
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                  }}
+                  src={
+                    currentUser.avatar
+                      ? "http://localhost:3001/" + currentUser.avatar
+                      : Pic
+                  }
+                  alt="Pic"
+                /> */}
+              </AvatarImageContainer>
+
+              <ButtonContainer>
+                <EditProfileButton
+                  onClick={() => navigate("/editprofile")}
+                  text="Edit Profile"
+                  type="button"
+                />
+              </ButtonContainer>
+            </BackgroundContainer>
+
             <ProfileInfo>
-            
               <Username>
-              <p>Username: {currentUser.username}</p>
-            </Username>
+                <p>Username: {currentUser.username}</p>
+              </Username>
 
-            <Email>
-              <p>Email: {currentUser.email}</p>
-            </Email>
+              <Email>
+                <p>Email: {currentUser.email}</p>
+              </Email>
 
-            {currentUser ? (
-              <Bio>
-                <p>{currentUser.bio}</p>
-              </Bio>
-            ) : (
-              ""
-            )}
+              {currentUser ? (
+                <Bio>
+                  <p>{currentUser.bio}</p>
+                </Bio>
+              ) : (
+                ""
+              )}
 
-            {currentUser.location ? (
-              <Location>
-                <p>{currentUser.location}</p>
-              </Location>
-            ) : (
-              ""
-            )}
+              {currentUser.location ? (
+                <Location>
+                  <p>{currentUser.location}</p>
+                </Location>
+              ) : (
+                ""
+              )}
 
               <BottomContainer>
                 <FollowContainer>
@@ -271,37 +261,30 @@ const Profile: React.FC = () => {
                   <Followers>Followers:</Followers>
                   {!currentUser._following.includes(currentUser._id) ? (
                     <FollowButton
-                    // onClick={(event) => context.handlePostClick(event)}
-                    onClick={handleFollow}
-                    text="Follow"
-                    type="button"
-                  />
+                      onClick={handleFollow}
+                      text="Follow"
+                      type="button"
+                    />
                   ) : (
                     <FollowButton
-                    // onClick={(event) => context.handlePostClick(event)}
-                    onClick={handleUnfollow}
-                    text="Unfollow"
-                    type="button"
-                  />
+                      onClick={handleUnfollow}
+                      text="Unfollow"
+                      type="button"
+                    />
                   )}
-                
                 </FollowContainer>
-                <Button type="button">
-                  <Mail dropShadow={true} scaleFactor={0.65} color="white" />
-                </Button>
+                <MessageProvider>
+                  <MessageBridge  id={currentUser._id} />
+                </MessageProvider>
               </BottomContainer>
-              
             </ProfileInfo>
             <div>
-            <Feed profileId={_id} />
+              <Feed profileId={_id} />
             </div>
-            
           </ProfileContainer>
-         
         </Container>
       </>
     )
-
   );
 };
 

@@ -9,9 +9,12 @@ import { ProfileProps } from "../../types";
 import axiosApiInstance from "../../util/axiosInstance";
 import EditAvatarButton from "../../buttons/EditAvatarButton";
 import EditBackgroundButton from "../../buttons/EditBackgroundButton";
+
 import { Context } from "../../context/Context";
 import { AuthContext } from "../../context/AuthContext";
-
+import Cross from "../../icons/Cross";
+import {useTheme} from "../../context/ThemeManager";
+import UserPic from "../User/UserPic";
 const Main = styled.div`
   height: 100vh;
   display: flex;
@@ -24,7 +27,7 @@ const Container = styled.div`
   flex-direction: column;
   height: 90vh;
   width: 50vw;
-  overflow: scroll;
+  overflow: hidden;
 `;
 
 const Banner = styled.div`
@@ -35,8 +38,8 @@ const Banner = styled.div`
   position: sticky;
   top: 0px;
   z-index: 5;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: springgreen;
+  background-color: rgba(0, 0, 0, 0.0);
+  color: ${themeConf.fontColor};
   font-family: Quicksand;
   font-size: 1.6rem;
   height: 60px;
@@ -63,55 +66,55 @@ const FormContainer = styled.form`
 
 const AvatarImageContainer = styled.div`
   display: flex;
-  border: 4px solid white;
-  box-shadow: 0px 5px 15px black;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 2px 10px black;
   border-radius: 50%;
   position: absolute;
   bottom: -3rem;
   left: 5rem;
-  width: 10rem;
-  height: 10rem;
+
   background-color: ${themeConf.backgroundColor};
   cursor: pointer;
 `;
 
 const BackButton = styled.button`
+all: unset;
 display: flex;
 align-items: center;
-height: 30px;
-box-shadow: 0px 0px 5px 2px black;
-border-radius: 5px;
-border: 2px solid white;
-font-size: 1.1rem;
-padding: 6px;
+justify-content: center;
+width: 45px;
+height: 45px;
+border: 1px solid ${themeConf.backgroundColor};
+border-radius: 25px;
+cursor: pointer;
 &:hover {
-  background-color: grey;
-  color: springgreen;
-  border-color: white;
-}
-&:active {
-  transform: scale(0.9);
-}
+  background-color: ${themeConf.menuItemHoverColor};
 `;
 
 const Edit = styled.p`
-font-size: 1.8rem;
-font-family: Quicksand;
-font-weight: 700;`;
+  font-size: 1.8rem;
+  font-family: Quicksand;
+  font-weight: 500;
+`;
 
 const SaveButton = styled.button`
-  box-shadow: 0px 0px 5px 2px black;
-  border-radius: 20px;
-  border: 2px solid white;
-  font-size: 1.1rem;
-  padding: 8px;
+  color: white;
+  border: 1px solid white;
+  background-color: springgreen;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  padding: 0.5rem;
+  cursor: pointer;
   &:hover {
-    background-color: grey;
+    background-color: white;
     color: springgreen;
-    border-color: white;
+    border: 1px solid springgreen;
   }
-  &:active {
-    transform: scale(0.9);
+  > p {
+    font-family: Quicksand;
+    font-size: 1.2rem;
+    font-weight: 700;
   }
 `;
 
@@ -125,6 +128,7 @@ const Label = styled.label`
   > input {
     padding: 5px 0px 5px 0px;
     font-size: 1rem;
+    border: 1px solid black;
     font-family: Quicksand;
     background-color: rgba(211, 211, 211, 0.2);
   }
@@ -133,13 +137,13 @@ const Label = styled.label`
     background-color: rgba(211, 211, 211, 0.2);
     font-family: Quicksand;
     font-size: 1rem;
-    border: 2px solid black;
+    border: 1px solid black;
     height: 80px;
   }
 `;
 
 const BackgroundImage = styled.img`
-objectFit: "cover";
+  objectfit: "cover";
   width: 100%;
   height: 100%;
 `;
@@ -156,6 +160,7 @@ const EditProfile: React.FC = () => {
   const [location, setLocation] = useState<string>("");
   const [avatar, setAvatar] = useState<string | null>(null);
   const [background, setBackground] = useState<string | null>(null);
+  const theme = useTheme();
 
   useEffect(() => {
     axiosApiInstance
@@ -194,14 +199,18 @@ const EditProfile: React.FC = () => {
     }
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Main>
       <Container>
         <Banner>
-          <BackButton onClick={() => navigate(`/profile/${authContext.userId}`)}>X</BackButton>
+          <BackButton
+            onClick={() => navigate(`/profile/${authContext.userId}`)}>
+          <Cross scaleFactor={0.55} dropShadow={true} color={theme.mode === "dark" ? "white" : "black"}/>
+          </BackButton>
           <Edit>Edit</Edit>
+
           <SaveButton onClick={handleClick}>Save</SaveButton>
         </Banner>
 
@@ -211,20 +220,14 @@ const EditProfile: React.FC = () => {
             text="Edit"
             type="button"
           />
-          <BackgroundImage src={background ? process.env.REACT_APP_SERVER_URI + background : ""}
-              alt="Background"/>
-
+          <BackgroundImage
+            src={background ? background : Pic}
+            alt="Background"
+          />
+    
           <AvatarImageContainer>
-            <img
-              style={{
-                maxHeight: "100%",
-                width: "150px",
-                objectFit: "cover",
-                borderRadius: "50%",
-              }}
-              src={avatar ? process.env.REACT_APP_SERVER_URI + avatar : Pic}
-              alt="Avatar"
-            />
+            <UserPic image={avatar ? avatar : Pic} customSize="150px"/>
+          
             <EditAvatarButton
               onClick={() => context.setShowAvatarModal(true)}
               text="Edit"
