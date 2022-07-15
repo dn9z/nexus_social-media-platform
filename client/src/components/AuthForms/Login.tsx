@@ -19,6 +19,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import StandardHeader from "../../components/Header/StandardHeader";
 
+import { useMediaQuery } from "usehooks-ts";
 
 const c1 = "#7a5dd1";
 const c2 = "#00ffd0";
@@ -26,8 +27,8 @@ const c2 = "#00ffd0";
 const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
-  height: 430px;
-  width: 275px;
+  height: 600px;
+  width: 400px;
   margin: 2rem;
   padding: 1rem;
   border: 1px solid grey;
@@ -36,6 +37,23 @@ const FormContainer = styled.form`
   margin: auto;
   margin-top: 5rem;
   position: relative;
+  align-items: center;
+
+  @media (max-width: 575px) {
+    margin: 0;
+    height: 95vh;
+    width: 100vw;
+    padding-top: 5rem;
+    border: none;
+    box-shadow: none;
+  }
+
+  @media (min-width: 576px) and (max-width: 992px) {
+    height: 60vh;
+    margin: 5rem auto;
+    width: 400px;
+    align-items: center;
+  }
 `;
 
 const Container = styled.div`
@@ -58,7 +76,7 @@ const Label = styled.div`
 `;
 
 const Input = styled.input<InputTextFieldProps>`
-  width: ${(props) => (props.passwordField ? "180px" : "225px")};
+  width: ${(props) => (props.passwordField ? "100%" : "100%")};
   height: 35px;
   border: 1px solid ${themeConf.fontColor};
   color: ${themeConf.fontColor};
@@ -104,10 +122,11 @@ const Footer = styled.div`
 `;
 
 const Login: React.FC = () => {
+  const small = useMediaQuery("(max-width: 374px)");
   const navigate = useNavigate();
 
   const context = React.useContext(Context);
-  const { handleLogin} = React.useContext(AuthContext);
+  const { handleLogin } = React.useContext(AuthContext);
 
   // const [json, setJson] = React.useState<string>();
   const { register, handleSubmit } = HookForm.useForm<LoginProps>();
@@ -116,16 +135,15 @@ const Login: React.FC = () => {
   const onSubmit = async (data: LoginProps) => {
     try {
       const response = await axios.post("/api/user/login", data, {
-        withCredentials: true
+        withCredentials: true,
       });
       if (response.status === 200) {
         //everything went well!
-        console.log(response.data.user.username.username)
+        console.log(response.data.user.username.username);
         console.log("login successful");
 
         handleLogin(response.data.user.username, response.data.user._id);
         navigate("/");
-        
       }
     } catch (error) {
       console.log(error);
@@ -136,15 +154,26 @@ const Login: React.FC = () => {
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      <StandardHeader headingSize="1.75rem" subheading="" width="200px">
-        <Logo scaleFactor={3} colorProps={{ colorOne: c1, colorTwo: c2 }} />
+      <StandardHeader
+        headingSize={small ? "1.4rem" : "1.75rem"}
+        subheading=""
+        width="220px"
+      >
+        <Logo
+          scaleFactor={small ? 2.2 : 3}
+          colorProps={{ colorOne: c1, colorTwo: c2 }}
+        />
       </StandardHeader>
       <Container>
         <Label>
           <label>E-Mail</label>
         </Label>
         <Field>
-          <Input passwordField={false} type="email" {...register("email", { required: true })} />
+          <Input
+            passwordField={false}
+            type="email"
+            {...register("email", { required: true })}
+          />
         </Field>
         <Label>
           <label>password</label>
@@ -164,8 +193,10 @@ const Login: React.FC = () => {
           />
           <Visbility />
         </Field>
+
+        <Button onClick={() => {}} text="Login" type="submit" />
       </Container>
-      <Button onClick={() => {}} text="Login" type="submit" />
+
       <Footer>
         <p>No account? </p>
         <Link to="/register">Sign Up!</Link>

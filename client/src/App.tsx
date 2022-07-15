@@ -188,7 +188,7 @@ function App() {
             )}
           </Main>
         </BrowserRouter>
-        <StandardBackground/>
+        {/* <StandardBackground/> */}
       </ThemeProvider>
     </AppProvider>
   );
