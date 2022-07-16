@@ -8,8 +8,6 @@ import Image from "../../icons/Image";
 import Gif from "../../icons/Gif";
 import Emoji from "../../icons/Emoji";
 import Button from "../../buttons/Button";
-import { AuthContext } from "../../context/AuthContext";
-import UserPic from "../User/UserPic";
 import { ModalProps, PModalBottomContainerProps } from "../../types";
 import axiosApiInstance from "../../util/axiosInstance";
 
@@ -66,7 +64,6 @@ const Textarea = styled.textarea`
   all: unset;
   width: 600px;
   height: 200px;
-
   font-family: Zilla;
   font-size: 1.5rem;
 `;
@@ -84,49 +81,13 @@ const BottomContainer = styled.div<PModalBottomContainerProps>`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  border-bottom: ${(props) =>
-    props.bottomBorder ? "2px solid silver" : "none"};
+  border-bottom: ${(props) => (props.bottomBorder ? "2px solid silver" : "none")};
 `;
 
-const Input = styled.input`
-  background-color: white;
-  font-size: 1rem;
-  font-family: Zilla;
-  border: 1px solid transparent;
-  background-color: transparent;
-  padding-top: 3px;
-  height: 35px;
-  z-index: 5;
-  color: ${themeConf.fontColor}};
-  cursor: pointer;
-  :hover {
-    border: 1px solid ${themeConf.menuItemHoverColor};
-    color: white;
-}`;
-const IconContainer = styled.div`
-  z-index: 3;
-  position: absolute;
-  top: 5px;
-  left: 10%;
-`;
 const PostModal: React.FC<ModalProps> = (props) => {
   const context = React.useContext(Context);
   const theme = useTheme();
-  const { userId } = React.useContext(AuthContext);
-  const [userAvatar, setUserAvatar] = React.useState("");
   const [imagePath, setImagePath] = React.useState("");
-
-  React.useEffect(() => {
-    const getUserAvatar = async () => {
-      const response = await axiosApiInstance.get(
-        `http://localhost:3000/api/user/getuserbyid/${userId}`
-      );
-
-      setUserAvatar(response.data.avatar);
-    };
-    getUserAvatar();
-  }, []);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -155,7 +116,7 @@ const PostModal: React.FC<ModalProps> = (props) => {
       if (response.status === 200) {
         console.log("post was created");
         context.setShowPostModal(false);
-        context.setNeedRefresh(true);
+        context.setNeedRefresh(true)
       }
     } catch (error) {
       console.log(error);
@@ -178,18 +139,18 @@ const PostModal: React.FC<ModalProps> = (props) => {
         >
           <Left>
             <PicContainer>
-              <UserPic image={userAvatar} customSize="55px" />
+              <img
+                style={{ width: "100%", borderRadius: "50%" }}
+                src="https://www.zvr-info.de/wp-content/uploads/2018/02/Platzhalter.png"
+                alt=""
+              />
             </PicContainer>
           </Left>
           <Right onSubmit={handleSubmit} encType="multipart/form-data">
             <Title name="title" placeholder="Title" />
             <Textarea name="body" placeholder="...Body" />
             {imagePath ? (
-              <img
-                style={{ width: "20%", marginBottom: "20px" }}
-                src={`/${imagePath}`}
-                alt=""
-              />
+              <img style={{ width: "20%", marginBottom: "20px" }} src={`/${imagePath}`} alt="" />
             ) : (
               <img
                 style={{ width: "20%", marginBottom: "20px" }}
@@ -198,30 +159,24 @@ const PostModal: React.FC<ModalProps> = (props) => {
               />
             )}
             <BottomContainer bottomBorder={true}>
-              {/*     <World
+              <World
                 dropShadow={false}
                 scaleFactor={0.55}
                 color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
-              /> */}
+              />
             </BottomContainer>
             <BottomContainer bottomBorder={false}>
-              <label>
-                <Input
-                  style={{ display: "inline-block" }}
-                  type="file"
-                  name="image"
-                  accept="image/*"
-                />
-              </label>
-              <IconContainer>
-                <Image
-                  dropShadow={false}
-                  scaleFactor={0.55}
-                  color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
-                />
-              </IconContainer>
+              <div>
+                <label>
+                  <Image
+                    dropShadow={false}
+                    scaleFactor={0.55}
+                    color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
+                  />
+                  <input style={{ display: "" }} type="file" name="image" accept="image/*" />
+                </label>
 
-              {/*  <Gif
+                <Gif
                   dropShadow={false}
                   scaleFactor={0.55}
                   color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
@@ -230,8 +185,8 @@ const PostModal: React.FC<ModalProps> = (props) => {
                   dropShadow={false}
                   scaleFactor={0.55}
                   color={theme.mode === "light" ? "#8b14f9" : "#f1dcff"}
-                /> */}
-
+                />
+              </div>
               <Button text="Post" type="submit" />
             </BottomContainer>
           </Right>

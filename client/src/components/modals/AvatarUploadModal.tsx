@@ -2,8 +2,10 @@ import * as React from "react";
 import { Context } from "../../context/Context";
 import styled from "styled-components";
 import { ModalProps } from "../../types";
-import Button from "../../buttons/SaveImageButton"
+import Button from "../../buttons/Button"
 import axiosApiInstance from "../../util/axiosInstance";
+import * as themeConf from "../../styles/theme";
+
 
 const Background = styled.div`
   background-color: #4141418d;
@@ -34,8 +36,24 @@ const Input = styled.input`
   background-color: white;
   margin-bottom: 10px;
   padding: 5px;
-  font-size: 1rem;
-`
+  font-size: 1.3rem;
+ font-family: Zilla;
+content:"none";
+ color: ${themeConf.fontColor}};
+ &::before {
+  content: "Choose file";
+  cursor: pointer;
+  font-family: Quicksand;
+  
+  color:black;
+  font-size: 1.5rem;
+  font-weight: bold;
+  }
+  :hover {
+    background-color: springgreen;
+    color: white;
+}
+`;
 
 const AvatarUploadModal: React.FC<ModalProps> = () => {
   const context = React.useContext(Context);

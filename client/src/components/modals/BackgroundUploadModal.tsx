@@ -2,8 +2,9 @@ import * as React from "react";
 import { Context } from "../../context/Context";
 import styled from "styled-components";
 import { ModalProps } from "../../types";
-import Button from "../../buttons/SaveImageButton"
+import Button from "../../buttons/Button";
 import axiosApiInstance from "../../util/axiosInstance";
+import * as themeConf from "../../styles/theme";
 
 const Background = styled.div`
   background-color: #4141418d;
@@ -22,6 +23,7 @@ const FormContainer = styled.form`
   top: 25%;
   left: 50%;
   padding: 15px;
+
   border-radius: 5px;
   transform: translate(-50%, -50%);
   background-color: white;
@@ -34,12 +36,27 @@ const Input = styled.input`
   background-color: white;
   margin-bottom: 10px;
   padding: 5px;
-  font-size: 1rem;
-`
+  font-size: 1.3rem;
+ font-family: Zilla;
+content:"none";
+ color: ${themeConf.fontColor}};
+ &::before {
+  content: "Choose file";
+  cursor: pointer;
+  font-family: Quicksand;
+  
+  color:black;
+  font-size: 1.5rem;
+  font-weight: bold;
+  }
+  :hover {
+    background-color: springgreen;
+    color: white;
+}
+`;
 
 const BackgroundUploadModal: React.FC<ModalProps> = () => {
   const context = React.useContext(Context);
-
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -50,22 +67,27 @@ const BackgroundUploadModal: React.FC<ModalProps> = () => {
     };
 
     try {
-      const response = await axiosApiInstance.post("/api/user/uploadBackgroundImage", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axiosApiInstance.post(
+        "/api/user/uploadBackgroundImage",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       if (response.status === 200) {
         console.log("image was uploaded", data);
         context.setShowBackgroundModal(false);
-        context.setBackgroundModalSaved(BackgroundModalSaved => !BackgroundModalSaved);
+        context.setBackgroundModalSaved(
+          (BackgroundModalSaved) => !BackgroundModalSaved
+        );
       }
     } catch (error) {
       console.log(error);
     }
   }
-
 
   if (context.showBackgroundModal === true) {
     return (
@@ -74,7 +96,9 @@ const BackgroundUploadModal: React.FC<ModalProps> = () => {
           context.setShowBackgroundModal(false);
         }}
       >
-        <FormContainer onSubmit={handleSubmit} encType="multipart/form-data"
+        <FormContainer
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
           onClick={(event) => {
             event.stopPropagation();
           }}
@@ -88,7 +112,6 @@ const BackgroundUploadModal: React.FC<ModalProps> = () => {
             />
           </label>
           <Button text="Save" type="submit" />
-
         </FormContainer>
       </Background>
     );
