@@ -36,7 +36,6 @@ const Feed: React.FC<FeedProps> = ({profileId}) => {
   async function loadMoreById() {
     try {
       const res = await axiosApiInstance.get(`http://localhost:3000/api/post/paginatebyid/${profileId}?page=${pageNumber}`);
-
         setPosts([...posts, ...res.data]);
         setPageNumber(pageNumber + 1);
         setHasMore(res.data.length > 0);
@@ -49,9 +48,10 @@ const Feed: React.FC<FeedProps> = ({profileId}) => {
     if(context.needRefresh === true){
       setPosts([]);
       !profileId ? loadMore() : loadMoreById();
-      // return () => {
-      //   setPageNumber(1);
-      // };
+      context.setNeedRefresh(false)
+      return () => {
+        setPageNumber(1);
+      };
     }
   }, [context.showPostModal, context.needRefresh]);
 
