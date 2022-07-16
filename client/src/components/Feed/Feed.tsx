@@ -18,6 +18,9 @@ const Feed: React.FC<FeedProps> = ({profileId}) => {
   const [posts, setPosts] = useState<FeedState["post"]>([]);
   const context = useContext(Context);
 
+
+  console.log(hasMore)
+
   async function loadMore() {
     try {
       const res = await axiosApiInstance.get(`http://localhost:3000/api/post/paginate?page=${context.pageNumber}`);
