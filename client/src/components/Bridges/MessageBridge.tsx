@@ -58,7 +58,7 @@ const MessageBridge: React.FC<BridgeProps> = (props) => {
       (conversation) => conversation.participants._userTo === id
     ); */
 
-  console.log(id);
+  /* console.log(id); */
   const startNewConversation = async () => {
     await axiosApiInstance
       .post("http://localhost:3000/api/messages/conversation", {
