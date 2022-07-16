@@ -98,12 +98,12 @@ const Input = styled.input`
   padding-top: 3px;
   height: 35px;
   z-index: 5;
-  color: ${themeConf.fontColor}};
+  color: ${themeConf.fontColor};
   cursor: pointer;
   :hover {
     border: 1px solid ${themeConf.menuItemHoverColor};
     color: ${themeConf.fontColor}};
-}`;
+`;
 const IconContainer = styled.div`
   z-index: 3;
   position: absolute;
