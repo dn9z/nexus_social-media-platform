@@ -102,7 +102,7 @@ const Input = styled.input`
   cursor: pointer;
   :hover {
     border: 1px solid ${themeConf.menuItemHoverColor};
-    color: white;
+    color: ${themeConf.fontColor}};
 }`;
 const IconContainer = styled.div`
   z-index: 3;
@@ -205,14 +205,14 @@ const PostModal: React.FC<ModalProps> = (props) => {
               /> */}
             </BottomContainer>
             <BottomContainer bottomBorder={false}>
-              <label>
+             
                 <Input
                   style={{ display: "inline-block" }}
                   type="file"
                   name="image"
                   accept="image/*"
                 />
-              </label>
+            
               <IconContainer>
                 <Image
                   dropShadow={false}
