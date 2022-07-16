@@ -147,6 +147,13 @@ body {
     background: #3b1a42;
   }
 
+  ::-webkit-file-upload-button {
+   visibility: hidden;
+
+  }
+
+  
+
 `;
 
 export default GlobalStyle;

@@ -26,53 +26,28 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   background-color: ${themeConf.backgroundColor};
   border: 1px solid grey;
-  box-shadow: 1px 1px 2px grey, 2px 2px 3px grey, 3px 3px 5px grey;
-  width: 800px;
-  height: 490px;
+  box-shadow: 1px 1px 2px grey, 2px 2px 3px grey, 3px 3px 5px silver;
+  min-width: 300px;
+  max-width: 800px;
+  height: 190px;
   z-index: 5;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Message = styled.p`
-  width: 200px;
-  height: 450px;
-`;
-
-const Left = styled.div`
-  width: 200px;
-  height: 450px;
-`;
-
-const Right = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 600px;
-  height: 450px;
-`;
-
-const Title = styled.textarea`
-  all: unset;
-  width: 600px;
-  height: 50px;
-  font-weight: bold;
-  margin-top: 20px;
   font-family: Zilla;
   font-size: 1.5rem;
 `;
 
-const Textarea = styled.textarea`
-  all: unset;
-  width: 600px;
-  height: 200px;
-
-  font-family: Zilla;
-  font-size: 1.5rem;
+const Message = styled.p`
+ all: unset;
 `;
+
+const ButtonDiv = styled.div`
+  display: flex;
+  flex-direction: row;`
+
+
 
 const ConfirmModal: React.FC<ConfirmModalProps> = ({
   showConfirmModal,
@@ -96,23 +71,26 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
           }}
         >
           <Message>Are you sure?</Message>
-          <button
-            onClick={() => {
-              confirmFn(idToDelete);
-              setShowConfirmModal(false);
-              context.setNeedRefresh(!context.needRefresh);
-              context.setPageNumber(1)
-            }}
-          >
-            Confirm
-          </button>
-          <button
-            onClick={() => {
-              setShowConfirmModal(false);
-            }}
-          >
-            Abort
-          </button>
+          <ButtonDiv>
+            <Button
+              onClick={() => {
+                confirmFn(idToDelete);
+                setShowConfirmModal(false);
+                context.setNeedRefresh(!context.needRefresh);
+                context.setPageNumber(1)
+              }}
+              text={"Yes"}
+            />
+            
+            
+            <Button
+              onClick={() => {
+                setShowConfirmModal(false);
+              }}
+              text={"No"}
+            />
+          </ButtonDiv>
+          
         </Container>
       </Background>
     );
