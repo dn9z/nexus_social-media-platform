@@ -5,7 +5,7 @@ import styled from "styled-components";
 import axiosApiInstance from "../../util/axiosInstance";
 import { Context } from "../../context/Context";
 import { UserSearchState } from "../../types";
-import UserItem from "./UserItem";
+import UserItem from "../User/UserItem";
 import SearchInput from "../../components/Inputs/SearchInput";
 
 const ListContainer = styled.div`
