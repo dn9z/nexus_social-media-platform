@@ -47,5 +47,8 @@ router.patch("/followuser/:id", userController.followUser);
 
 router.patch("/unfollowuser/:id", userController.unfollowUser);
 
+router.get("/getfollowing/:id", userController.getFollowingUsers);
+
+router.get("/getfollowers/:id", userController.getFollowers);
 
 export default router;

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import styled from "styled-components";
 import * as themeConf from "../../styles/theme";
-import UserPic from "../User/UserPic";
+import UserPic from "./UserPic";
 import axiosApiInstance from "../../util/axiosInstance";
 import { Context } from "../../context/Context";
 import { UserItemProps } from "../../types";
