@@ -37,6 +37,7 @@ const Container = styled.div`
   align-items: center;
   font-family: Zilla;
   font-size: 1.5rem;
+  border: 1px solid red;
 `;
 
 const Message = styled.p`
@@ -45,10 +46,9 @@ const Message = styled.p`
 
 const ButtonDiv = styled.div`
   display: flex;
-  flex-direction: row;`
-
-
-
+  width: 100%;
+  padding-right: 20px;
+  `
 const ConfirmModal: React.FC<ConfirmModalProps> = ({
   showConfirmModal,
   setShowConfirmModal,

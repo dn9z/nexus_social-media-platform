@@ -36,11 +36,34 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  border: 2px solid yellow;
+
+  @media (min-width: 575px) and (max-width: 867px) {
+    width: 90vw;
+    height: 60vh;
+    top: 40%;
+  }
+
+  @media (max-width: 575px) {
+    width: 90%;
+    height: 82%;
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Left = styled.div`
   width: 200px;
   height: 450px;
+
+  @media (max-width: 575px) {
+    height: auto;
+    width: 90%;
+  }
+  @media (min-width: 575px) and (max-width: 867px) {
+    height: 60vh;
+    width: 30%;
+  }
 `;
 
 const Right = styled.form`
@@ -50,6 +73,16 @@ const Right = styled.form`
   align-items: center;
   width: 600px;
   height: 450px;
+
+  @media (max-width: 575px) {
+    width: 90%;
+    height: 80%;
+  }
+
+  @media (min-width: 575px) and (max-width: 867px) {
+    width: 70%;
+    height: 60vh;
+  }
 `;
 
 const Title = styled.textarea`
@@ -60,21 +93,35 @@ const Title = styled.textarea`
   margin-top: 20px;
   font-family: Zilla;
   font-size: 1.5rem;
+
+  @media (max-width: 867px) {
+    width: 100%;
+  }
+  @media (max-width: 575px) {
+    margin-top: 0px;
+  }
 `;
 
 const Textarea = styled.textarea`
   all: unset;
   width: 600px;
   height: 200px;
-
   font-family: Zilla;
   font-size: 1.5rem;
+
+  @media (max-width: 867px) {
+    width: 100%;
+  }
 `;
 
 const PicContainer = styled.div`
-  width: 4rem;
-  padding-top: 1rem;
-  padding-left: 1rem;
+  padding: 5px;
+  display: flex;
+  margin-bottom: 10px;
+
+  @media (max-width: 867px) {
+    width: auto;
+  }
 `;
 
 const BottomContainer = styled.div<PModalBottomContainerProps>`
@@ -102,7 +149,8 @@ const Input = styled.input`
   cursor: pointer;
   :hover {
     border: 1px solid ${themeConf.menuItemHoverColor};
-    color: ${themeConf.fontColor}};
+    color: ${themeConf.fontColor};
+  }
 `;
 const IconContainer = styled.div`
   z-index: 3;
@@ -205,14 +253,13 @@ const PostModal: React.FC<ModalProps> = (props) => {
               /> */}
             </BottomContainer>
             <BottomContainer bottomBorder={false}>
-             
-                <Input
-                  style={{ display: "inline-block" }}
-                  type="file"
-                  name="image"
-                  accept="image/*"
-                />
-            
+              <Input
+                style={{ display: "inline-block" }}
+                type="file"
+                name="image"
+                accept="image/*"
+              />
+
               <IconContainer>
                 <Image
                   dropShadow={false}
