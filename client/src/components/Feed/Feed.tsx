@@ -46,6 +46,7 @@ const Feed: React.FC<FeedProps> = ({profileId}) => {
 
   useEffect(() => {
     if(context.needRefresh === true){
+      setPageNumber(1);
       setPosts([]);
       !profileId ? loadMore() : loadMoreById();
       context.setNeedRefresh(false)
