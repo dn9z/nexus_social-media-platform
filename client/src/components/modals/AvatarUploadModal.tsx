@@ -17,6 +17,7 @@ const Background = styled.div`
 `;
 
 const FormContainer = styled.form`
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -30,6 +31,10 @@ const FormContainer = styled.form`
   border: 1px solid grey;
   box-shadow: 1px 1px 2px grey, 2px 2px 3px grey, 3px 3px 5px grey;
   z-index: 15;
+
+  @media (max-width: 575px) {
+    width: 80vw;
+  }
 `;
 
 const Input = styled.input`
@@ -44,7 +49,6 @@ content:"none";
   content: "Choose file";
   cursor: pointer;
   font-family: Quicksand;
-  
   color:black;
   font-size: 1.5rem;
   font-weight: bold;
@@ -53,6 +57,14 @@ content:"none";
     background-color: springgreen;
     color: white;
 }
+@media (max-width: 575px) {
+  width: 100%;
+  display: flex;
+  font-size: clamp(0.8rem, 0.4203rem + 2.1695vw, 1.2rem);
+  &::before {
+    font-size: clamp(1rem, 0.5254rem + 2.7119vw, 1.5rem);
+}
+
 `;
 
 const AvatarUploadModal: React.FC<ModalProps> = () => {

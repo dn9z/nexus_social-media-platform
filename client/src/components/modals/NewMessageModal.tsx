@@ -33,6 +33,19 @@ const Container = styled.div`
   width: 800px;
   height: 520px;
   z-index: 5;
+
+  @media (min-width: 575px) and (max-width: 867px) {
+    width: 90vw;
+    height: 60vh;
+    
+  }
+
+  @media (max-width: 575px) {
+    width: 90%;
+    height: 82%;
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Right = styled.form`
