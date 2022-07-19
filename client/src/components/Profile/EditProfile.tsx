@@ -22,7 +22,6 @@ const Main = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
-
 `;
 
 const Container = styled.div`
@@ -32,11 +31,15 @@ const Container = styled.div`
   height: 90vh;
   width: 50vw;
   overflow: hidden;
+  border: 1px solid grey;
+  box-shadow: 1px 1px 5px grey, 2px 2px 8px silver, 3px 3px 10px silver;
 
   @media (max-width: 575px) {
     margin: 0;
     width: 100vw;
     height: 100vh;
+    border: none; 
+    box-shadow: none;
   }
 
   @media (min-width: 575px) and (max-width: 992px) {
@@ -45,7 +48,7 @@ const Container = styled.div`
     height: 100%;
     border: 1px solid grey;
     border-radius: 5px;
-    box-shadow: 1px 1px 10px grey, 2px 2px 15px silver, 3px 3px 20px silver;
+    box-shadow: 1px 1px 5px grey, 2px 2px 8px silver, 3px 3px 10px silver;
   }
 
 `;
@@ -179,6 +182,7 @@ const Label = styled.label`
     border: 1px solid black;
     font-family: Quicksand;
     background-color: rgba(211, 211, 211, 0.2);
+    color: ${themeConf.fontColor};
   }
   > textarea {
     resize: none;
@@ -187,6 +191,7 @@ const Label = styled.label`
     font-size: 1rem;
     border: 1px solid black;
     height: 80px;
+    color: ${themeConf.fontColor};
   }
 `;
 

@@ -37,7 +37,6 @@ const Container = styled.div`
   align-items: center;
   font-family: Zilla;
   font-size: 1.5rem;
-  border: 1px solid red;
 `;
 
 const Message = styled.p`
