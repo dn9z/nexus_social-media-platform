@@ -5,17 +5,20 @@ import FeedItem from "./FeedItem";
 import {FeedProps, FeedState} from "../../types"
 import axiosApiInstance from "../../util/axiosInstance";
 import { Context } from "../../context/Context";
+import * as Hook from "usehooks-ts"
 
-const ListContainer = styled.div`
-  width: 99%;
+const ListContainer = styled.div<{marginTop:string}>`
+margin-top: ${props=>props.marginTop};
+  width: 98%;
   height: 99%;
-  overflow: auto;
+  overflow: hidden;
 `;
 
 const Feed: React.FC<FeedProps> = ({profileId}) => {
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [posts, setPosts] = useState<FeedState["post"]>([]);
+  const match1500 = Hook.useMediaQuery("(max-width: 1500px)");
   const context = useContext(Context);
 
 
@@ -66,7 +69,7 @@ const Feed: React.FC<FeedProps> = ({profileId}) => {
 
   return (
     <>
-      <ListContainer>
+      <ListContainer marginTop={match1500 ? "61px" : "0px"}>
         <InfiniteScroll
           pageStart={0}
           loadMore={() => {

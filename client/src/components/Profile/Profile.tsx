@@ -21,15 +21,23 @@ import Mail from "../../icons/Mail";
 import MessageBridge from "../Bridges/MessageBridge";
 import UserPic from "../User/UserPic";
 import { AuthContext } from "../../context/AuthContext";
+import * as Hook from "usehooks-ts"
 
-import { useMediaQuery } from "usehooks-ts";
-import TopMenu from "../MobileComponents/TopMenu";
-
-const Container = styled.div`
+const Container = styled.div<{marginTop:string}>`
+  margin-top: ${props => props.marginTop};
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  overflow: scroll;
+  height: auto;
+  overflow: auto;
+
+
+import TopMenu from "../MobileComponents/TopMenu";
+
+ // const Container = styled.div`
+  // display: flex;
+  // flex-direction: column;
+ // height: 100vh;
+ // overflow: scroll;
 
 `;
 
@@ -38,11 +46,12 @@ const Banner = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 6px;
-  position: sticky;
+  position: fixed;
+  width: 60vw;
   top: -1px;
   z-index: 10;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: springgreen;
+  background-color: rgba(0, 0, 0, 0.0);
+  color:${themeConf.profilePicBorder};
   font-family: Quicksand;
   height: 60px;
 
@@ -67,8 +76,12 @@ const ProfileContainer = styled.div`
 const BackgroundContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  border-bottom: 6px solid rgb(51, 51, 51);
-  height: 50%;
+
+  border-bottom: 1px solid rgb(51, 51, 51);
+  height: 40%;
+
+  //height: 50%;
+
   position: relative;
   background: springgreen;
   
@@ -128,9 +141,6 @@ const FollowContainer = styled.div`
 const Network = styled.div`
   cursor: pointer;
 `;
-const Followers = styled.div`
-  margin-left: 40px;
-`;
 
 const ButtonContainer = styled.div`
   position: absolute;
@@ -154,9 +164,9 @@ const BottomContainer = styled.div`
 /* process.env.REACT_APP_SERVER_URI "http://localhost:3001/" */
 
 const Profile: React.FC = () => {
-  const smallMobile = useMediaQuery("(max-width: 294px)");
-  const mobileView = useMediaQuery("(max-width: 575px)");
-  const tabletView = useMediaQuery("(min-width: 576px) and (max-width: 992px)");
+  const smallMobile = Hook.useMediaQuery("(max-width: 294px)");
+  const mobileView = Hook.useMediaQuery("(max-width: 575px)");
+  const tabletView = Hook.useMediaQuery("(min-width: 576px) and (max-width: 992px)");
 
   const navigate = useNavigate();
   const {userId} = React.useContext(AuthContext)
@@ -167,7 +177,7 @@ const Profile: React.FC = () => {
   const [loggedInUserFollowing, setLoggedInUserFollowing] = useState<string[]>([]);
   
   const [needRefresh, setNeedRefresh] = useState(false);
-  
+  const match1500 = Hook.useMediaQuery("(max-width: 1500px)");
 
   async function handleFollow() {
     try {
@@ -229,12 +239,20 @@ const Profile: React.FC = () => {
   return (
     currentUser && (
       <>
-        <Container>
+
+        <Container marginTop={match1500 ? "61px" : "0px"}>
+          <Banner>
+            <h1>{match1500 ? "" : currentUser.username}</h1>
+           {/*  <h3>NEXUS</h3> */}
+          </Banner>
+
+  {/*      <Container>
           {mobileView? <TopMenu/> : <Banner>
             <h1>{currentUser.username}</h1>
             <h3>NEXUS</h3>
-          </Banner>}
+          </Banner>} */}
         
+
 
           <ProfileContainer>
             <BackgroundContainer>

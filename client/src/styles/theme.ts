@@ -1,7 +1,7 @@
 import theme from 'styled-theming';
 
 export const backgroundColor: theme.ThemeSet = theme('mode', {
-    light: '#f8f8ff',
+    light: 'white',
     dark: '#1a0a27'
   });
 

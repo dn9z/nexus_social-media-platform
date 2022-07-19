@@ -43,7 +43,7 @@ const Input = styled.input`
   font-size: 1.3rem;
  font-family: Zilla;
 content:"none";
- color: ${themeConf.fontColor}};
+ color: ${themeConf.fontColor};
  &::before {
   content: "Choose file";
   cursor: pointer;
@@ -54,8 +54,8 @@ content:"none";
   font-weight: bold;
   }
   :hover {
-    background-color: springgreen;
-    color: white;
+    background-color: ${themeConf.profilePicBorder};
+   
 }
 @media (max-width: 575px) {
   width: 100%;
@@ -63,7 +63,7 @@ content:"none";
   font-size: clamp(0.8rem, 0.4203rem + 2.1695vw, 1.2rem);
   &::before {
     font-size: clamp(1rem, 0.5254rem + 2.7119vw, 1.5rem);
-}
+}}
 `;
 
 const BackgroundUploadModal: React.FC<ModalProps> = () => {
@@ -116,7 +116,6 @@ const BackgroundUploadModal: React.FC<ModalProps> = () => {
         >
           <label>
             <Input
-              // style={{ display: "" }}
               type="file"
               name="image"
               accept="image/*"
