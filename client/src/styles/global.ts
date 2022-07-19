@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
-
-import JostWoff from "./fonts/Jost.woff";
+import * as themeConf from "./theme"
+  import JostWoff from "./fonts/Jost.woff";
 import JostWoff2 from "./fonts/Jost.woff2";
 import InterWoff from "./fonts/Inter-VariableFont_slnt,wght.woff";
 import InterWoff2 from "./fonts/Inter-VariableFont_slnt,wght.woff2";
@@ -14,6 +14,8 @@ import InconsolataWoff from "./fonts/Inconsolata-VariableFont_wdth,wght.woff";
 import InconsolataWoff2 from "./fonts/Inconsolata-VariableFont_wdth,wght.woff2";
 import PlayfairWoff from "./fonts/PlayfairDisplay-VariableFont_wght.woff";
 import PlayfairWoff2 from "./fonts/PlayfairDisplay-VariableFont_wght.woff2";
+
+
 
 interface GS {
   theme: string;
@@ -33,6 +35,7 @@ body {
     height: 100vh;
     background-color: 'white';
     transition: all 0.25s linear;
+    overflow-x: hidden;
 }
 
 @font-face {
@@ -134,17 +137,17 @@ body {
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #c9ffe5;
+    background: #c9ffe560;
   }
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #72348e;
+    background: #72348e88;
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #3b1a42;
+    background: silver;
   }
 
   ::-webkit-file-upload-button {
@@ -157,3 +160,4 @@ body {
 `;
 
 export default GlobalStyle;
+console.log(themeConf.backgroundColor);

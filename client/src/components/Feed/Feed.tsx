@@ -7,8 +7,8 @@ import axiosApiInstance from "../../util/axiosInstance";
 import { Context } from "../../context/Context";
 
 const ListContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 99%;
+  height: 99%;
   overflow: auto;
 `;
 

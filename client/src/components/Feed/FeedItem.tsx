@@ -49,9 +49,7 @@ const PostUser = styled.div`
   }
 `;
 
-const PostUserPicContainer = styled.div`
-  width: 2rem;
-`;
+
 
 const PostDate = styled.div`
   /* border: 1px solid black; */
@@ -63,7 +61,7 @@ const PostMedia = styled.div`
   display: flex;
   justify-content: center;
   place-self: center;
-  width: 70%;
+  max-width: 70%;
 `;
 
 const PostTextContainer = styled.div`

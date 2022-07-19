@@ -46,7 +46,11 @@ import StandardBackground from "./components/Backgrounds/StandardBackground";
 import UserSearch from "./components/UserSearch/UserSearch";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
+
 import { useMediaQuery } from "usehooks-ts";
+
+import StandardHeader from ".//components/Header/StandardHeader";
+import Logo from "./icons/Logo";
 
 const Main = styled.main`
   display: flex;
@@ -70,15 +74,14 @@ const Right = styled.div`
   flex-direction: column;
 `;
 
-const Recommendations = styled.div`
-  border: 1px solid black;
+
+const Activity = styled.div`
+ 
   height: 50%;
 `;
 
-const Activity = styled.div`
-  border: 1px solid black;
-  height: 50%;
-`;
+const c1 = "#7a5dd1";
+const c2 = "#00ffd0";
 
 function App() {
   const theme = useTheme();
@@ -173,7 +176,19 @@ function App() {
             </Center>
             {loggedIn && ( mobileView ? "" : TabletView ? "" :
               <Right>
-                <Recommendations />
+                {/* <Recommendations /> */}
+                <div style={{margin:"50px 60px 0 0"}}>
+                  <StandardHeader
+                    headingSize={"2.75rem"}
+                    subheading={""}
+                    width={"330px"}
+                  >
+                    <Logo
+                      scaleFactor={4}
+                      colorProps={{ colorOne: c1, colorTwo: c2 }}
+                    />
+                  </StandardHeader>
+                </div>
                 <Activity />
               </Right>
             )}
