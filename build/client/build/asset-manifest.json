@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.js": "/static/js/main.89e1ab53.js",
+    "static/media/Inter-VariableFont_slnt,wght.woff2": "/static/media/Inter-VariableFont_slnt,wght.81bef2e1195351a8a62c.woff2",
+    "static/media/NotoSans-Regular.woff": "/static/media/NotoSans-Regular.063c5d2aeb69a90a0972.woff",
+    "static/media/Portrait_Placeholder.png": "/static/media/Portrait_Placeholder.157f088b56f86d22066e.png",
+    "static/media/NotoSans-Regular.woff2": "/static/media/NotoSans-Regular.084a4cf6805c931ca66a.woff2",
+    "static/media/Inter-VariableFont_slnt,wght.woff": "/static/media/Inter-VariableFont_slnt,wght.40882a613b0a3cd6b787.woff",
+    "static/media/Inconsolata-VariableFont_wdth,wght.woff2": "/static/media/Inconsolata-VariableFont_wdth,wght.5a7853295c08e3abb152.woff2",
+    "static/media/PlayfairDisplay-VariableFont_wght.woff": "/static/media/PlayfairDisplay-VariableFont_wght.085beb6614b3e4984f50.woff",
+    "static/media/PlayfairDisplay-VariableFont_wght.woff2": "/static/media/PlayfairDisplay-VariableFont_wght.07869856768d0ace0785.woff2",
+    "static/media/ZillaSlab-Regular.woff": "/static/media/ZillaSlab-Regular.a0b80a847f26988d0ced.woff",
+    "static/media/Quicksand-VariableFont_wght.woff": "/static/media/Quicksand-VariableFont_wght.dcc5f59742027c162cdf.woff",
+    "static/media/ZillaSlab-Regular.woff2": "/static/media/ZillaSlab-Regular.cf2d2660b872fec7b227.woff2",
+    "static/media/Inconsolata-VariableFont_wdth,wght.woff": "/static/media/Inconsolata-VariableFont_wdth,wght.e0d0b14ea353aa61d7c7.woff",
+    "static/media/Quicksand-VariableFont_wght.woff2": "/static/media/Quicksand-VariableFont_wght.20cbcfcbc4fa7f628fe4.woff2",
+    "static/media/Jost.woff2": "/static/media/Jost.54c03f7363989357219c.woff2",
+    "static/media/Jost.woff": "/static/media/Jost.5439059adc444f3b0d6a.woff",
+    "index.html": "/index.html",
+    "main.89e1ab53.js.map": "/static/js/main.89e1ab53.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.89e1ab53.js"
+  ]
+}
