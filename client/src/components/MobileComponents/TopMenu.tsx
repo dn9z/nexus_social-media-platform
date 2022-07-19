@@ -6,7 +6,7 @@ import Hamburger from "../../icons/Hamburger";
 import Logo from "../../icons/Logo";
 import User from "../../icons/User";
 import * as themeConf from "../../styles/theme";
-import HamburgerMenu from "./HamburgerMenu";
+import HamburgerMenu from "../MobileComponents/HamburgerMenu";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Hook from "usehooks-ts"

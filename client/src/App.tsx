@@ -45,7 +45,9 @@ import StandardBackground from "./components/Backgrounds/StandardBackground";
 
 import UserSearch from "./components/UserSearch/UserSearch";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+
 import * as Hook from "usehooks-ts"
+
 import StandardHeader from ".//components/Header/StandardHeader";
 import Logo from "./icons/Logo";
 
@@ -97,6 +99,9 @@ function App() {
   const match1500 = Hook.useMediaQuery("(max-width: 1500px)");
   const { loggedIn } = React.useContext(AuthContext);
 
+  const mobileView = Hook.useMediaQuery("(max-width: 575px)");
+  const TabletView = Hook.useMediaQuery("(min-width: 576px) and (max-width: 992px)")
+
   return (
     <AppProvider>
       <GlobalStyle />
@@ -105,8 +110,13 @@ function App() {
         {/* <ProfileIndex/> */}
         <BrowserRouter>
           <Main>
+
             {loggedIn && (
               <Left width={match1500 ? "0vw" : "20vw"}>
+
+          {/*  {loggedIn && ( mobileView ? "" : TabletView ? "" :
+              <Left> */}
+
                 <CountProvider>
                  {match1500 ? <TopMenu/> :  <SideMenu />}
                 </CountProvider>
@@ -130,7 +140,7 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-              
+
                 <Route
                   path="/"
                   element={
@@ -179,8 +189,13 @@ function App() {
                 <Route path="/register" element={<Register />} />
               </Routes>
             </Center>
+
             {loggedIn && (
               <Right width={match1500 ? "0vw" : "20vw"}>
+
+         {/*  {loggedIn && ( mobileView ? "" : TabletView ? "" :
+              <Right> */}
+
                 {/* <Recommendations /> */}
                 <div style={{position:"fixed", top: "70px", right: "-145px"}}>
                   <StandardHeader
