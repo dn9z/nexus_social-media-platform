@@ -3,16 +3,18 @@ import styled from "styled-components";
 import { Context } from "../../context/Context";
 import * as themeConf from "../../styles/theme";
 import { useTheme } from "../../context/ThemeManager";
-import World from "../../icons/World";
+/* import World from "../../icons/World"; */
 import Image from "../../icons/Image";
-import Gif from "../../icons/Gif";
-import Emoji from "../../icons/Emoji";
+/* import Gif from "../../icons/Gif";
+import Emoji from "../../icons/Emoji"; */
 import Button from "../../buttons/Button";
 import { AuthContext } from "../../context/AuthContext";
 import UserPic from "../User/UserPic";
 import { ModalProps, PModalBottomContainerProps } from "../../types";
 import axiosApiInstance from "../../util/axiosInstance";
-
+import { useInterval } from "usehooks-ts";
+import Pic from "../../img/Portrait_Placeholder.png";
+import { reforwardRef } from "react-chartjs-2/dist/utils";
 const Background = styled.div`
   background-color: #4141418d;
   height: 100vh;
@@ -115,7 +117,8 @@ const PostModal: React.FC<ModalProps> = (props) => {
   const theme = useTheme();
   const { userId } = React.useContext(AuthContext);
   const [userAvatar, setUserAvatar] = React.useState("");
-  const [imagePath, setImagePath] = React.useState("");
+  const [imagePath, setImagePath] = React.useState<File | null>(null);
+  const [SET, setSET] = React.useState("");
 
   React.useEffect(() => {
     const getUserAvatar = async () => {
@@ -153,7 +156,7 @@ const PostModal: React.FC<ModalProps> = (props) => {
       );
 
       if (response.status === 200) {
-        console.log("post was created");
+        console.log(response.data);
         context.setShowPostModal(false);
         context.setNeedRefresh(true);
       }
@@ -163,6 +166,44 @@ const PostModal: React.FC<ModalProps> = (props) => {
       // setErrorMessage(error.response.data.message);
     }
   }
+
+  const inputRef = React.useRef<HTMLInputElement>({
+    files: null,
+  } as HTMLInputElement);
+  /* 
+    React.useEffect(() => {
+      inputRef!.current!.focus();
+    },[inputRef]); */
+
+  /*    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setImagePath(event.target.files![0]);
+    } */
+  console.log(imagePath);
+  const handleFileUpload = async () => {
+    setImagePath(inputRef.current!.files![0]);
+  console.log(imagePath);
+    const formData = new FormData();
+    formData.append("_user", userId);
+    formData.append("media", imagePath?.name!);
+    formData.append("title", "imagePath?.name!");
+    formData.append("body", "imagePath?.name!");
+    formData.append("date", Date.now().toString());
+    const response = await axiosApiInstance.post(
+      "http://localhost:3000/api/post/create",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    if (response.status === 200) {
+      console.log(response);
+      setSET(response.data.createdPost.media);
+    }
+  };
+
+  console.log(SET);
 
   if (context.showPostModal === true) {
     return (
@@ -187,13 +228,13 @@ const PostModal: React.FC<ModalProps> = (props) => {
             {imagePath ? (
               <img
                 style={{ width: "20%", marginBottom: "20px" }}
-                src={`/${imagePath}`}
+                src={`http://localhost:3001//${SET}`}
                 alt=""
               />
             ) : (
               <img
                 style={{ width: "20%", marginBottom: "20px" }}
-                src="https://its-mobility.de/wp-content/uploads/placeholder.png"
+                src={Pic}
                 alt=""
               />
             )}
@@ -205,14 +246,19 @@ const PostModal: React.FC<ModalProps> = (props) => {
               /> */}
             </BottomContainer>
             <BottomContainer bottomBorder={false}>
-             
-                <Input
-                  style={{ display: "inline-block" }}
-                  type="file"
-                  name="image"
-                  accept="image/*"
-                />
-            
+              <Input
+                /*          onChange={(event)=>setImagePath(event.target.value)} */
+                /*   onChange={(e) => { handleFileChange(e);  }} */
+                onChange={() => {
+                  handleFileUpload();
+                }}
+                ref={inputRef}
+                style={{ display: "inline-block" }}
+                type="file"
+                name="image"
+                accept="image/*"
+              />
+
               <IconContainer>
                 <Image
                   dropShadow={false}

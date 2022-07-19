@@ -5,7 +5,7 @@ import * as themeConf from "./styles/theme";
 import { useTheme } from "./context/ThemeManager";
 import { Context } from "./context/Context";
 import { AuthContext } from "./context/AuthContext";
-import { MessageProvider} from "./context/MessageContext";
+import { MessageProvider } from "./context/MessageContext";
 import axiosApiInstance from "./util/axiosInstance";
 import SideMenu from "./components/SideMenu/SideMenu";
 import Profile from "./components/Profile/Profile";
@@ -46,6 +46,8 @@ import StandardBackground from "./components/Backgrounds/StandardBackground";
 import UserSearch from "./components/UserSearch/UserSearch";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
+import StandardHeader from ".//components/Header/StandardHeader";
+import Logo from "./icons/Logo";
 
 const Main = styled.main`
   display: flex;
@@ -60,7 +62,7 @@ const Left = styled.div`
 `;
 
 const Center = styled.div`
-width: 100%;
+  width: 100%;
 `;
 
 const Right = styled.div`
@@ -69,15 +71,14 @@ const Right = styled.div`
   flex-direction: column;
 `;
 
-const Recommendations = styled.div`
-  border: 1px solid black;
+
+const Activity = styled.div`
+ 
   height: 50%;
 `;
 
-const Activity = styled.div`
-  border: 1px solid black;
-  height: 50%;
-`;
+const c1 = "#7a5dd1";
+const c2 = "#00ffd0";
 
 function App() {
   const theme = useTheme();
@@ -96,18 +97,16 @@ function App() {
           <Main>
             {loggedIn && (
               <Left>
-               
-                  <CountProvider>
-                    <SideMenu />
-                  </CountProvider>
-               
+                <CountProvider>
+                  <SideMenu />
+                </CountProvider>
               </Left>
             )}
             <Center>
               {loggedIn && (
                 <>
                   <PostModal show={context.showPostModal} />
-                  
+
                   <AvatarUploadModal show={context.showAvatarModal} />
                   <BackgroundUploadModal show={context.showBackgroundModal} />
                 </>
@@ -180,7 +179,19 @@ function App() {
             </Center>
             {loggedIn && (
               <Right>
-                <Recommendations />
+                {/* <Recommendations /> */}
+                <div style={{margin:"50px 60px 0 0"}}>
+                  <StandardHeader
+                    headingSize={"2.75rem"}
+                    subheading={""}
+                    width={"330px"}
+                  >
+                    <Logo
+                      scaleFactor={4}
+                      colorProps={{ colorOne: c1, colorTwo: c2 }}
+                    />
+                  </StandardHeader>
+                </div>
                 <Activity />
               </Right>
             )}
