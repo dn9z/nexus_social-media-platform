@@ -14,6 +14,8 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import path from "path";
 
+
+
 // const __filename = fileURLToPath(import.meta.url);
 // console.log("filename is", __filename);
 // const __dirname = dirname(__filename);
@@ -21,6 +23,7 @@ import path from "path";
 
 dotenv.config();
 const app = express();
+app.use(express.static(path.join(__dirname, "client/build")));
 app.set("port", process.env.PORT || 3000);
 
 app.use(express.urlencoded({ extended: true }));
@@ -62,7 +65,7 @@ app.use("/api/messages", messageRoutes);
 
 app.use("/uploads", express.static("uploads"));
 
-app.use(express.static(path.join(__dirname, "client/build")));
+
 app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
