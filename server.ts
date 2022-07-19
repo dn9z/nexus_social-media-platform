@@ -20,7 +20,7 @@ import path from "path";
 // console.log("filename is", __filename);
 // const __dirname = dirname(__filename);
 // console.log("directoryname is", __dirname);
-
+console.log('dirname:',__dirname)
 dotenv.config();
 const app = express();
 app.use(express.static(path.join(__dirname, "client/build")));
