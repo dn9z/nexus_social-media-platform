@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only server.ts",
-    "start": "node build/server.js",
-    "heroku-postbuild": "tsc & npm install && cd client/ && tsc & npm install && npm install --only=dev && npm run build && move ./build ../build/client"
+    "start": "node ./build/server.js",
+    "heroku-postbuild": "tsc & npm install && cd client/ && tsc & npm install && npm install --only=dev && npm run build"
   },
   "repository": {
     "type": "git",
