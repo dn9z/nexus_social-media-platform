@@ -67,7 +67,7 @@ const StandardHeader: React.FC<HeaderProps> = (props) => {
   return (
     <Header headingSize={headingSize} width={width}>
       <p>{subheading}</p>
-      <h1>NEXUS</h1>
+    <h1>NEXUS</h1>
       <div>{children}</div>
     </Header>
   );
