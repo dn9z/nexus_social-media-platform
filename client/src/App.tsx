@@ -45,28 +45,38 @@ import StandardBackground from "./components/Backgrounds/StandardBackground";
 
 import UserSearch from "./components/UserSearch/UserSearch";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-
+import * as Hook from "usehooks-ts"
 import StandardHeader from ".//components/Header/StandardHeader";
 import Logo from "./icons/Logo";
 
 const Main = styled.main`
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  justify-content: center;
+  align-items: flex-start;
+  height: auto;
   color: ${themeConf.fontColor};
   background-color: ${themeConf.backgroundColor};
+ 
 `;
 
-const Left = styled.div`
-  width: 20vw;
+const Left = styled.div<{width: string}>`
+  width: ${props => props.width};
+  height: 100vh;
 `;
 
-const Center = styled.div`
-  width: 100%;
+const Center = styled.div<{width: string}>`
+  width: ${props => props.width};
+  
+  
+
+  overflow: auto;
 `;
 
-const Right = styled.div`
-  width: 20vw;
+const Right = styled.div<{width: string}>`
+ width: ${props => props.width};
+  height: 100vh;
+ 
   display: flex;
   flex-direction: column;
 `;
@@ -84,7 +94,7 @@ function App() {
   const theme = useTheme();
 
   const context = React.useContext(Context);
-
+  const match1500 = Hook.useMediaQuery("(max-width: 1500px)");
   const { loggedIn } = React.useContext(AuthContext);
 
   return (
@@ -96,13 +106,13 @@ function App() {
         <BrowserRouter>
           <Main>
             {loggedIn && (
-              <Left>
+              <Left width={match1500 ? "0vw" : "20vw"}>
                 <CountProvider>
-                  <SideMenu />
+                 {match1500 ? <TopMenu/> :  <SideMenu />}
                 </CountProvider>
               </Left>
             )}
-            <Center>
+            <Center width={match1500 ? "99vw" : "60vw"}>
               {loggedIn && (
                 <>
                   <PostModal show={context.showPostModal} />
@@ -120,7 +130,7 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-                {/*<Route path="/topmenu" element={<TopMenu />} /> */}
+              
                 <Route
                   path="/"
                   element={
@@ -170,16 +180,16 @@ function App() {
               </Routes>
             </Center>
             {loggedIn && (
-              <Right>
+              <Right width={match1500 ? "0vw" : "20vw"}>
                 {/* <Recommendations /> */}
-                <div style={{margin:"50px 60px 0 0"}}>
+                <div style={{position:"fixed", top: "70px", right: "-145px"}}>
                   <StandardHeader
-                    headingSize={"2.75rem"}
+                    headingSize={match1500 ? "0px" : "2.75rem"}
                     subheading={""}
                     width={"330px"}
                   >
                     <Logo
-                      scaleFactor={4}
+                      scaleFactor={match1500 ? 0 : 4}
                       colorProps={{ colorOne: c1, colorTwo: c2 }}
                     />
                   </StandardHeader>

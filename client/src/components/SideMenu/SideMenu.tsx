@@ -19,25 +19,28 @@ import * as themeConf from "../../styles/theme";
 import { useTheme } from "../../context/ThemeManager";
 import { useNavigate } from "react-router-dom";
 // import axios from "axios";
+import Logo from "../../icons/Logo";
 import { AuthContext } from "../../context/AuthContext";
 import axiosApiInstance from "../../util/axiosInstance";
 import {useCount} from "../../context/NumberContext";
 
 const Container = styled.div`
+position: fixed;
+top: 0;
+left: 40px;
+width: auto;
   height: auto;
   margin: 2rem;
-  padding: 1rem;
+  padding: 1rem 1rem 2rem 1rem;
   border: 1px solid grey;
-
   box-shadow: 1px 1px 2px grey, 2px 2px 3px silver, 3px 3px 5px silver;
 `;
 
 const Header = styled.div`
   margin: 1rem;
-  > h1 {
-    font-family: Quicksand;
-    letter-spacing: 1rem;
-  }
+display: flex;
+transform: scaleX(-1.1);
+  justify-content: center;
 `;
 const Item = styled.button`
   all: unset;
@@ -71,28 +74,14 @@ const SideMenu: React.FC = () => {
 
 
 
-
-  const handleLogout = async () => {
-    try {
-      await axiosApiInstance.get("http://localhost:3000/api/user/logout");
-
-      handleLogin("", ""); // empty strings will resolve to falsey value
-
-
-      // Navigate("/");
-      navigate('/')
-    } catch (error) {
-      console.log(error);
-      // setIsError(true);
-      // setErrorMessage(error.response.data.message);
-    }
-  };
+  const c1 = "#7a5dd1";
+  const c2 = "#00ffd0";
 
 
   return (
     <Container>
       <Header>
-        <h1>NEXUS</h1>
+        <Logo scaleFactor={1.5}  colorProps={{ colorOne: c1, colorTwo: c2 }}/>
       </Header>
       <Item onClick={() => {navigate(`/`)}}>
         <Home dropShadow={true} scaleFactor={0.55} color="white" />

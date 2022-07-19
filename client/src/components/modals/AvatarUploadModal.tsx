@@ -2,10 +2,9 @@ import * as React from "react";
 import { Context } from "../../context/Context";
 import styled from "styled-components";
 import { ModalProps } from "../../types";
-import Button from "../../buttons/Button"
+import Button from "../../buttons/Button";
 import axiosApiInstance from "../../util/axiosInstance";
 import * as themeConf from "../../styles/theme";
-
 
 const Background = styled.div`
   background-color: #4141418d;
@@ -17,7 +16,6 @@ const Background = styled.div`
 `;
 
 const FormContainer = styled.form`
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -44,7 +42,7 @@ const Input = styled.input`
   font-size: 1.3rem;
  font-family: Zilla;
 content:"none";
- color: ${themeConf.fontColor}};
+ color: ${themeConf.fontColor};
  &::before {
   content: "Choose file";
   cursor: pointer;
@@ -54,8 +52,8 @@ content:"none";
   font-weight: bold;
   }
   :hover {
-    background-color: springgreen;
-    color: white;
+    background-color: ${themeConf.profilePicBorder};
+ 
 }
 @media (max-width: 575px) {
   width: 100%;
@@ -64,12 +62,11 @@ content:"none";
   &::before {
     font-size: clamp(1rem, 0.5254rem + 2.7119vw, 1.5rem);
 }
-
+}
 `;
 
 const AvatarUploadModal: React.FC<ModalProps> = () => {
   const context = React.useContext(Context);
-
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -80,22 +77,25 @@ const AvatarUploadModal: React.FC<ModalProps> = () => {
     };
 
     try {
-      const response = await axiosApiInstance.post("/api/user/uploadImage", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axiosApiInstance.post(
+        "/api/user/uploadImage",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       if (response.status === 200) {
         console.log("image was uploaded", data);
         context.setShowAvatarModal(false);
-        context.setAvatarModalSaved(avatarModalSaved => !avatarModalSaved);
+        context.setAvatarModalSaved((avatarModalSaved) => !avatarModalSaved);
       }
     } catch (error) {
       console.log(error);
     }
   }
-
 
   if (context.showAvatarModal === true) {
     return (
@@ -104,7 +104,9 @@ const AvatarUploadModal: React.FC<ModalProps> = () => {
           context.setShowAvatarModal(false);
         }}
       >
-        <FormContainer onSubmit={handleSubmit} encType="multipart/form-data"
+        <FormContainer
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
           onClick={(event) => {
             event.stopPropagation();
           }}
@@ -118,7 +120,6 @@ const AvatarUploadModal: React.FC<ModalProps> = () => {
             />
           </label>
           <Button text="Save" type="submit" />
-
         </FormContainer>
       </Background>
     );

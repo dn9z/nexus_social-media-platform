@@ -25,7 +25,8 @@ border: 1px solid ${themeConf.backgroundColor};
 border-radius: 50%;
 cursor: pointer;
 &:hover {
-  background-color: ${themeConf.menuItemHoverColor};`;
+  background-color: ${themeConf.menuItemHoverColor};
+}`;
 
 interface BridgeProps {
   id: string;
@@ -34,11 +35,8 @@ const MessageBridge: React.FC<BridgeProps> = (props) => {
   const { userId } = React.useContext(AuthContext);
   const { id } = props;
 
-  const {
-    setConversations,
-    conversations,
-    setConversationId,
-  } = useMessageContext();
+  const { setConversations, conversations, setConversationId } =
+    useMessageContext();
 
   const navigate = useNavigate();
 

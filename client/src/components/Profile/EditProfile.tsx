@@ -90,7 +90,7 @@ border-radius: 25px;
 cursor: pointer;
 &:hover {
   background-color: ${themeConf.menuItemHoverColor};
-`;
+}`;
 
 const Edit = styled.p`
   font-size: 1.8rem;
