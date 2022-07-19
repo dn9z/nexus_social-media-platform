@@ -6,16 +6,15 @@ export interface ThemeProps {
 }
 
 export interface ContextProps {
-
   backgroundModalSaved: boolean;
-  setBackgroundModalSaved: React.Dispatch<React.SetStateAction<boolean>>
+  setBackgroundModalSaved: React.Dispatch<React.SetStateAction<boolean>>;
   showBackgroundModal: boolean;
-  setShowBackgroundModal: React.Dispatch<React.SetStateAction<boolean>>
+  setShowBackgroundModal: React.Dispatch<React.SetStateAction<boolean>>;
 
   avatarModalSaved: boolean;
-  setAvatarModalSaved: React.Dispatch<React.SetStateAction<boolean>>
+  setAvatarModalSaved: React.Dispatch<React.SetStateAction<boolean>>;
   showAvatarModal: boolean;
-  setShowAvatarModal: React.Dispatch<React.SetStateAction<boolean>>
+  setShowAvatarModal: React.Dispatch<React.SetStateAction<boolean>>;
   showPostModal: boolean;
   setShowPostModal: React.Dispatch<React.SetStateAction<boolean>>;
 
@@ -34,8 +33,6 @@ export interface ContextProps {
 
   showNewMessageModal: boolean;
   setShowNewMessageModal: React.Dispatch<React.SetStateAction<boolean>>;
-
-
 }
 
 export interface AuthContextProps {
@@ -44,7 +41,6 @@ export interface AuthContextProps {
 
   userId: string;
   handleLogin: (_username: string, _userId: string) => void;
-
 }
 
 export interface IconProps {
@@ -53,7 +49,6 @@ export interface IconProps {
   scaleFactor: number;
 
   onClick?: () => {};
-
 }
 
 export interface FilterProps {
@@ -122,6 +117,19 @@ export interface FeedItemProps {
   };
 }
 
+export interface FollowState {
+  following: { 
+    _id: string; 
+    username: string; 
+    avatar: string 
+  }[];
+  follower: {
+    _id: string; 
+    username: string; 
+    avatar: string 
+  }[];
+}
+
 export interface UserSearchState {
   user: {
     _id: string;
@@ -135,7 +143,6 @@ export interface UserItemProps {
     _id: string;
     username: string;
     avatar: string;
-
   };
 }
 
@@ -145,12 +152,11 @@ export interface FormProps {
 
 export interface InputTextFieldProps {
   passwordField: boolean;
-
 }
 
 export interface ResponsiveProps {
-  width: string
-  } 
+  width: string;
+}
 
 export interface ProfileProps {
   _id: string;
@@ -158,21 +164,20 @@ export interface ProfileProps {
   email: string;
   bio: string;
   location: string;
-  avatar:string;
+  avatar: string;
   background: string;
 }
 
 export interface EditProfileProps {
   _id: string;
   firstName: string;
-  lastName:string;
+  lastName: string;
   username: string;
   email: string;
   bio: string;
   location: string;
   avatar: string;
   background: string;
-
 }
 
 export interface RegisterProps {
@@ -202,18 +207,17 @@ export interface ErrorModalProps {
   message: string;
 }
 
-
 export interface MessageProps {
   text: string;
   date: string;
   username: string;
-  avatar:string;
+  avatar: string;
 }
 export interface ConfirmModalProps {
   showConfirmModal: boolean;
   setShowConfirmModal: React.Dispatch<React.SetStateAction<boolean>>;
-  confirmFn: (arg0:string) => void;
-  idToDelete:string;
+  confirmFn: (arg0: string) => void;
+  idToDelete: string;
 }
 
 export interface PModalBottomContainerProps {
@@ -227,7 +231,6 @@ export interface ProfileUserState {
   email: string;
   bio: string;
   location: string;
-  avatar:string;
+  avatar: string;
   background: string;
-
 }

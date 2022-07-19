@@ -14,16 +14,19 @@ const ListContainer = styled.div`
 
 const Feed: React.FC<FeedProps> = ({profileId}) => {
   const [hasMore, setHasMore] = useState(true);
-  // const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
   const [posts, setPosts] = useState<FeedState["post"]>([]);
   const context = useContext(Context);
 
+
+  // console.log(hasMore)
+
   async function loadMore() {
     try {
-      const res = await axiosApiInstance.get(`http://localhost:3000/api/post/paginate?page=${context.pageNumber}`);
+      const res = await axiosApiInstance.get(`http://localhost:3000/api/post/paginate?page=${pageNumber}`);
 
         setPosts([...posts, ...res.data]);
-        context.setPageNumber(context.pageNumber + 1);
+        setPageNumber(pageNumber + 1);
         setHasMore(res.data.length > 0);
     } catch (e) {
       console.log(e);
@@ -32,10 +35,9 @@ const Feed: React.FC<FeedProps> = ({profileId}) => {
 
   async function loadMoreById() {
     try {
-      const res = await axiosApiInstance.get(`http://localhost:3000/api/post/paginatebyid/${profileId}?page=${context.pageNumber}`);
-
+      const res = await axiosApiInstance.get(`http://localhost:3000/api/post/paginatebyid/${profileId}?page=${pageNumber}`);
         setPosts([...posts, ...res.data]);
-        context.setPageNumber(context.pageNumber + 1);
+        setPageNumber(pageNumber + 1);
         setHasMore(res.data.length > 0);
     } catch (e) {
       console.log(e);
@@ -43,11 +45,15 @@ const Feed: React.FC<FeedProps> = ({profileId}) => {
   }
 
   useEffect(() => {
-    setPosts([]);
-    !profileId ? loadMore() : loadMoreById();
-    return () => {
-      context.setPageNumber(1);
-    };
+    if(context.needRefresh === true){
+      setPageNumber(1);
+      setPosts([]);
+      !profileId ? loadMore() : loadMoreById();
+      context.setNeedRefresh(false)
+      return () => {
+        setPageNumber(1);
+      };
+    }
   }, [context.showPostModal, context.needRefresh]);
 
   // useEffect(() => {

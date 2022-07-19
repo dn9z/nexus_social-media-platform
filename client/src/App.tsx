@@ -113,7 +113,7 @@ function App() {
               )}
               <Routes>
                 <Route
-                  path="/follow"
+                  path="/network/:_id"
                   element={
                     <ProtectedRoute auth={loggedIn}>
                       <FollowSection />
@@ -139,14 +139,6 @@ function App() {
                     </MessageProvider>
                   }
                 />
-                {/* <Route
-                  path="/profile"
-                  element={
-                    <ProtectedRoute auth={loggedIn}>
-                      <Profile />
-                    </ProtectedRoute>
-                  }
-                /> */}
                 <Route
                   path="/editprofile"
                   element={

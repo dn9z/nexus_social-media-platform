@@ -20,6 +20,7 @@ import FollowButton from "../../buttons/FollowButton";
 import Mail from "../../icons/Mail";
 import MessageBridge from "../Bridges/MessageBridge";
 import UserPic from "../User/UserPic";
+import { AuthContext } from "../../context/AuthContext";
 
 const Container = styled.div`
   display: flex;
@@ -117,7 +118,9 @@ const FollowContainer = styled.div`
   font-weight: bold;
 `;
 
-const Following = styled.div``;
+const Network = styled.div`
+  cursor: pointer;
+`;
 const Followers = styled.div`
   margin-left: 40px;
 `;
@@ -144,16 +147,22 @@ const BottomContainer = styled.div`
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
-  const { _id } = useParams();
-  const [currentUser, setCurrentUser] = React.useState<ProfileUserState | null>(
+  const {userId} = React.useContext(AuthContext)
+  const { _id: currentProfileId } = useParams();
+  const [currentUser, setCurrentUser] = useState<ProfileUserState | null>(
     null
   );
+  const [loggedInUserFollowing, setLoggedInUserFollowing] = useState<string[]>([]);
+  
+  const [needRefresh, setNeedRefresh] = useState(false);
+  
 
   async function handleFollow() {
     try {
       const res = await axiosApiInstance.patch(
-        `http://localhost:3000/api/user/followuser/${_id}`
+        `http://localhost:3000/api/user/followuser/${currentProfileId}`
       );
+      setNeedRefresh(true)
     } catch (error) {
       console.log(error);
     }
@@ -162,26 +171,48 @@ const Profile: React.FC = () => {
   async function handleUnfollow() {
     try {
       const res = await axiosApiInstance.patch(
-        `http://localhost:3000/api/user/unfollowuser/${_id}`
+        `http://localhost:3000/api/user/unfollowuser/${currentProfileId}`
       );
+      setNeedRefresh(true)
     } catch (error) {
       console.log(error);
     }
   }
 
-  React.useEffect(() => {
-    async function getUser() {
-      try {
-        const res = await axiosApiInstance.get(
-          `http://localhost:3000/api/user/getuserbyid/${_id}`
-        );
-        setCurrentUser(res.data);
-      } catch (error) {
-        console.log(error);
-      }
+  async function getCurrentProfileUser() {
+    try {
+      const res = await axiosApiInstance.get(
+        `http://localhost:3000/api/user/getuserbyid/${currentProfileId}`
+      );
+      setCurrentUser(res.data);
+    } catch (error) {
+      console.log(error);
     }
-    getUser();
+  }
+
+  async function getLoggedInUser() {
+    try {
+      const res = await axiosApiInstance.get(
+        `http://localhost:3000/api/user/getuserbyid/${userId}`
+      );
+      setLoggedInUserFollowing(res.data._following);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  React.useEffect(() => {
+    getCurrentProfileUser();
+    getLoggedInUser()
   }, []);
+  
+
+  React.useEffect(() => {
+    if(needRefresh){
+      getCurrentProfileUser();
+      getLoggedInUser()
+      setNeedRefresh(false)
+    }
+  }, [needRefresh]);
 
   return (
     currentUser && (
@@ -257,9 +288,8 @@ const Profile: React.FC = () => {
 
               <BottomContainer>
                 <FollowContainer>
-                  <Following>Following:</Following>
-                  <Followers>Followers:</Followers>
-                  {!currentUser._following.includes(currentUser._id) ? (
+                  <Network onClick={() => {navigate(`/network/${currentProfileId}`)}}>View Network</Network>
+                  {userId !== currentProfileId && (!loggedInUserFollowing.includes(currentUser._id) ? (
                     <FollowButton
                       onClick={handleFollow}
                       text="Follow"
@@ -271,7 +301,7 @@ const Profile: React.FC = () => {
                       text="Unfollow"
                       type="button"
                     />
-                  )}
+                  ))}
                 </FollowContainer>
                 <MessageProvider>
                   <MessageBridge  id={currentUser._id} />
@@ -279,7 +309,7 @@ const Profile: React.FC = () => {
               </BottomContainer>
             </ProfileInfo>
             <div>
-              <Feed profileId={_id} />
+              <Feed profileId={currentProfileId} />
             </div>
           </ProfileContainer>
         </Container>

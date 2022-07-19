@@ -165,6 +165,30 @@ export const getUsersByName = async (req: Request, res: Response) => {
   }
 };
 
-export default { test, register, login, logout, profile, editProfile, uploadImage, uploadBackgroundImage, followUser, unfollowUser, getUserById, getUsersByName };
+export const getFollowingUsers = async (req: Request, res: Response) => {
+  const id = req.params.id
+  try {
+    const users = await User.findById(id).populate('_following')
+    // const users = target._following
+    // const following = await User.find({'_id':{$in:target._following}})
+
+    return res.status(200).json(users._following);
+  } catch (error) {
+    return res.status(400).json({ message: "Error happened", error: error });
+  }
+};
+
+export const getFollowers = async (req: Request, res: Response) => {
+  const id = req.params.id
+  try {
+    const users = await User.find({"_following":id})
+
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(400).json({ message: "Error happened", error: error });
+  }
+};
+
+export default { test, register, login, logout, profile, editProfile, uploadImage, uploadBackgroundImage, followUser, unfollowUser, getUserById, getUsersByName, getFollowingUsers, getFollowers };
 
 
