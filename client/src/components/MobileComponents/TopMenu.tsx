@@ -4,7 +4,7 @@ import { Context } from "../../context/Context";
 import Hamburger from "../../icons/Hamburger";
 import User from "../../icons/User";
 import * as themeConf from "../../styles/theme";
-import HamburgerMenu from "./HamburgerMenu";
+import HamburgerMenu from "../MobileComponents/HamburgerMenu";
 import { useState } from "react";
 
 const Container = styled.div`

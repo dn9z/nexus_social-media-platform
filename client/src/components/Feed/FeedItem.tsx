@@ -15,7 +15,7 @@ import { useTheme } from "../../context/ThemeManager";
 import UserPic from "../User/UserPic";
 
 const PostItem = styled.div`
-  width: calc(100% - 2.6rem);
+  width: calc(100% - 1.6rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

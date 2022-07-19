@@ -5,7 +5,7 @@ import * as themeConf from "./styles/theme";
 import { useTheme } from "./context/ThemeManager";
 import { Context } from "./context/Context";
 import { AuthContext } from "./context/AuthContext";
-import { MessageProvider} from "./context/MessageContext";
+import { MessageProvider } from "./context/MessageContext";
 import axiosApiInstance from "./util/axiosInstance";
 import SideMenu from "./components/SideMenu/SideMenu";
 import Profile from "./components/Profile/Profile";
@@ -46,6 +46,7 @@ import StandardBackground from "./components/Backgrounds/StandardBackground";
 import UserSearch from "./components/UserSearch/UserSearch";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
+import { useMediaQuery } from "usehooks-ts";
 
 const Main = styled.main`
   display: flex;
@@ -60,7 +61,7 @@ const Left = styled.div`
 `;
 
 const Center = styled.div`
-width: 100%;
+  width: 100%;
 `;
 
 const Right = styled.div`
@@ -86,6 +87,9 @@ function App() {
 
   const { loggedIn } = React.useContext(AuthContext);
 
+  const mobileView = useMediaQuery("(max-width: 575px)");
+  const TabletView = useMediaQuery("(min-width: 576px) and (max-width: 992px)")
+
   return (
     <AppProvider>
       <GlobalStyle />
@@ -94,20 +98,18 @@ function App() {
         {/* <ProfileIndex/> */}
         <BrowserRouter>
           <Main>
-            {loggedIn && (
+            {loggedIn && ( mobileView ? "" : TabletView ? "" :
               <Left>
-               
-                  <CountProvider>
-                    <SideMenu />
-                  </CountProvider>
-               
+                <CountProvider>
+                  <SideMenu />
+                </CountProvider>
               </Left>
             )}
             <Center>
               {loggedIn && (
                 <>
                   <PostModal show={context.showPostModal} />
-                  
+
                   <AvatarUploadModal show={context.showAvatarModal} />
                   <BackgroundUploadModal show={context.showBackgroundModal} />
                 </>
@@ -121,7 +123,6 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-                {/*<Route path="/topmenu" element={<TopMenu />} /> */}
                 <Route
                   path="/"
                   element={
@@ -170,7 +171,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
               </Routes>
             </Center>
-            {loggedIn && (
+            {loggedIn && ( mobileView ? "" : TabletView ? "" :
               <Right>
                 <Recommendations />
                 <Activity />

@@ -22,11 +22,15 @@ import MessageBridge from "../Bridges/MessageBridge";
 import UserPic from "../User/UserPic";
 import { AuthContext } from "../../context/AuthContext";
 
+import { useMediaQuery } from "usehooks-ts";
+import TopMenu from "../MobileComponents/TopMenu";
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
   overflow: scroll;
+
 `;
 
 const Banner = styled.div`
@@ -55,7 +59,7 @@ const ProfileContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 99%;
+  width: 100%;
   min-height: 70vh;
  
 `;
@@ -64,7 +68,7 @@ const BackgroundContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   border-bottom: 6px solid rgb(51, 51, 51);
-  height: 40%;
+  height: 50%;
   position: relative;
   background: springgreen;
   
@@ -81,15 +85,18 @@ const ProfileInfo = styled.div`
 `;
 const AvatarImageContainer = styled.div`
   display: flex;
-
   box-shadow: 0px 2px 10px black;
   border-radius: 50%;
   position: absolute;
   bottom: -3rem;
   left: 5rem;
-
   background-color: ${themeConf.backgroundColor};
   cursor: pointer;
+
+  @media (max-width: 575px) {
+    left: 2rem;
+    bottom: -2.3rem;
+  }
 `;
 
 const Username = styled.div`
@@ -143,9 +150,14 @@ const BottomContainer = styled.div`
   align-items: center;
 `;
 
+
 /* process.env.REACT_APP_SERVER_URI "http://localhost:3001/" */
 
 const Profile: React.FC = () => {
+  const smallMobile = useMediaQuery("(max-width: 294px)");
+  const mobileView = useMediaQuery("(max-width: 575px)");
+  const tabletView = useMediaQuery("(min-width: 576px) and (max-width: 992px)");
+
   const navigate = useNavigate();
   const {userId} = React.useContext(AuthContext)
   const { _id: currentProfileId } = useParams();
@@ -218,10 +230,11 @@ const Profile: React.FC = () => {
     currentUser && (
       <>
         <Container>
-          <Banner>
+          {mobileView? <TopMenu/> : <Banner>
             <h1>{currentUser.username}</h1>
             <h3>NEXUS</h3>
-          </Banner>
+          </Banner>}
+        
 
           <ProfileContainer>
             <BackgroundContainer>
@@ -235,7 +248,7 @@ const Profile: React.FC = () => {
               />
 
               <AvatarImageContainer>
-                <UserPic image={currentUser.avatar} customSize="150px"/>
+                <UserPic image={currentUser.avatar} customSize={smallMobile ? "80px" : mobileView ? "100px" : tabletView ? "130px" : "150px"}/>
              {/*    <img
                   style={{
                     maxHeight: "100%",
