@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn --transpile-only server.ts"
+    "dev": "ts-node-dev --respawn --transpile-only server.ts",
+    "start": "node build/server.js",
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
+    "postinstall": "tsc"
   },
   "repository": {
     "type": "git",
