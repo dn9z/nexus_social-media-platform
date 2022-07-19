@@ -171,7 +171,7 @@ const PostModal: React.FC<ModalProps> = (props) => {
   React.useEffect(() => {
     const getUserAvatar = async () => {
       const response = await axiosApiInstance.get(
-        `http://localhost:3000/api/user/getuserbyid/${userId}`
+        `/api/user/getuserbyid/${userId}`
       );
 
       setUserAvatar(response.data.avatar);
@@ -198,7 +198,7 @@ const PostModal: React.FC<ModalProps> = (props) => {
 
     try {
       const response = await axiosApiInstance.post(
-        "http://localhost:3000/api/post/create",
+        "/api/post/create",
         data,
         axiosOptions
       );
@@ -237,7 +237,7 @@ const PostModal: React.FC<ModalProps> = (props) => {
     formData.append("body", "imagePath?.name!");
     formData.append("date", Date.now().toString());
     const response = await axiosApiInstance.post(
-      "http://localhost:3000/api/post/create",
+      "/api/post/create",
       formData,
       {
         headers: {
@@ -250,8 +250,6 @@ const PostModal: React.FC<ModalProps> = (props) => {
       setSET(response.data.createdPost.media);
     }
   };
-
-  console.log(SET);
 
   if (context.showPostModal === true) {
     return (
@@ -276,7 +274,7 @@ const PostModal: React.FC<ModalProps> = (props) => {
             {imagePath ? (
               <img
                 style={{ width: "20%", marginBottom: "20px" }}
-                src={`http://localhost:3001//${SET}`}
+                src={`//${SET}`}
                 alt=""
               />
             ) : (

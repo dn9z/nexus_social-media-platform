@@ -75,7 +75,7 @@ const theme = useTheme();
   async function handleDeleteComment(_idToDelete: string) {
     try {
       const res = await axiosApiInstance.delete(
-        `http://localhost:3000/api/comment/delete/${_idToDelete}`
+        `/api/comment/delete/${_idToDelete}`
       );
     } catch (error) {
       console.log(error);
@@ -86,7 +86,7 @@ const theme = useTheme();
     async function getUsername() {
       try {
         const res = await axiosApiInstance.get(
-          `http://localhost:3000/api/user/getuserbyid/${comment._user}`
+          `/api/user/getuserbyid/${comment._user}`
         );
         setUsername(res.data.username);
       } catch (error) {

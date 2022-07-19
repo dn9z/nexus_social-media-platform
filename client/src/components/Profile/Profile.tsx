@@ -22,6 +22,7 @@ import MessageBridge from "../Bridges/MessageBridge";
 import UserPic from "../User/UserPic";
 import { AuthContext } from "../../context/AuthContext";
 import * as Hook from "usehooks-ts"
+import TopMenu from "../MobileComponents/TopMenu";
 
 const Container = styled.div<{marginTop:string}>`
   margin-top: ${props => props.marginTop};
@@ -29,9 +30,8 @@ const Container = styled.div<{marginTop:string}>`
   flex-direction: column;
   height: auto;
   overflow: auto;
+`
 
-
-import TopMenu from "../MobileComponents/TopMenu";
 
  // const Container = styled.div`
   // display: flex;
@@ -39,7 +39,7 @@ import TopMenu from "../MobileComponents/TopMenu";
  // height: 100vh;
  // overflow: scroll;
 
-`;
+// `;
 
 const Banner = styled.div`
   display: flex;
@@ -182,7 +182,7 @@ const Profile: React.FC = () => {
   async function handleFollow() {
     try {
       const res = await axiosApiInstance.patch(
-        `http://localhost:3000/api/user/followuser/${currentProfileId}`
+        `/api/user/followuser/${currentProfileId}`
       );
       setNeedRefresh(true)
     } catch (error) {
@@ -193,7 +193,7 @@ const Profile: React.FC = () => {
   async function handleUnfollow() {
     try {
       const res = await axiosApiInstance.patch(
-        `http://localhost:3000/api/user/unfollowuser/${currentProfileId}`
+        `/api/user/unfollowuser/${currentProfileId}`
       );
       setNeedRefresh(true)
     } catch (error) {
@@ -204,7 +204,7 @@ const Profile: React.FC = () => {
   async function getCurrentProfileUser() {
     try {
       const res = await axiosApiInstance.get(
-        `http://localhost:3000/api/user/getuserbyid/${currentProfileId}`
+        `/api/user/getuserbyid/${currentProfileId}`
       );
       setCurrentUser(res.data);
     } catch (error) {
@@ -215,7 +215,7 @@ const Profile: React.FC = () => {
   async function getLoggedInUser() {
     try {
       const res = await axiosApiInstance.get(
-        `http://localhost:3000/api/user/getuserbyid/${userId}`
+        `/api/user/getuserbyid/${userId}`
       );
       setLoggedInUserFollowing(res.data._following);
     } catch (error) {
@@ -259,7 +259,7 @@ const Profile: React.FC = () => {
               <BackgroundImage
                 src={
                   currentUser.background
-                    ? "http://localhost:3001/" + currentUser.background
+                    ? currentUser.background
                     : Pic
                 }
                 alt="Background"

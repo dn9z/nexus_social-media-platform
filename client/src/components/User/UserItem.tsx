@@ -38,7 +38,7 @@ const UserItem: React.FC<UserItemProps> = ({ user }) => {
         navigate(`/profile/${user._id}`);
       }}>
        
-          <UserPic customSize="50px" image={user.avatar ? "http://localhost:3001/" + user.avatar : Pic} />
+          <UserPic customSize="50px" image={user.avatar ? "/" + user.avatar : Pic} />
        
        
         <UserInfo>{user.username}</UserInfo>

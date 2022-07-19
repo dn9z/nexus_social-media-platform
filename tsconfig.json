@@ -14,6 +14,7 @@
     // "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     // "target": "ES5",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "target": "ESNext",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "outDir": "build",
 
 
     // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */

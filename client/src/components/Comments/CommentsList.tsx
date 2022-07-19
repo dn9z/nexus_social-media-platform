@@ -11,7 +11,7 @@ const CommentsList: React.FC<CommentListProps> = ({ post }) => {
 
   async function getComments() {
     try {
-      const res = await axiosApiInstance.get(`http://localhost:3000/api/comment/list/${post._id}`);
+      const res = await axiosApiInstance.get(`/api/comment/list/${post._id}`);
       setComments(res.data.listComments);
     } catch (error) {
       console.log(error);

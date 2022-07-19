@@ -95,7 +95,7 @@ const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
   async function handleDeletePost(_idToDelete: string) {
     try {
       const res = await axiosApiInstance.delete(
-        `http://localhost:3000/api/post/delete/${_idToDelete}`
+        `/api/post/delete/${_idToDelete}`
       );
       context.setPageNumber(1);
       context.setNeedRefresh(!context.needRefresh);
@@ -108,7 +108,7 @@ const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
     async function getUserById() {
       try {
         const res = await axiosApiInstance.get(
-          `http://localhost:3000/api/user/getuserbyid/${post._user}`
+          `/api/user/getuserbyid/${post._user}`
         );
         setAvatar(res.data.avatar);
         setAuthor(res.data.username);

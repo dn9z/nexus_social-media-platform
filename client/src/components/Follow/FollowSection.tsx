@@ -98,10 +98,10 @@ const FollowSection: React.FC = () => {
     async function getList() {
       try {
         const resFollowing = await axiosApiInstance.get(
-          `http://localhost:3000/api/user/getfollowing/${currentProfileId}`
+          `/api/user/getfollowing/${currentProfileId}`
         );
         const resFollower = await axiosApiInstance.get(
-          `http://localhost:3000/api/user/getfollowers/${currentProfileId}`
+          `/api/user/getfollowers/${currentProfileId}`
         );
         setFollowingList(resFollowing.data);
         setFollowerList(resFollower.data);

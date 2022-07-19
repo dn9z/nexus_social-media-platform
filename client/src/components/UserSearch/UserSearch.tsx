@@ -35,7 +35,7 @@ const UserSearch: React.FC = () => {
   async function getUsers() {
     try {
       const res = await axiosApiInstance.get(
-        `http://localhost:3000/api/user/getusersbyname/${searchInput}`
+        `/api/user/getusersbyname/${searchInput}`
       );
       setUsers(res.data);
     } catch (e) {

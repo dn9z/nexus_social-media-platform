@@ -43,7 +43,7 @@ const MessageBridge: React.FC<BridgeProps> = (props) => {
   useEffect(() => {
     const getConversations = async () => {
       const response = await axiosApiInstance.get(
-        `http://localhost:3000/api/messages/myconversations`
+        `/api/messages/myconversations`
       );
 
       setConversations(response.data.foundConversations);
@@ -59,7 +59,7 @@ const MessageBridge: React.FC<BridgeProps> = (props) => {
   /* console.log(id); */
   const startNewConversation = async () => {
     await axiosApiInstance
-      .post("http://localhost:3000/api/messages/conversation", {
+      .post("/api/messages/conversation", {
         _userFrom: userId,
         _userTo: id,
       })

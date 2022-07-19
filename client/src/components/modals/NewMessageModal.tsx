@@ -103,7 +103,7 @@ const NewMessageModal: React.FC<ModalProps> = (props) => {
   React.useEffect(() => {
     const getUsers = async () => {
       const response = await axiosApiInstance.get(
-        "http://localhost:3000/api/messages/users"
+        "/api/messages/users"
       );
 
       msg.setUsers(response.data.foundUsers);
@@ -114,7 +114,7 @@ const NewMessageModal: React.FC<ModalProps> = (props) => {
   React.useEffect(() => {
     const getConversations = async () => {
       const response = await axiosApiInstance.get(
-        "http://localhost:3000/api/messages/conversations"
+        "/api/messages/conversations"
       );
 
       msg.setConversations(response.data.foundConversations);
@@ -143,7 +143,7 @@ const NewMessageModal: React.FC<ModalProps> = (props) => {
     msg.setRecipientId(event.currentTarget.getAttribute("data-id"));
     msg.setRecipient(event.currentTarget.getAttribute("data-name"));
     await axiosApiInstance
-      .post("http://localhost:3000/api/messages/conversation", {
+      .post("/api/messages/conversation", {
         _userFrom: userId,
         _userTo: event.currentTarget.getAttribute("data-id"),
       })

@@ -119,7 +119,7 @@ const MessageMain: React.FC = () => {
   useInterval(() => {
     const getConversations = async () => {
       const response = await axiosApiInstance.get(
-        `http://localhost:3000/api/messages/myconversations`
+        `/api/messages/myconversations`
       );
 
       setList(response.data.foundConversations);

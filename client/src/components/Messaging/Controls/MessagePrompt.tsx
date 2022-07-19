@@ -99,7 +99,7 @@ const MessagePrompt: React.FC<MessageProps> = (props) => {
 
     try {
       const response = await axiosApiInstance.post(
-        "http://localhost:3000/api/messages",
+        "/api/messages",
         data
       );
 

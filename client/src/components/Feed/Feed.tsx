@@ -26,7 +26,7 @@ const Feed: React.FC<FeedProps> = ({profileId}) => {
 
   async function loadMore() {
     try {
-      const res = await axiosApiInstance.get(`http://localhost:3000/api/post/paginate?page=${pageNumber}`);
+      const res = await axiosApiInstance.get(`/api/post/paginate?page=${pageNumber}`);
 
         setPosts([...posts, ...res.data]);
         setPageNumber(pageNumber + 1);
@@ -38,7 +38,7 @@ const Feed: React.FC<FeedProps> = ({profileId}) => {
 
   async function loadMoreById() {
     try {
-      const res = await axiosApiInstance.get(`http://localhost:3000/api/post/paginatebyid/${profileId}?page=${pageNumber}`);
+      const res = await axiosApiInstance.get(`/api/post/paginatebyid/${profileId}?page=${pageNumber}`);
         setPosts([...posts, ...res.data]);
         setPageNumber(pageNumber + 1);
         setHasMore(res.data.length > 0);

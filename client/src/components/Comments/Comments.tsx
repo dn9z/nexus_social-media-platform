@@ -76,7 +76,7 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
     async function getUserById() {
       try {
         const res = await axiosApiInstance.get(
-          `http://localhost:3000/api/user/getuserbyid/${userId}`
+          `/api/user/getuserbyid/${userId}`
         );
         setAvatar(res.data.avatar);
         
@@ -97,7 +97,7 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
 
     try {
       const response = await axiosApiInstance.post(
-        "http://localhost:3000/api/comment/create",
+        "/api/comment/create",
         data
       );
 

@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose, { ConnectOptions } from "mongoose";
@@ -57,7 +57,7 @@ app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/messages", messageRoutes)
 
-app.use("/uploads", express.static("uploads"));
+// app.use("/uploads", express.static("uploads"));
 /*  app.use(express.static(path.join(__dirname, "client/build")));  */
 // * is the wildcard, anything else that's no matching a route above this.
 
@@ -65,11 +65,11 @@ app.use("/uploads", express.static("uploads"));
 
 app.use("/uploads", express.static("uploads"));
 
-/* app.get("*", (req, res) => {
+app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
-}); */
+});
 
-app.all("*", (req, res) => {
+app.all("*", (req: Request, res: Response) => {
   res.status(500);
   res.send("Invalid path");
 });
