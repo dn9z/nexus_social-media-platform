@@ -46,6 +46,9 @@ import StandardBackground from "./components/Backgrounds/StandardBackground";
 import UserSearch from "./components/UserSearch/UserSearch";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
+
+import { useMediaQuery } from "usehooks-ts";
+
 import StandardHeader from ".//components/Header/StandardHeader";
 import Logo from "./icons/Logo";
 
@@ -87,6 +90,9 @@ function App() {
 
   const { loggedIn } = React.useContext(AuthContext);
 
+  const mobileView = useMediaQuery("(max-width: 575px)");
+  const TabletView = useMediaQuery("(min-width: 576px) and (max-width: 992px)")
+
   return (
     <AppProvider>
       <GlobalStyle />
@@ -95,7 +101,7 @@ function App() {
         {/* <ProfileIndex/> */}
         <BrowserRouter>
           <Main>
-            {loggedIn && (
+            {loggedIn && ( mobileView ? "" : TabletView ? "" :
               <Left>
                 <CountProvider>
                   <SideMenu />
@@ -120,7 +126,6 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-                {/*<Route path="/topmenu" element={<TopMenu />} /> */}
                 <Route
                   path="/"
                   element={
@@ -169,7 +174,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
               </Routes>
             </Center>
-            {loggedIn && (
+            {loggedIn && ( mobileView ? "" : TabletView ? "" :
               <Right>
                 {/* <Recommendations /> */}
                 <div style={{margin:"50px 60px 0 0"}}>

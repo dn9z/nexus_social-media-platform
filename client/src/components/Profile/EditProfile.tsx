@@ -15,10 +15,14 @@ import { AuthContext } from "../../context/AuthContext";
 import Cross from "../../icons/Cross";
 import {useTheme} from "../../context/ThemeManager";
 import UserPic from "../User/UserPic";
+import { useMediaQuery } from "usehooks-ts";
+
+
 const Main = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
+
 `;
 
 const Container = styled.div`
@@ -28,6 +32,22 @@ const Container = styled.div`
   height: 90vh;
   width: 50vw;
   overflow: hidden;
+
+  @media (max-width: 575px) {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  @media (min-width: 575px) and (max-width: 992px) {
+    margin: 30px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid grey;
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px grey, 2px 2px 15px silver, 3px 3px 20px silver;
+  }
+
 `;
 
 const Banner = styled.div`
@@ -43,6 +63,7 @@ const Banner = styled.div`
   font-family: Quicksand;
   font-size: 1.6rem;
   height: 60px;
+
 `;
 
 const BackgroundContainer = styled.div`
@@ -53,15 +74,35 @@ const BackgroundContainer = styled.div`
   position: relative;
   background: springgreen;
   margin-bottom: 5rem;
+
+  @media (max-width: 575px) {
+    width: 100%;
+    height: 30vh;
+    margin-bottom: 4rem;
+  }
+
 `;
 
-const FormContainer = styled.form`
+const FormContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+`
+
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: auto;
   height: 60%;
   width: 25vw;
+
+  @media (max-width: 575px) {
+    width: 70vw;
+  }
+  @media (min-width: 575px) and (max-width: 992px) {
+    width: 70vw;
+  }
 `;
 
 const AvatarImageContainer = styled.div`
@@ -76,6 +117,12 @@ const AvatarImageContainer = styled.div`
 
   background-color: ${themeConf.backgroundColor};
   cursor: pointer;
+
+  @media (max-width: 575px) {
+    left: 2rem;
+    bottom: -2.3rem;
+  }
+
 `;
 
 const BackButton = styled.button`
@@ -90,6 +137,7 @@ border-radius: 25px;
 cursor: pointer;
 &:hover {
   background-color: ${themeConf.menuItemHoverColor};
+}
 `;
 
 const Edit = styled.p`
@@ -143,9 +191,8 @@ const Label = styled.label`
 `;
 
 const BackgroundImage = styled.img`
-  objectfit: "cover";
+  objectFit: "cover";
   width: 100%;
-  height: 100%;
 `;
 
 const EditProfile: React.FC = () => {
@@ -161,6 +208,8 @@ const EditProfile: React.FC = () => {
   const [avatar, setAvatar] = useState<string | null>(null);
   const [background, setBackground] = useState<string | null>(null);
   const theme = useTheme();
+  const mobileView = useMediaQuery("(max-width: 575px)");
+  const tabletView = useMediaQuery("(min-width: 576px) and (max-width: 992px)");
 
   useEffect(() => {
     axiosApiInstance
@@ -226,7 +275,7 @@ const EditProfile: React.FC = () => {
           />
     
           <AvatarImageContainer>
-            <UserPic image={avatar ? avatar : Pic} customSize="150px"/>
+            <UserPic image={avatar ? avatar : Pic} customSize={mobileView ? "90px" : tabletView ? "130px": "150px"}/>
           
             <EditAvatarButton
               onClick={() => context.setShowAvatarModal(true)}
@@ -236,7 +285,9 @@ const EditProfile: React.FC = () => {
           </AvatarImageContainer>
         </BackgroundContainer>
 
-        <FormContainer>
+      <FormContainer>
+
+        <Form>
           {/* <Label>First Name
           <input
             onChange={(e) => setFirstName(e.target.value)}
@@ -295,6 +346,7 @@ const EditProfile: React.FC = () => {
               value={location}
             />
           </Label>
+        </Form>
         </FormContainer>
       </Container>
     </Main>
