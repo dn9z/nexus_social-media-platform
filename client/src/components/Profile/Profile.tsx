@@ -23,6 +23,10 @@ import UserPic from "../User/UserPic";
 import { AuthContext } from "../../context/AuthContext";
 import * as Hook from "usehooks-ts"
 import TopMenu from "../MobileComponents/TopMenu";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 601a9d372c88f4224299b1146ae4c26f2918c46d
 
 const Container = styled.div<{marginTop:string}>`
   margin-top: ${props => props.marginTop};
@@ -32,7 +36,9 @@ const Container = styled.div<{marginTop:string}>`
   overflow: auto;
 `
 
+`
 
+<<<<<<< HEAD
  // const Container = styled.div`
   // display: flex;
   // flex-direction: column;
@@ -40,6 +46,15 @@ const Container = styled.div<{marginTop:string}>`
  // overflow: scroll;
 
 // `;
+=======
+
+/* const Container = styled.div`
+ display: flex;
+ flex-direction: column;
+ overflow: scroll;
+
+`; */
+>>>>>>> 601a9d372c88f4224299b1146ae4c26f2918c46d
 
 const Banner = styled.div`
   display: flex;

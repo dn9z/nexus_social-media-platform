@@ -66,10 +66,10 @@ const Item = styled.button`
 const SideMenu: React.FC = () => {
   const navigate = useNavigate();
 
-  const count = useCount()
+ /*  const count = useCount() */
 
   const context = React.useContext(Context);
-  const { userId, handleLogin } = React.useContext(AuthContext);
+  const { userId } = React.useContext(AuthContext);
   const theme = useTheme();
 
 
@@ -104,10 +104,10 @@ const SideMenu: React.FC = () => {
       </Item>
       <Item onClick={() => {navigate(`/messages`)}}>
         <Mail dropShadow={true} scaleFactor={0.55} color="white" />
-        <NumberAlert
+    {/*     <NumberAlert
           displayState={true}
           number={count.messageNumberState.count}
-        />
+        /> */}
         <p>Mail</p>
       </Item>
      {/*  <Item onClick={() => {}}>
