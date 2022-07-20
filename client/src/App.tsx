@@ -100,7 +100,9 @@ function App() {
   const { loggedIn } = React.useContext(AuthContext);
 
   const mobileView = Hook.useMediaQuery("(max-width: 575px)");
-  const TabletView = Hook.useMediaQuery("(min-width: 576px) and (max-width: 992px)")
+  const TabletView = Hook.useMediaQuery("(min-width: 576px) and (max-width: 1024px)")
+  const match1024 = Hook.useMediaQuery("(max-width: 1024px)");
+  const match1800 = Hook.useMediaQuery("(max-width: 1800px)");
 
   return (
     <AppProvider>
@@ -112,17 +114,17 @@ function App() {
           <Main>
 
             {loggedIn && (
-              <Left width={match1500 ? "0vw" : "20vw"}>
+              <Left width={match1024 ? "0vw" : "20vw"}>
 
-          {/*  {loggedIn && ( mobileView ? "" : TabletView ? "" :
-              <Left> */}
+          {/*  {loggedIn && ( mobileView ? "" : match1024 ? "" :
+              <Left width={"auto"}>  */}
 
-                <CountProvider>
-                 {match1500 ? <TopMenu/> :  <SideMenu />}
-                </CountProvider>
+         
+                 {match1024 ? <TopMenu/> :  <SideMenu />} 
+              
               </Left>
             )}
-            <Center width={match1500 ? "99vw" : "60vw"}>
+            <Center width={match1024 ? "99vw" : "60vw"}>
               {loggedIn && (
                 <>
                   <PostModal show={context.showPostModal} />
@@ -191,20 +193,20 @@ function App() {
             </Center>
 
             {loggedIn && (
-              <Right width={match1500 ? "0vw" : "20vw"}>
+              <Right width={match1024 ? "0vw" : "20vw"}>
 
-         {/*  {loggedIn && ( mobileView ? "" : TabletView ? "" :
+         {/*  {loggedIn && ( mobileView ? "" : match1024 ? "" :
               <Right> */}
 
                 {/* <Recommendations /> */}
                 <div style={{position:"fixed", top: "70px", right: "-145px"}}>
                   <StandardHeader
-                    headingSize={match1500 ? "0px" : "2.75rem"}
+                    headingSize={match1800 ? "1.75rem" : "2.75rem" && match1024 ? "0px" : "2.75rem"}
                     subheading={""}
                     width={"330px"}
                   >
                     <Logo
-                      scaleFactor={match1500 ? 0 : 4}
+                      scaleFactor={match1800 ? 2 : 4}
                       colorProps={{ colorOne: c1, colorTwo: c2 }}
                     />
                   </StandardHeader>

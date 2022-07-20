@@ -11,19 +11,21 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Hook from "usehooks-ts";
 
-const Container = styled.div`
+const Container = styled.header`
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   position: fixed;
-  top: 0px;
-  width: 100%;
+  top: 0;
+  left: 0;
+  width: 99%;
   background-color: rgb(51, 51, 51);
   z-index: 10;
   height: 60px;
 `;
+
 const Label = styled.h1`
-  all: unset;
   color: springgreen;
   font-family: Quicksand;
   letter-spacing: 1rem;
@@ -39,8 +41,8 @@ justify-content: center;
 `
 
 const Item = styled.div<{ margin?: string }>`
-  all: unset;
-  z-index: 60;
+
+ 
   margin: ${(props) => props.margin};
   &::active {
     background-color: springgreen;
@@ -57,7 +59,7 @@ const TopMenu: React.FC = () => {
   const c2 = "#00ffd0";
   return (
     <Container>
-      <Item margin={"0px"} onClick={() => setHidden((s) => !s)}>
+      <Item  onClick={() => setHidden((s) => !s)}>
         <Hamburger  dropShadow={true} scaleFactor={0.55} color="white"/>
         {!hidden ? <HamburgerMenu /> : null}
       </Item>
