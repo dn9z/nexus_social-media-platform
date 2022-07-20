@@ -46,9 +46,10 @@ import StandardBackground from "./components/Backgrounds/StandardBackground";
 import UserSearch from "./components/UserSearch/UserSearch";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
-import * as Hook from "usehooks-ts"
+import * as Hook from "usehooks-ts";
 
-import StandardHeader from ".//components/Header/StandardHeader";
+import NewHeader from "./components/Header/NewHeader";
+import StandardHeader from "./components/Header/StandardHeader";
 import Logo from "./icons/Logo";
 
 const Main = styled.main`
@@ -59,33 +60,28 @@ const Main = styled.main`
   height: auto;
   color: ${themeConf.fontColor};
   background-color: ${themeConf.backgroundColor};
- 
 `;
 
-const Left = styled.div<{width: string}>`
-  width: ${props => props.width};
+const Left = styled.div<{ width: string }>`
+  width: ${(props) => props.width};
   height: 100vh;
 `;
 
-const Center = styled.div<{width: string}>`
-  width: ${props => props.width};
-  
-  
+const Center = styled.div<{ width: string }>`
+  width: ${(props) => props.width};
 
   overflow: auto;
 `;
 
-const Right = styled.div<{width: string}>`
- width: ${props => props.width};
+const Right = styled.div<{ width: string }>`
+  width: ${(props) => props.width};
   height: 100vh;
- 
+
   display: flex;
   flex-direction: column;
 `;
 
-
 const Activity = styled.div`
- 
   height: 50%;
 `;
 
@@ -100,10 +96,12 @@ function App() {
   const { loggedIn } = React.useContext(AuthContext);
 
   const mobileView = Hook.useMediaQuery("(max-width: 575px)");
-  const TabletView = Hook.useMediaQuery("(min-width: 576px) and (max-width: 1024px)")
+  const TabletView = Hook.useMediaQuery(
+    "(min-width: 576px) and (max-width: 1024px)"
+  );
   const match1024 = Hook.useMediaQuery("(max-width: 1024px)");
   const match1800 = Hook.useMediaQuery("(max-width: 1800px)");
-
+const match1200 = Hook.useMediaQuery("(max-width: 1200px)");
   return (
     <AppProvider>
       <GlobalStyle />
@@ -112,19 +110,15 @@ function App() {
         {/* <ProfileIndex/> */}
         <BrowserRouter>
           <Main>
-
             {loggedIn && (
               <Left width={match1024 ? "0vw" : "20vw"}>
-
-          {/*  {loggedIn && ( mobileView ? "" : match1024 ? "" :
+                {/*  {loggedIn && ( mobileView ? "" : match1024 ? "" :
               <Left width={"auto"}>  */}
 
-         
-                 {match1024 ? <TopMenu/> :  <SideMenu />} 
-              
+                {match1024 ? <TopMenu /> : <SideMenu />}
               </Left>
             )}
-            <Center width={match1024 ? "99vw" : "60vw"}>
+            <Center width={match1024 ? "99vw" : match1200 ? "80vw" : "60vw"}>
               {loggedIn && (
                 <>
                   <PostModal show={context.showPostModal} />
@@ -193,23 +187,32 @@ function App() {
             </Center>
 
             {loggedIn && (
-              <Right width={match1024 ? "0vw" : "20vw"}>
-
-         {/*  {loggedIn && ( mobileView ? "" : match1024 ? "" :
+           <Right width={match1200 ? "0vw" : "20vw"}>
+                {/*  {loggedIn && ( mobileView ? "" : match1024 ? "" :
               <Right> */}
 
                 {/* <Recommendations /> */}
-                <div style={{position:"fixed", top: "70px", right: "-145px"}}>
-                  <StandardHeader
-                    headingSize={match1800 ? "1.75rem" : "2.75rem" && match1024 ? "0px" : "2.75rem"}
-                    subheading={""}
-                    width={"330px"}
-                  >
-                    <Logo
-                      scaleFactor={match1800 ? 2 : 4}
-                      colorProps={{ colorOne: c1, colorTwo: c2 }}
-                    />
-                  </StandardHeader>
+                <div style={{ position: "fixed", top: "5vh", right: "-5vw" }}>
+                  {match1500 ? (
+                    <NewHeader headingSize={match1200 ? "0px" : "2.75rem"} width={match1200 ? "0px" : "300px"} />
+                  ) : (
+                    <StandardHeader
+                      headingSize={
+                        match1800
+                          ? "1.75rem"
+                          : "2.75rem" && match1024
+                          ? "0px"
+                          : "2.75rem"
+                      }
+                      subheading={""}
+                      width={"330px"}
+                    >
+                      <Logo
+                        scaleFactor={match1800 ? 2 : 4}
+                        colorProps={{ colorOne: c1, colorTwo: c2 }}
+                      />
+                    </StandardHeader>
+                  )}
                 </div>
                 <Activity />
               </Right>
