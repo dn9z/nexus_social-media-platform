@@ -22,6 +22,8 @@ import MessageBridge from "../Bridges/MessageBridge";
 import UserPic from "../User/UserPic";
 import { AuthContext } from "../../context/AuthContext";
 import * as Hook from "usehooks-ts"
+import TopMenu from "../MobileComponents/TopMenu";
+
 
 const Container = styled.div<{marginTop:string}>`
   margin-top: ${props => props.marginTop};
@@ -30,16 +32,15 @@ const Container = styled.div<{marginTop:string}>`
   height: auto;
   overflow: auto;
 
+`
 
-import TopMenu from "../MobileComponents/TopMenu";
 
- // const Container = styled.div`
-  // display: flex;
-  // flex-direction: column;
- // height: 100vh;
- // overflow: scroll;
+/* const Container = styled.div`
+ display: flex;
+ flex-direction: column;
+ overflow: scroll;
 
-`;
+`; */
 
 const Banner = styled.div`
   display: flex;
