@@ -15,6 +15,7 @@ import UserPic from "../User/UserPic";
 import Pic from "../../img/Portrait_Placeholder.png";
 
 const Container = styled.div`
+
   width: calc(60vw - 2.6rem);
 
   display: flex;
@@ -27,17 +28,40 @@ const Container = styled.div`
   border: 1px solid grey;
   background-color: ${themeConf.backgroundColor};
   box-shadow: 1px 1px 2px grey, 2px 2px 3px silver, 3px 3px 5px silver;
+
+  @media (max-width: 575px) {
+    position: relative;
+    margin: 0;
+    width: auto;
+    flex-direction: column;
+    align-items: none;
+  }
+
+  @media (min-width: 576px) and (max-width: 1500px)  {
+    width: 90%;
+    margin: auto;
+    margin-top: 70px;
+  }
 `;
 
 const ListContainer = styled.div`
+
   width: 40%;
   height: 100%;
   border-right: 1px solid grey;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 575px) {
+    position: sticky;
+    width: 100%;
+    top: 60px;
+    height: 30%;
+  }
 `;
 
 const MessageContainer = styled.div`
+
   padding: 0.5rem;
   width: 60%;
   height: 100%;
@@ -50,9 +74,16 @@ const MessageContainer = styled.div`
     transition: all 0.5s ease-out;
     overflow-y: scroll;
   }
+
+  @media (max-width: 575px) {
+    height: 100%;
+    width: 100%;
+    margin-top: 60px;
+  }
 `;
 
 const ListItemContainer = styled.div`
+
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -72,6 +103,11 @@ const ListItemContainer = styled.div`
     font-size: 0.9rem;
 
     letter-spacing: 0.1rem;
+  }
+
+  @media (max-width: 575px) {
+    height: auto%;
+    overflow-y: scroll;
   }
 `;
 /** */

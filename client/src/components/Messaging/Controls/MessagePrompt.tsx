@@ -26,13 +26,18 @@ const IconContainer = styled.div`
 
 const Prompt = styled.form`
   width: 100%;
-  position: absolute;
+  position: relative;
   bottom: 0;
   padding: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  background-color: white;
+
+  @media (max-width: 575px) {
+    position: fixed;
+  }
 `;
 
 const MessageInput = styled.span<{username: string}>`
@@ -49,6 +54,11 @@ const MessageInput = styled.span<{username: string}>`
   &:empty::before {
     content: "Enter message for ${props => props.username}";
     color: gray;
+  }
+
+  @media (max-width: 575px) {
+    padding: 5px;
+    border-radius: 10px;
   }
 `;
 

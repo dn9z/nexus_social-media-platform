@@ -13,6 +13,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  margin-bottom: 50px;
+
 `;
 const RowContainer = styled.div`
   width: 50%;
@@ -31,10 +33,16 @@ const DateBox = styled.div`
   margin-left: 0.5rem;
   font-family: Inconsolata;
   color: ${themeConf.fontColor};
+
+  @media (max-width: 575px) {
+    margin-top: 0px;
+  }
+
+
 `;
 
 const ChatBubble = styled.div`
-  min-width: 70%;
+  min-width: 20%;
   width: auto;
   height: auto;
   border: 1px solid transparent;
@@ -46,12 +54,22 @@ const ChatBubble = styled.div`
   & > p {
     line-break: word;
   }
+  @media (max-width: 575px) {
+    margin: 5px;
+    width: 100%;
+  }
 `;
 const Username = styled.p`
 font-family: NotoSans;
 font-size: 0.8rem;
 margin-bottom: 0.5rem;
-letter-spacing: 0.1rem;`
+letter-spacing: 0.1rem;
+
+@media (max-width: 575px) {
+  margin: 0px;
+}
+
+`
 
 
 
