@@ -8,13 +8,18 @@ import NewMessage from "../../../icons/NewMessage";
 import SearchInput from "../../Inputs/SearchInput"
 
 const SearchContainer = styled.div`
-  height: 20%;
+  height: 25%;
   width: 100%;
   border-bottom: 1px solid grey;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: 575px) {
+    height: 35%
+  }
+
 `;
 const IconContainer = styled.div`
   display: flex;
@@ -64,7 +69,7 @@ const NewMessage_Search: React.FC= () => {
             </IconContainer>
           </NewMessageContainer>
           
-            <SearchInput onClick={()=>{}} searchValue="Search messages" onChange={()=>{}} placeholder="Search messages" />
+            {/* <SearchInput onClick={()=>{}} searchValue="Search messages" onChange={()=>{}} placeholder="Search messages" /> */}
           
         </SearchContainer>
   )

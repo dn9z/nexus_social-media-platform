@@ -34,14 +34,6 @@ const Container = styled.div<{marginTop:string}>`
 
 `
 
-
-/* const Container = styled.div`
- display: flex;
- flex-direction: column;
- overflow: scroll;
-
-`; */
-
 const Banner = styled.div`
   display: flex;
   justify-content: space-between;

@@ -12,6 +12,8 @@ const UserContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  margin-bottom: 50px;
+  }
 `;
 const ColumnContainer = styled.div`
   display: flex;
@@ -23,6 +25,11 @@ const DateBox = styled.div`
   margin-left: 0.5rem;
   font-family: Inconsolata;
   color: ${themeConf.fontColor};
+
+  @media (max-width: 575px) {
+    margin-top: 0px;
+  }
+
 `;
 
 const ChatBubble = styled.div`
@@ -38,12 +45,22 @@ const ChatBubble = styled.div`
   & > p {
     line-break: word;
   }
+
+  @media (max-width: 575px) {
+    margin: 5px;
+  }
 `;
 const Username = styled.p`
 font-family: NotoSans;
 font-size: 0.8rem;
 margin-bottom: 0.5rem;
-letter-spacing: 0.1rem;`
+letter-spacing: 0.1rem;
+
+@media (max-width: 575px) {
+  margin: 0px;
+}
+
+`
 
 
 
