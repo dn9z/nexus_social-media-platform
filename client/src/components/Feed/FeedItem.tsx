@@ -160,7 +160,7 @@ const FeedItem: React.FC<FeedItemProps> = ({ post }) => {
         </PostTextContainer>
         <PostMedia>
           {post.media && (
-            <img src={`http://localhost:3000/${post.media}`} alt="" />
+            <img src={`/${post.media}`} alt="" />
           )}
         </PostMedia>
         {/* <div style={{ placeSelf: "flex-end" }}>

@@ -136,13 +136,13 @@ const MessageMain: React.FC = () => {
     const getConversations = async () => {
       if (isCreated === false) {
         const response = await axiosApiInstance.get(
-          `http://localhost:3000/api/messages/conversation/${conversationId}`
+          `/api/messages/conversation/${conversationId}`
         );
 
         setConversationToDisplay(response.data.foundMessages);
       } else {
         const response = await axiosApiInstance.get(
-          `http://localhost:3000/api/messages/conversation/${conversationId}`
+          `/api/messages/conversation/${conversationId}`
         );
 
         setConversationToDisplay(response.data.foundMessages);
@@ -154,7 +154,7 @@ const MessageMain: React.FC = () => {
   React.useEffect(() => {
     const getUsers = async () => {
       const response = await axiosApiInstance.get(
-        `http://localhost:3000/api/messages/users`
+        `/api/messages/users`
       );
 
       setUsers(response.data.foundUsers);
