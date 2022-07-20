@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { FollowState } from "../../types";
 import axiosApiInstance from "../../util/axiosInstance";
+import * as Hook from "usehooks-ts";
 import UserItem from "../User/UserItem";
 
 const Container = styled.div`
@@ -90,6 +91,7 @@ const FollowingButton = styled.div<{ active: boolean }>`
 const FollowSection: React.FC = () => {
   const [pageSwitch, setPageSwitch] = useState(true);
   const { _id: currentProfileId } = useParams();
+  const match1024 = Hook.useMediaQuery("(max-width: 1024px)");
 
   const [followingList, setFollowingList] = useState<FollowState["following"]>([]);
   const [followerList, setFollowerList] = useState<FollowState["follower"]>([]);
@@ -114,10 +116,10 @@ const FollowSection: React.FC = () => {
 
   return (
     <Container>
-      <Banner>
+     {match1024 ? "" : <Banner>
         <h1>Username</h1>
         <h3>NEXUS</h3>
-      </Banner>
+      </Banner>}
       <Sections>
         <FollowerButton active={pageSwitch} onClick={() => setPageSwitch(true)}>
           <p>Followers</p>

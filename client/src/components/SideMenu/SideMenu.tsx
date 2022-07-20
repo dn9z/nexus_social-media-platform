@@ -27,8 +27,9 @@ import {useCount} from "../../context/NumberContext";
 const Container = styled.div`
 position: fixed;
 top: 0;
-left: 40px;
-width: auto;
+left: 20px;
+width: calc(20vw - 5%);
+max-width: 300px;
   height: auto;
   margin: 2rem;
   padding: 1rem 1rem 2rem 1rem;
