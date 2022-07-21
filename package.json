@@ -8,7 +8,6 @@
     "dev": "ts-node-dev --respawn --transpile-only server.ts",
     "start": "node build/server.js",
     "tsc": "tsc",
-    "postinstall": "npm run tsc",
     "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build && mv ./build ../build/client"
   },
   "repository": {
