@@ -1,3 +1,5 @@
+// note: before deployment run: npm run heroku-postbuild seperately
+
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";

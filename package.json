@@ -1,5 +1,5 @@
 {
-  "name": "nexi",
+  "name": "nexus",
   "version": "1.0.0",
   "description": "",
   "main": "build/server.js",
@@ -7,20 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only server.ts",
     "start": "node build/server.js",
-    "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build && mv ./build ../build/client",
-    "postinstall": "tsc"
+    "heroku-postbuild": "tsc & cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build && move ./build ../build/client"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dn9z/nexi.git"
+    "url": "git+https://github.com/dn9z/nexus_social-media-platform.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dn9z/nexi/issues"
+    "url": "https://github.com/dn9z/nexus_social-media-platform/issues"
   },
-  "homepage": "https://github.com/dn9z/nexi#readme",
+  "homepage": "https://github.com/dn9z/nexus_social-media-platform#readme",
   "dependencies": {
     "@types/socket.io": "^3.0.2",
     "bcrypt": "^5.0.1",
