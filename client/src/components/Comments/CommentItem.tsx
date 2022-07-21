@@ -64,7 +64,7 @@ font-family: Inconsolata;
 const CommentBodyWrapper = styled.div`
 font-family: NotoSans;`
 
-const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
+const CommentItem: React.FC<CommentItemProps> = ({ comment, setNeedCommentRefresh }) => {
   const navigate = useNavigate();
   const [username, setUsername] = React.useState("");
   const authContext = React.useContext(AuthContext);
@@ -77,6 +77,11 @@ const theme = useTheme();
       const res = await axiosApiInstance.delete(
         `/api/comment/delete/${_idToDelete}`
       );
+
+      if (res.status === 200) {
+        console.log("comment was delted");
+        setNeedCommentRefresh(true)
+      }
     } catch (error) {
       console.log(error);
     }

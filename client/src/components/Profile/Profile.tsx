@@ -5,13 +5,11 @@ import axios from "axios";
 import styled from "styled-components";
 import * as themeConf from "../../styles/theme";
 import Pic from "../../img/Portrait_Placeholder.png";
+import backgroundPlaceholder from "../../img/Background.jpg"
 
 import { ProfileProps } from "../../types";
 import EditProfileButton from "../../buttons/EditProfileButton";
-import {
-  MessageProvider,
-  useMessageContext,
-} from "../../context/MessageContext";
+import { MessageProvider, useMessageContext } from "../../context/MessageContext";
 import axiosApiInstance from "../../util/axiosInstance";
 import { useParams } from "react-router-dom";
 import Feed from "../Feed/Feed";
@@ -21,16 +19,16 @@ import Mail from "../../icons/Mail";
 import MessageBridge from "../Bridges/MessageBridge";
 import UserPic from "../User/UserPic";
 import { AuthContext } from "../../context/AuthContext";
-import * as Hook from "usehooks-ts"
+import * as Hook from "usehooks-ts";
 import TopMenu from "../MobileComponents/TopMenu";
 
-const Container = styled.div<{marginTop:string}>`
-  margin-top: ${props => props.marginTop};
+const Container = styled.div<{ marginTop: string }>`
+  margin-top: ${(props) => props.marginTop};
   display: flex;
   flex-direction: column;
   height: auto;
   overflow: auto;
-`
+`;
 
 const Banner = styled.div`
   display: flex;
@@ -41,8 +39,8 @@ const Banner = styled.div`
   width: 60vw;
   top: -1px;
   z-index: 10;
-  background-color: rgba(0, 0, 0, 0.0);
-  color:${themeConf.profilePicBorder};
+  background-color: rgba(0, 0, 0, 0);
+  color: ${themeConf.profilePicBorder};
   font-family: Quicksand;
   height: 60px;
 
@@ -61,24 +59,32 @@ const ProfileContainer = styled.div`
   flex-direction: column;
   width: 100%;
   min-height: 70vh;
- 
 `;
 
 const BackgroundContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 
   border-bottom: 1px solid rgb(51, 51, 51);
-  height: 40%;
-
+  height: 17rem;
   //height: 50%;
-
+  width: 100%;
   position: relative;
   background: springgreen;
-  
 `;
+
+const BackgroundImage = styled.img`
+  object-fit: cover;
+  /* object-fit: contain; */
+
+  width: 100%;
+`;
+
 const ProfileInfo = styled.div`
-  padding: 60px 10px 10px 10px; // top, right, bottom, left
+padding-top: 4rem;
+
+padding-left: 2rem;
+  /* padding: 60px 10px 10px 10px; // top, right, bottom, left */
   display: flex;
   flex-direction: column;
   border: 1px solid grey;
@@ -106,9 +112,9 @@ const AvatarImageContainer = styled.div`
 const Username = styled.div`
   font-weight: 700;
   font-size: 1.7rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
 `;
-const Email = styled.div`
+const FullName = styled.div`
   font-size: 1.2rem;
   font-weight: 700;
 `;
@@ -123,7 +129,7 @@ const Location = styled.div`
 const FollowContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 1rem;
+  /* margin: 1rem; */
   align-items: center;
   height: auto;
   font-weight: bold;
@@ -138,10 +144,6 @@ const ButtonContainer = styled.div`
   bottom: -4rem;
   right: 1rem;
 `;
-const BackgroundImage = styled.img`
-  object-fit: "cover";
-  width: 100%;
-`;
 
 const BottomContainer = styled.div`
   display: flex;
@@ -151,7 +153,6 @@ const BottomContainer = styled.div`
   align-items: center;
 `;
 
-
 /* process.env.REACT_APP_SERVER_URI "http://localhost:3001/" */
 
 const Profile: React.FC = () => {
@@ -160,22 +161,18 @@ const Profile: React.FC = () => {
   const tabletView = Hook.useMediaQuery("(min-width: 576px) and (max-width: 992px)");
 
   const navigate = useNavigate();
-  const {userId} = React.useContext(AuthContext)
+  const { userId } = React.useContext(AuthContext);
   const { _id: currentProfileId } = useParams();
-  const [currentUser, setCurrentUser] = useState<ProfileUserState | null>(
-    null
-  );
+  const [currentUser, setCurrentUser] = useState<ProfileUserState | null>(null);
   const [loggedInUserFollowing, setLoggedInUserFollowing] = useState<string[]>([]);
-  
+
   const [needRefresh, setNeedRefresh] = useState(false);
   const match1500 = Hook.useMediaQuery("(max-width: 1500px)");
 
   async function handleFollow() {
     try {
-      const res = await axiosApiInstance.patch(
-        `/api/user/followuser/${currentProfileId}`
-      );
-      setNeedRefresh(true)
+      const res = await axiosApiInstance.patch(`/api/user/followuser/${currentProfileId}`);
+      setNeedRefresh(true);
     } catch (error) {
       console.log(error);
     }
@@ -183,10 +180,8 @@ const Profile: React.FC = () => {
 
   async function handleUnfollow() {
     try {
-      const res = await axiosApiInstance.patch(
-        `/api/user/unfollowuser/${currentProfileId}`
-      );
-      setNeedRefresh(true)
+      const res = await axiosApiInstance.patch(`/api/user/unfollowuser/${currentProfileId}`);
+      setNeedRefresh(true);
     } catch (error) {
       console.log(error);
     }
@@ -194,9 +189,7 @@ const Profile: React.FC = () => {
 
   async function getCurrentProfileUser() {
     try {
-      const res = await axiosApiInstance.get(
-        `/api/user/getuserbyid/${currentProfileId}`
-      );
+      const res = await axiosApiInstance.get(`/api/user/getuserbyid/${currentProfileId}`);
       setCurrentUser(res.data);
     } catch (error) {
       console.log(error);
@@ -205,9 +198,7 @@ const Profile: React.FC = () => {
 
   async function getLoggedInUser() {
     try {
-      const res = await axiosApiInstance.get(
-        `/api/user/getuserbyid/${userId}`
-      );
+      const res = await axiosApiInstance.get(`/api/user/getuserbyid/${userId}`);
       setLoggedInUserFollowing(res.data._following);
     } catch (error) {
       console.log(error);
@@ -215,50 +206,47 @@ const Profile: React.FC = () => {
   }
   React.useEffect(() => {
     getCurrentProfileUser();
-    getLoggedInUser()
+    getLoggedInUser();
   }, []);
-  
 
   React.useEffect(() => {
-    if(needRefresh){
+    if (needRefresh) {
       getCurrentProfileUser();
-      getLoggedInUser()
-      setNeedRefresh(false)
+      getLoggedInUser();
+      setNeedRefresh(false);
     }
   }, [needRefresh]);
 
   return (
     currentUser && (
       <>
-
         <Container marginTop={match1500 ? "61px" : "0px"}>
           <Banner>
-            <h1>{match1500 ? "" : currentUser.username}</h1>
-           {/*  <h3>NEXUS</h3> */}
+            {/* <h1>{match1500 ? "" : currentUser.username}</h1> */}
+            {/*  <h3>NEXUS</h3> */}
           </Banner>
 
-  {/*      <Container>
+          {/*      <Container>
           {mobileView? <TopMenu/> : <Banner>
             <h1>{currentUser.username}</h1>
             <h3>NEXUS</h3>
           </Banner>} */}
-        
-
 
           <ProfileContainer>
             <BackgroundContainer>
               <BackgroundImage
-                src={
-                  currentUser.background
-                    ? currentUser.background
-                    : Pic
-                }
+                src={currentUser.background ? currentUser.background : backgroundPlaceholder}
                 alt="Background"
               />
 
               <AvatarImageContainer>
-                <UserPic image={currentUser.avatar} customSize={smallMobile ? "80px" : mobileView ? "100px" : tabletView ? "130px" : "150px"}/>
-             {/*    <img
+                <UserPic
+                  image={currentUser.avatar}
+                  customSize={
+                    smallMobile ? "80px" : mobileView ? "100px" : tabletView ? "130px" : "150px"
+                  }
+                />
+                {/*    <img
                   style={{
                     maxHeight: "100%",
                     width: "150px",
@@ -285,12 +273,12 @@ const Profile: React.FC = () => {
 
             <ProfileInfo>
               <Username>
-                <p>Username: {currentUser.username}</p>
+                <p>{currentUser.username}</p>
               </Username>
 
-              <Email>
-                <p>Email: {currentUser.email}</p>
-              </Email>
+              <FullName>
+                <p>{currentUser.firstName + " " + currentUser.lastName}</p>
+              </FullName>
 
               {currentUser ? (
                 <Bio>
@@ -310,23 +298,22 @@ const Profile: React.FC = () => {
 
               <BottomContainer>
                 <FollowContainer>
-                  <Network onClick={() => {navigate(`/network/${currentProfileId}`)}}>View Network</Network>
-                  {userId !== currentProfileId && (!loggedInUserFollowing.includes(currentUser._id) ? (
-                    <FollowButton
-                      onClick={handleFollow}
-                      text="Follow"
-                      type="button"
-                    />
-                  ) : (
-                    <FollowButton
-                      onClick={handleUnfollow}
-                      text="Unfollow"
-                      type="button"
-                    />
-                  ))}
+                  <Network
+                    onClick={() => {
+                      navigate(`/network/${currentProfileId}`);
+                    }}
+                  >
+                    View Network
+                  </Network>
+                  {userId !== currentProfileId &&
+                    (!loggedInUserFollowing.includes(currentUser._id) ? (
+                      <FollowButton onClick={handleFollow} text="Follow" type="button" />
+                    ) : (
+                      <FollowButton onClick={handleUnfollow} text="Unfollow" type="button" />
+                    ))}
                 </FollowContainer>
                 <MessageProvider>
-                  <MessageBridge  id={currentUser._id} />
+                  <MessageBridge id={currentUser._id} />
                 </MessageProvider>
               </BottomContainer>
             </ProfileInfo>

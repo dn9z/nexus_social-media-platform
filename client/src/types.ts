@@ -72,6 +72,8 @@ export interface CommentListProps {
     body: string;
     date: string;
   };
+  needCommentRefresh: boolean;
+  setNeedCommentRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface CommentState {
@@ -90,6 +92,8 @@ export interface CommentItemProps {
     body: string;
     date: string;
   };
+  needCommentRefresh: boolean;
+  setNeedCommentRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface FeedState {
@@ -118,15 +122,15 @@ export interface FeedItemProps {
 }
 
 export interface FollowState {
-  following: { 
-    _id: string; 
-    username: string; 
-    avatar: string 
+  following: {
+    _id: string;
+    username: string;
+    avatar: string;
   }[];
   follower: {
-    _id: string; 
-    username: string; 
-    avatar: string 
+    _id: string;
+    username: string;
+    avatar: string;
   }[];
 }
 
@@ -233,4 +237,6 @@ export interface ProfileUserState {
   location: string;
   avatar: string;
   background: string;
+  firstName: string;
+  lastName: string;
 }

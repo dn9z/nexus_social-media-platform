@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import * as themeConf from "../../styles/theme";
 import Image from "../../icons/Image";
@@ -11,7 +11,7 @@ import { CommentProps } from "../../types";
 import axios from "axios";
 import axiosApiInstance from "../../util/axiosInstance";
 import { Context } from "../../context/Context";
-import {AuthContext} from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import UserPic from "../User/UserPic";
 
 const FormContainer = styled.div`
@@ -65,27 +65,25 @@ const EmojiContainer = styled.div`
 const Comments: React.FC<CommentProps> = ({ post }) => {
   const theme = useTheme();
   const context = React.useContext(Context);
-  const { userId} = React.useContext(AuthContext);
-
-  const [commentValue, setCommentValue] = useState<String>("")
+  const { userId } = React.useContext(AuthContext);
   const [commentBodyInput, setCommentBodyInput] = useState<String>("");
-  const [avatar, setAvatar] = useState("")
-  const [needRefresh, setNeedRefresh] = useState(false);
+  const [avatar, setAvatar] = useState("");
+  // const [commentValue, setCommentValue] = useState<String>("")
+  // const [needRefresh, setNeedRefresh] = useState(false);
+  const [needCommentRefresh, setNeedCommentRefresh] = useState(false);
   
   React.useEffect(() => {
     async function getUserById() {
       try {
-        const res = await axiosApiInstance.get(
-          `/api/user/getuserbyid/${userId}`
-        );
+        const res = await axiosApiInstance.get(`/api/user/getuserbyid/${userId}`);
         setAvatar(res.data.avatar);
-        
       } catch (error) {
         console.log(error);
       }
     }
     getUserById();
   }, []);
+
 
   const addComment = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -103,7 +101,7 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
 
       if (response.status === 200) {
         console.log("comment was created");
-        context.setNeedRefresh(!context.needRefresh)
+        setNeedCommentRefresh(true)
       }
     } catch (error) {
       console.log(error);
@@ -114,7 +112,7 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
     <>
       <FormContainer>
         <PicContainer>
-          <UserPic image={avatar} customSize="40px"/>
+          <UserPic image={avatar} customSize="40px" />
         </PicContainer>
         <CommentContainer>
           <Textarea
@@ -143,11 +141,15 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
           </div>
         </EmojiContainer> */}
         </CommentContainer>
-        <CommentButton text="Reply" type="submit" onClick={addComment} />
+        <CommentButton
+          text="Reply"
+          type="submit"
+          onClick={addComment}
+        />
       </FormContainer>
-      <CommentsList post={post} />
+      <CommentsList post={post} needCommentRefresh={needCommentRefresh} setNeedCommentRefresh={setNeedCommentRefresh} />
     </>
   );
-}
+};
 
 export default Comments;

@@ -121,6 +121,15 @@ const Footer = styled.div`
   }
 `;
 
+const DemoContainer = styled.p`
+  /* display: flex;
+  flex-direction: column; */
+  color: #d07777;
+  font-family: monospace;
+  text-align: center;
+
+`;
+
 const Login: React.FC = () => {
   const small = useMediaQuery("(max-width: 374px)");
   const navigate = useNavigate();
@@ -164,6 +173,8 @@ const Login: React.FC = () => {
           colorProps={{ colorOne: c1, colorTwo: c2 }}
         />
       </StandardHeader>
+
+        <DemoContainer> You can sign up or use the demo account: demo@demo.com Password: 1234</DemoContainer>
       <Container>
         <Label>
           <label>E-Mail</label>

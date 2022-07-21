@@ -15,6 +15,7 @@ export async function createComment(req: Request, res: Response) {
 
     return res.status(200).json({ message: "Comment Created", createdComment: newComment });
   } catch (error) {
+    // console.log(error)
     return res.status(400).json({ message: "Something went wrong creating the comment", error });
   }
 }
