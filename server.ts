@@ -53,7 +53,7 @@ app.use("/api/messages", messageRoutes);
 app.use("/uploads", express.static("uploads"));
 
 app.get("*", (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname + "/client/build/index.html"));
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
 app.all("*", (req: Request, res: Response) => {
