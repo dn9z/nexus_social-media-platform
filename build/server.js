@@ -46,11 +46,9 @@ app.use("/api/post", postRoutes_1.default);
 app.use("/api/comment", commentRoutes_1.default);
 app.use("/api/messages", messageRoutes_1.default);
 app.use("/uploads", express_1.default.static("uploads"));
-if (process.env.PRODUCTION_MODE == "true") {
-    app.get("*", (req, res) => {
-        res.sendFile(path_1.default.join(__dirname + "/client/build/index.html"));
-    });
-}
+app.get("*", (req, res) => {
+    res.sendFile(path_1.default.join(__dirname + "/client/build/index.html"));
+});
 app.all("*", (req, res) => {
     res.status(500);
     res.send("Invalid path");

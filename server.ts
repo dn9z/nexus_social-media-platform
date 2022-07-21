@@ -52,11 +52,9 @@ app.use("/api/messages", messageRoutes);
 
 app.use("/uploads", express.static("uploads"));
 
-if(process.env.PRODUCTION_MODE == "true") {
-  app.get("*", (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname + "/client/build/index.html"));
-  });
-}
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
 
 app.all("*", (req: Request, res: Response) => {
   res.status(500);
