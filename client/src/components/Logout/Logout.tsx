@@ -24,20 +24,29 @@ export default function Logout() {
   const { handleLogin } = useContext(AuthContext);
 
   async function logout() {
+        //workaround for logout loop when token expires: don't call handlelogin in the try block
+
+    handleLogin("", ""); // empty strings will resolve to falsey value
+    navigate("/login");
     try {
-      await axiosApiInstance.get("/api/user/logout");
-      handleLogin("", ""); // empty strings will resolve to falsey value
-      navigate("/login");
+      const res = await axiosApiInstance.get("/api/user/logout");
+      console.log('triggered')
+
+      if (res.status === 200) {
+        console.log("logout request was made");
+      }
     } catch (e) {
       console.log(e);
     }
   }
 
   useEffect(() => {
-    setTimeout(() => {
+    //workaround for logout loop when token expires: disable setTimeout
+
+    // setTimeout(() => {
       logout();
       console.log("User is logged out")
-      }, 600);
+      // }, 600);
       }, []); // run once when component mounts
 
   return <Container>You`re being logged out...</Container>;

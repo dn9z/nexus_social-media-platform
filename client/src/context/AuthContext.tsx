@@ -22,7 +22,11 @@ function Provider(props: React.PropsWithChildren<{}>) {
   const [userId, setUserId] = React.useState(loginSession["userId"]);
 
   const handleLogin = (_username: string, _userId: string) => {
+    console.log('triggered2')
+
     if (_username && _userId) {
+      console.log('triggered3')
+
       setUsername(_username);
       setUserId(_userId);
       setLoggedIn(true);

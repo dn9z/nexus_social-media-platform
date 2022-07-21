@@ -102,6 +102,7 @@ function App() {
   const match1024 = Hook.useMediaQuery("(max-width: 1024px)");
   const match1800 = Hook.useMediaQuery("(max-width: 1800px)");
 const match1200 = Hook.useMediaQuery("(max-width: 1200px)");
+console.log(loggedIn)
   return (
     <AppProvider>
       <GlobalStyle />
