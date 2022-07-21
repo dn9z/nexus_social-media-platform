@@ -3,18 +3,16 @@ import styled from "styled-components";
 import { Context } from "../../context/Context";
 import * as themeConf from "../../styles/theme";
 import { useTheme } from "../../context/ThemeManager";
-/* import World from "../../icons/World"; */
+import World from "../../icons/World";
 import Image from "../../icons/Image";
-/* import Gif from "../../icons/Gif";
-import Emoji from "../../icons/Emoji"; */
+import Gif from "../../icons/Gif";
+import Emoji from "../../icons/Emoji";
 import Button from "../../buttons/Button";
 import { AuthContext } from "../../context/AuthContext";
 import UserPic from "../User/UserPic";
 import { ModalProps, PModalBottomContainerProps } from "../../types";
 import axiosApiInstance from "../../util/axiosInstance";
-import { useInterval } from "usehooks-ts";
-import Pic from "../../img/Portrait_Placeholder.png";
-import { reforwardRef } from "react-chartjs-2/dist/utils";
+
 const Background = styled.div`
   background-color: #4141418d;
   height: 100vh;
@@ -39,13 +37,11 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   border: 2px solid yellow;
-
   @media (min-width: 575px) and (max-width: 867px) {
     width: 90vw;
     height: 60vh;
     top: 40%;
   }
-
   @media (max-width: 575px) {
     width: 90%;
     height: 82%;
@@ -57,7 +53,6 @@ const Container = styled.div`
 const Left = styled.div`
   width: 200px;
   height: 450px;
-
   @media (max-width: 575px) {
     height: auto;
     width: 90%;
@@ -75,12 +70,10 @@ const Right = styled.form`
   align-items: center;
   width: 600px;
   height: 450px;
-
   @media (max-width: 575px) {
     width: 90%;
     height: 80%;
   }
-
   @media (min-width: 575px) and (max-width: 867px) {
     width: 70%;
     height: 60vh;
@@ -95,7 +88,6 @@ const Title = styled.textarea`
   margin-top: 20px;
   font-family: Zilla;
   font-size: 1.5rem;
-
   @media (max-width: 867px) {
     width: 100%;
   }
@@ -110,7 +102,6 @@ const Textarea = styled.textarea`
   height: 200px;
   font-family: Zilla;
   font-size: 1.5rem;
-
   @media (max-width: 867px) {
     width: 100%;
   }
@@ -120,7 +111,6 @@ const PicContainer = styled.div`
   padding: 5px;
   display: flex;
   margin-bottom: 10px;
-
   @media (max-width: 867px) {
     width: auto;
   }
@@ -165,8 +155,7 @@ const PostModal: React.FC<ModalProps> = (props) => {
   const theme = useTheme();
   const { userId } = React.useContext(AuthContext);
   const [userAvatar, setUserAvatar] = React.useState("");
-  const [imagePath, setImagePath] = React.useState<File | null>(null);
-  const [SET, setSET] = React.useState("");
+  const [imagePath, setImagePath] = React.useState("");
 
   React.useEffect(() => {
     const getUserAvatar = async () => {
@@ -204,7 +193,7 @@ const PostModal: React.FC<ModalProps> = (props) => {
       );
 
       if (response.status === 200) {
-        console.log(response.data);
+        console.log("post was created");
         context.setShowPostModal(false);
         context.setNeedRefresh(true);
       }
@@ -214,42 +203,6 @@ const PostModal: React.FC<ModalProps> = (props) => {
       // setErrorMessage(error.response.data.message);
     }
   }
-
-  const inputRef = React.useRef<HTMLInputElement>({
-    files: null,
-  } as HTMLInputElement);
-  /* 
-    React.useEffect(() => {
-      inputRef!.current!.focus();
-    },[inputRef]); */
-
-  /*    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setImagePath(event.target.files![0]);
-    } */
-  console.log(imagePath);
-  const handleFileUpload = async () => {
-    setImagePath(inputRef.current!.files![0]);
-  console.log(imagePath);
-    const formData = new FormData();
-    formData.append("_user", userId);
-    formData.append("media", imagePath?.name!);
-    formData.append("title", "imagePath?.name!");
-    formData.append("body", "imagePath?.name!");
-    formData.append("date", Date.now().toString());
-    const response = await axiosApiInstance.post(
-      "/api/post/create",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    if (response.status === 200) {
-      console.log(response);
-      setSET(response.data.createdPost.media);
-    }
-  };
 
   if (context.showPostModal === true) {
     return (
@@ -274,13 +227,13 @@ const PostModal: React.FC<ModalProps> = (props) => {
             {imagePath ? (
               <img
                 style={{ width: "20%", marginBottom: "20px" }}
-                src={`//${SET}`}
+                src={`/${imagePath}`}
                 alt=""
               />
             ) : (
               <img
                 style={{ width: "20%", marginBottom: "20px" }}
-                src={Pic}
+                src="https://its-mobility.de/wp-content/uploads/placeholder.png"
                 alt=""
               />
             )}
@@ -293,14 +246,6 @@ const PostModal: React.FC<ModalProps> = (props) => {
             </BottomContainer>
             <BottomContainer bottomBorder={false}>
               <Input
-
-                /*          onChange={(event)=>setImagePath(event.target.value)} */
-                /*   onChange={(e) => { handleFileChange(e);  }} */
-                onChange={() => {
-                  handleFileUpload();
-                }}
-                ref={inputRef}
-
                 style={{ display: "inline-block" }}
                 type="file"
                 name="image"

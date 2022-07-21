@@ -27,7 +27,6 @@ const Feed: React.FC<FeedProps> = ({profileId}) => {
   async function loadMore() {
     try {
       const res = await axiosApiInstance.get(`/api/post/paginate?page=${pageNumber}`);
-
         setPosts([...posts, ...res.data]);
         setPageNumber(pageNumber + 1);
         setHasMore(res.data.length > 0);
@@ -48,7 +47,6 @@ const Feed: React.FC<FeedProps> = ({profileId}) => {
   }
 
   useEffect(() => {
-    if(context.needRefresh === true){
       setPageNumber(1);
       setPosts([]);
       !profileId ? loadMore() : loadMoreById();
@@ -56,8 +54,7 @@ const Feed: React.FC<FeedProps> = ({profileId}) => {
       return () => {
         setPageNumber(1);
       };
-    }
-  }, [context.showPostModal, context.needRefresh]);
+  }, [context.needRefresh]);
 
   // useEffect(() => {
   //   console.log(context.needRefresh)
@@ -69,7 +66,7 @@ const Feed: React.FC<FeedProps> = ({profileId}) => {
 
   return (
     <>
-      <ListContainer marginTop={match1500 ? "61px" : "0px"}>
+      <ListContainer marginTop={match1500 ? "20px" : "0px"}>
         <InfiniteScroll
           pageStart={0}
           loadMore={() => {

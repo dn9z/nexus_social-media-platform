@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Context } from "../../context/Context";
 import * as themeConf from "../../styles/theme";
 import { useTheme } from "../../context/ThemeManager";
-
+import avatarPlaceholder from "../../img/Portrait_Placeholder.png"
 interface UserPicStyle {
   customSize: string;
 }
@@ -27,7 +27,7 @@ const UserPic: React.FC<UserPicProps> = ({customSize, image}) => {
     height: "100%",
     borderRadius: "50%",
     objectFit: "cover",
-  }} src={image} alt="User Pic" /></Container>;
+  }} src={image ? image : avatarPlaceholder} alt="User Pic" /></Container>;
 };
 
 export default UserPic;

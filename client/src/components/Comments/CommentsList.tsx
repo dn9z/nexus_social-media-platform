@@ -4,7 +4,7 @@ import { CommentListProps, CommentState } from "../../types";
 import axiosApiInstance from "../../util/axiosInstance";
 import CommentItem from "./CommentItem";
 
-const CommentsList: React.FC<CommentListProps> = ({ post }) => {
+const CommentsList: React.FC<CommentListProps> = ({ post, needCommentRefresh, setNeedCommentRefresh }) => {
   const [showAll, setShowAll] = useState(false);
   const [comments, setComments] = useState<CommentState["comment"]>([]);
   const context = React.useContext(Context);
@@ -22,6 +22,12 @@ const CommentsList: React.FC<CommentListProps> = ({ post }) => {
     getComments();
   }, []);
 
+  React.useEffect(() => {
+    setComments([])
+    getComments();
+    setNeedCommentRefresh(false)
+  }, [needCommentRefresh]);
+
   return (
     <>
       {showAll ? (
@@ -29,7 +35,7 @@ const CommentsList: React.FC<CommentListProps> = ({ post }) => {
           <button onClick={() => setShowAll(false)}>Collapse</button>
           <ul>
             {comments.map((element, i) => {
-              return <CommentItem key={i} comment={element} />;
+              return <CommentItem  key={i} comment={element} needCommentRefresh={needCommentRefresh} setNeedCommentRefresh={setNeedCommentRefresh} />;
             })}
           </ul>
         </>
@@ -38,12 +44,12 @@ const CommentsList: React.FC<CommentListProps> = ({ post }) => {
           <ul>
             {comments.length >= 2 ? (
               <>
-                <CommentItem comment={comments[0]} />
-                <CommentItem comment={comments[1]} />
+                <CommentItem comment={comments[0]} needCommentRefresh={needCommentRefresh} setNeedCommentRefresh={setNeedCommentRefresh} />
+                <CommentItem comment={comments[1]} needCommentRefresh={needCommentRefresh} setNeedCommentRefresh={setNeedCommentRefresh} />
               </>
             ) : comments.length === 1 ? (
               <>
-                <CommentItem comment={comments[0]} />
+                <CommentItem comment={comments[0]} needCommentRefresh={needCommentRefresh} setNeedCommentRefresh={setNeedCommentRefresh} />
               </>
             ) : null}
           </ul>

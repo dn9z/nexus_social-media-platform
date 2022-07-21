@@ -9,18 +9,8 @@ import userRoutes from "./routes/userRoutes";
 import postRoutes from "./routes/postRoutes";
 import commentRoutes from "./routes/commentRoutes";
 import messageRoutes from "./routes/messageRoutes";
-
-import { fileURLToPath } from "url";
-import { dirname } from "path";
 import path from "path";
 
-
-
-// const __filename = fileURLToPath(import.meta.url);
-// console.log("filename is", __filename);
-// const __dirname = dirname(__filename);
-// console.log("directoryname is", __dirname);
-console.log('dirname:',__dirname)
 dotenv.config();
 const app = express();
 app.use(express.static(path.join(__dirname, "client/build")));
@@ -60,15 +50,13 @@ app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/messages", messageRoutes);
 
-// app.use("/uploads", express.static("uploads"));
-// * is the wildcard, anything else that's no matching a route above this.
-
 app.use("/uploads", express.static("uploads"));
 
-
-app.get("*", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
-});
+if(process.env.PRODUCTION_MODE) {
+  app.get("*", (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname + "/client/build/index.html"));
+  });
+}
 
 app.all("*", (req: Request, res: Response) => {
   res.status(500);

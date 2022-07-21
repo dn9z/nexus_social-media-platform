@@ -75,8 +75,8 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
               onClick={() => {
                 confirmFn(idToDelete);
                 setShowConfirmModal(false);
-                context.setNeedRefresh(!context.needRefresh);
-                context.setPageNumber(1)
+                // context.setNeedRefresh(!context.needRefresh);
+                // context.setPageNumber(1)
               }}
               text={"Yes"}
             />
